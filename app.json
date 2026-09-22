@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Soirée Games",
+    "slug": "soiree-games",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "soireegames",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#150a24"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.soireegames.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#150a24"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.soireegames.app"
+    },
+    "plugins": ["expo-sqlite"]
+  }
+}
