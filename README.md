@@ -29,14 +29,74 @@ npx expo start
 Puis scannez le QR code avec l'app Expo Go, ou lancez un émulateur Android
 (`npm run android`) / simulateur iOS (`npm run ios`).
 
-Pour générer un APK Android :
+Pour générer un APK Android manuellement depuis votre machine :
 
 ```bash
 npx eas build -p android --profile preview
 ```
 
-(nécessite un compte Expo/EAS ; voir `eas.json` à créer selon vos besoins,
-ou `npx expo run:android` pour un build local avec Android Studio installé).
+(nécessite un compte Expo/EAS, voir `eas.json` ; ou `npx expo run:android`
+pour un build local avec Android Studio installé). Un APK est aussi généré
+**automatiquement** à chaque push sur `main` via GitHub Actions — voir la
+section suivante.
+
+## Configurer les builds Android automatiques (GitHub Actions + EAS)
+
+Le workflow `.github/workflows/build-android-apk.yml` construit un APK
+Android sur les serveurs **EAS Build** (Expo Application Services) à
+chaque push sur `main`, puis le publie comme fichier `.apk` téléchargeable
+dans une nouvelle **Release GitHub** (déclenchable aussi manuellement
+depuis l'onglet *Actions* → *Build Android APK* → *Run workflow*).
+
+Étapes à suivre **une seule fois** pour l'activer :
+
+1. **Créer un compte Expo** (gratuit) sur https://expo.dev/signup si vous
+   n'en avez pas déjà un.
+
+2. **Installer eas-cli en local** et vous connecter :
+   ```bash
+   npm install -g eas-cli
+   eas login
+   ```
+
+3. **Lier le projet à EAS**, depuis la racine du dépôt :
+   ```bash
+   eas init
+   ```
+   Cette commande crée un projet sur expo.dev et ajoute un champ
+   `extra.eas.projectId` dans `app.json`. **Committez et pushez** ce
+   changement — sans lui, le workflow ne peut pas builder l'app.
+
+4. **Générer un token d'accès EAS** pour la CI :
+   - Le plus simple : allez sur
+     https://expo.dev/accounts/**[votre-compte]**/settings/access-tokens
+     → *Create token* → donnez-lui un nom (ex. `github-actions`) → copiez
+     la valeur affichée (elle ne sera plus jamais visible ensuite).
+   - Recommandé pour un projet à plusieurs personnes : créez plutôt un
+     **robot user** dédié à la CI (rôle limité, révocable indépendamment
+     de votre compte perso) en suivant
+     https://docs.expo.dev/accounts/programmatic-access/, puis générez un
+     token pour ce robot.
+
+5. **Ajouter le token comme secret GitHub** : dans le dépôt GitHub, allez
+   dans *Settings* → *Secrets and variables* → *Actions* →
+   *New repository secret* :
+   - Nom : `EXPO_TOKEN`
+   - Valeur : le token copié à l'étape 4
+
+6. **Déclencher un build** : poussez un commit sur `main` (ou lancez le
+   workflow manuellement depuis l'onglet *Actions*). Le premier build
+   prend généralement 10 à 20 minutes le temps qu'EAS compile l'APK sur
+   ses serveurs ; EAS génère et stocke automatiquement un keystore de
+   signature Android la première fois (aucune action requise de votre
+   part). Une fois terminé, une nouvelle Release GitHub apparaît avec
+   l'APK en pièce jointe, prêt à être téléchargé et installé sur un
+   téléphone Android (activer "Sources inconnues" pour l'installer hors
+   Play Store).
+
+> Le profil `preview` de `eas.json` génère un `.apk` classique (et non un
+> `.aab` réservé au Play Store), adapté à une installation directe entre
+> amis.
 
 > Remarque : ce dépôt contient le code source complet, mais aucune
 > installation de dépendances ni build mobile n'a été exécutée dans

@@ -1,0 +1,66 @@
+name: Build Android APK
+
+# Construit un APK Android via EAS Build à chaque push sur main, puis le
+# publie comme fichier téléchargeable dans une nouvelle Release GitHub.
+# Nécessite un secret de dépôt EXPO_TOKEN (voir le README, section
+# "Configurer les builds Android automatiques").
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: build-android-apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build & release APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Expo & EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Compute build metadata
+        id: meta
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Build Android APK on EAS
+        run: |
+          eas build \
+            --platform android \
+            --profile preview \
+            --non-interactive \
+            --wait \
+            --output "${{ github.workspace }}/soiree-games.apk"
+
+      - name: Publish APK as a GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-build-${{ github.run_number }}-${{ steps.meta.outputs.sha_short }}
+          name: "Build Android #${{ github.run_number }} (${{ steps.meta.outputs.sha_short }})"
+          body: |
+            APK généré automatiquement par EAS Build à partir du commit
+            ${{ github.sha }} sur `main`.
+          files: soiree-games.apk
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
