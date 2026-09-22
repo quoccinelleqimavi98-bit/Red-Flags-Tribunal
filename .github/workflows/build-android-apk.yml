@@ -57,7 +57,24 @@ jobs:
             --profile preview \
             --non-interactive \
             --wait \
-            --output "${{ github.workspace }}/soiree-games.apk"
+            --json > eas-build-output.json
+
+      - name: Download the built APK from EAS
+        run: |
+          BUILD_URL=$(node -e "
+            const fs = require('fs');
+            const data = JSON.parse(fs.readFileSync('eas-build-output.json', 'utf8'));
+            const build = Array.isArray(data) ? data[0] : data;
+            const url = build && build.artifacts && build.artifacts.buildUrl;
+            if (!url) {
+              console.error('No artifacts.buildUrl in eas build output:', JSON.stringify(build));
+              process.exit(1);
+            }
+            console.log(url);
+          ")
+          echo "Downloading APK from $BUILD_URL"
+          curl -fL "$BUILD_URL" -o soiree-games.apk
+          ls -la soiree-games.apk
 
       - name: Upload APK as workflow artifact
         uses: actions/upload-artifact@v4
