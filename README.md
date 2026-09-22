@@ -165,6 +165,10 @@ Home ──▶ [PlayerSetup, une seule fois] ──▶ Mode ──▶ Category �
   *Rejouer* (retour à Mode, joueurs conservés) ou *Terminer la soirée*
   (retour à Home).
 
+L'écran d'accueil affiche aussi un encart discret rappelant que le jeu ne
+nécessite aucune obligation de boire de l'alcool (gage adaptable : eau,
+jus, gage rigolo...) — ton toujours fun, jamais moralisateur.
+
 ## Avatars
 
 Chaque joueur choisit un avatar (10 emojis animaux) lors de sa création,
@@ -191,32 +195,65 @@ Dossier `src/games/redflag/` :
 - `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 9 sous-thèmes (5 Amour :
   premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
   intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
-  réseaux sociaux), 2 modes de jeu
+  réseaux sociaux), 4 modes de jeu
 - `data/situations.ts` — banque de 72 situations red flag (8 par
-  sous-thème), en français, ton fun et provocateur
-- `components/SituationCard.tsx` — la carte visuelle (fond dégradé rouge
-  pour Amour / or pour Amitié, cadre, emoji du sous-thème en filigrane)
-- `screens/PlayScreen.tsx` — pile de cartes façon TOD (`@components/SwipeCard`,
-  swipe gauche/droite ou bouton stylé, carte suivante visible en
-  transparence derrière), avec deux modes :
-  - **Qui l'a déjà vécu ?** — au swipe (ou tap), la carte effectue une
-    animation de retournement (`@components/FlipCard`, rotation 3D sur
-    l'axe vertical) : au dos, la liste des joueurs avec deux options
-    chacun, "Vécu 🚩" / "Pas vécu ✅", que le host coche individuellement.
-    Une fois tout le monde renseigné (ou via le bouton "Valider"), la
-    carte suivante apparaît, repartie sur sa face avant. Un compteur
-    discret cumule les "Vécu" de chacun tout au long de la partie ; en
-    fin de partie, la personne au plus haut compteur reçoit le titre
-    "Le Red Flag de la soirée 🚩👑". Pas de vote, pas de gorgées — ce mode
-    reste volontairement léger, pensé pour la révélation et la discussion
-    plutôt que la sanction.
-  - **Le Verdict** — vote à main levée réel (🚩 en haut / ✅ en bas), le
-    host reporte ensuite qui a voté quoi en tapant sur les avatars, l'app
-    calcule la minorité et lui inflige une gorgée chacun. Classement des
-    gorgées en fin de partie. Ce mode n'utilise pas la carte retournée :
-    swiper fait directement avancer à la situation suivante, comme avant.
+  sous-thème), en français, ton fun et provocateur — utilisée par les
+  modes Qui l'a déjà vécu ?, Le Verdict et Le Procès
+- `data/mostLikelyPrompts.ts` — banque de 36 prompts "la personne la plus
+  susceptible de..." (4 par sous-thème), utilisée uniquement par Ce
+  Serait Qui — `engine/redflagEngine.ts` (`getCardBank`) sélectionne la
+  bonne banque selon le mode
+- `components/SituationCard.tsx` — la carte visuelle, volontairement
+  grande (fond dégradé rouge pour Amour / or pour Amitié, cadre, emoji du
+  sous-thème en filigrane), et `components/CardDeck.tsx` qui factorise la
+  pile façon TOD (carte suivante visible en transparence derrière +
+  carte active swipeable) partagée par les 4 modes
+- `screens/PlayScreen.tsx` — un simple dispatcher : il pioche les cartes
+  du sous-thème (`pickCards`) puis délègue à l'écran du mode choisi dans
+  `screens/modes/`. Ajouter un mode = une entrée dans `types.ts` (`MODES`)
+  + un écran dans `screens/modes/` + une ligne dans ce switch, sans
+  toucher au reste de l'app :
+  - **Qui l'a déjà vécu ?** (`ChillPlayScreen`) — au swipe (ou tap), la
+    carte effectue une animation de retournement (`@components/FlipCard`,
+    rotation 3D sur l'axe vertical) : au dos (`RosterBack`), la liste des
+    joueurs avec deux options chacun, "Vécu 🚩" / "Pas vécu ✅", que le
+    host coche individuellement. Une fois tout le monde renseigné (ou via
+    le bouton "Valider"), la carte suivante apparaît, repartie sur sa
+    face avant. Un compteur discret cumule les "Vécu" de chacun ; en fin
+    de partie, la personne au plus haut compteur reçoit le titre "Le Red
+    Flag de la soirée 🚩👑" (`CrownResults`). Pas de vote, pas de
+    gorgées — ce mode reste volontairement léger, pensé pour la
+    révélation et la discussion plutôt que la sanction.
+  - **Le Verdict** (`VerdictPlayScreen`) — vote à main levée réel (🚩 en
+    haut / ✅ en bas), le host reporte ensuite qui a voté quoi en tapant
+    sur les avatars, l'app calcule la minorité et lui inflige une gorgée
+    chacun. Classement des gorgées en fin de partie (`SipsResults`). Ce
+    mode n'utilise pas la carte retournée : swiper fait directement
+    avancer à la situation suivante.
+  - **Le Procès** 🎭 (`TrialPlayScreen`) — un·e accusé·e est tiré·e au
+    sort dans la liste des joueurs (`drawRandomPlayer`, en évitant si
+    possible de retirer deux fois de suite la même personne) et affiché·e
+    dans un bandeau au-dessus de la carte, avec un compte à rebours de
+    30 secondes pendant lequel iel doit défendre la situation à voix
+    haute comme un·e avocat·e. Une fois le temps (ou la plaidoirie)
+    écoulé, le host swipe la carte : à gauche = "raté" (pas convaincant·e,
+    l'accusé·e boit), à droite = "validé" (convaincant·e, tout le reste
+    du groupe boit) — deux boutons "Raté"/"Validé" dupliquent le geste
+    pour rester jouable sans swipe. Classement des gorgées en fin de
+    partie (`SipsResults`).
+  - **Ce Serait Qui** 🔮 (`WhoIsMostLikelyPlayScreen`) — un prompt du
+    type "la personne la plus susceptible de..." s'affiche ; tout le
+    monde désigne en même temps qui ça évoque dans le groupe, sans
+    interaction avec l'app pendant cette phase. Le host retourne ensuite
+    la carte (même mécanique de flip que Qui l'a déjà vécu ?) pour
+    accéder au dos (`DesignationBack`), où il sélectionne un ou plusieurs
+    noms comme "red flag(s) désigné·s" pour cette carte (sélection
+    multiple, un compteur discret par joueur·se en arrière-plan). En fin
+    de partie, la ou les personnes au plus haut compteur reçoivent le
+    titre "Le Red Flag de la soirée" et boivent deux gorgées d'un coup
+    (double peine), via `CrownResults` avec `sipsAwarded={2}`.
 
-Toutes les situations sont piochées et mélangées aléatoirement à chaque
+Toutes les cartes sont piochées et mélangées aléatoirement à chaque
 partie. Rien n'est sauvegardé d'une soirée à l'autre : à la fermeture de
 l'app, tout repart de zéro (joueurs, avatars, compteurs).
 

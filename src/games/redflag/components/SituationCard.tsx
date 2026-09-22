@@ -57,7 +57,7 @@ export function SituationCard({
   );
 }
 
-const CARD_ASPECT_RATIO = 0.72;
+const CARD_ASPECT_RATIO = 0.64;
 
 const styles = StyleSheet.create({
   card: {

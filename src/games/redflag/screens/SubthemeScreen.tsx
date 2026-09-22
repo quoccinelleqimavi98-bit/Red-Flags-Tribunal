@@ -6,7 +6,7 @@ import { Card } from "@components/Card";
 import { SectionTitle } from "@components/SectionTitle";
 import { colors, spacing, typography } from "@core/theme";
 import { RootStackParamList } from "@core/navigation/types";
-import { SITUATIONS } from "../data/situations";
+import { getCardBank } from "../engine/redflagEngine";
 import { CATEGORIES, SUBTHEMES } from "../types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Subtheme">;
@@ -15,6 +15,7 @@ export function SubthemeScreen({ navigation, route }: Props) {
   const { mode, category } = route.params;
   const categoryInfo = CATEGORIES.find((c) => c.id === category);
   const subthemes = SUBTHEMES.filter((s) => s.category === category);
+  const bank = getCardBank(mode);
 
   return (
     <ScreenBackground>
@@ -36,8 +37,10 @@ export function SubthemeScreen({ navigation, route }: Props) {
         />
 
         {subthemes.map((sub) => {
-          const count = SITUATIONS.filter((s) => s.subthemeId === sub.id).length;
+          const count = bank.filter((s) => s.subthemeId === sub.id).length;
           const disabled = count === 0;
+          const countLabel =
+            mode === "whoismostlikely" ? "prompts" : "situations";
           return (
             <Pressable
               key={sub.id}
@@ -57,7 +60,7 @@ export function SubthemeScreen({ navigation, route }: Props) {
                     {sub.label}
                   </Text>
                   <Text style={[typography.caption, styles.optionCount]}>
-                    {disabled ? "Bientôt disponible" : `${count} situations`}
+                    {disabled ? "Bientôt disponible" : `${count} ${countLabel}`}
                   </Text>
                 </View>
                 {!disabled ? <Text style={styles.chevron}>›</Text> : null}

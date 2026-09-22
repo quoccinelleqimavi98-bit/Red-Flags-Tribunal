@@ -1,5 +1,5 @@
 export type RedFlagCategory = "amour" | "amitie";
-export type RedFlagMode = "chill" | "verdict";
+export type RedFlagMode = "chill" | "verdict" | "trial" | "whoismostlikely";
 
 export interface RedFlagCategoryInfo {
   id: RedFlagCategory;
@@ -76,5 +76,19 @@ export const MODES: RedFlagModeInfo[] = [
     emoji: "⚖️",
     description:
       "Vote à main levée : tout le monde vote 🚩 Red Flag ou ✅ Pas Red Flag. La minorité boit une gorgée. Sans pitié.",
+  },
+  {
+    id: "trial",
+    label: "Le Procès",
+    emoji: "🎭",
+    description:
+      "Un·e accusé·e tiré·e au sort a 30 secondes pour défendre la situation à voix haute. Pas convaincant·e ? Iel boit. Convaincant·e ? Tout le reste du groupe boit.",
+  },
+  {
+    id: "whoismostlikely",
+    label: "Ce Serait Qui",
+    emoji: "🔮",
+    description:
+      "Un trait s'affiche, tout le monde désigne en même temps qui ça évoque dans le groupe. Le compteur du/de la plus désigné·e s'affole — double gorgée en fin de soirée.",
   },
 ];

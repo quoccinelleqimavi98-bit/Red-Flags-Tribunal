@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import { Animated, PanResponder, StyleProp, ViewStyle } from "react-native";
 
+export type SwipeDirection = "left" | "right";
+
 interface SwipeCardProps {
-  /** Appelé une fois le swipe validé (seuil dépassé). */
-  onSwiped: () => void;
+  /** Appelé une fois le swipe validé (seuil dépassé), avec la direction. */
+  onSwiped: (direction: SwipeDirection) => void;
   swipeEnabled?: boolean;
   /**
    * true (par défaut) : la carte file hors écran avant d'appeler
@@ -46,6 +48,7 @@ export function SwipeCard({
       }),
       onPanResponderRelease: (_, gesture) => {
         if (Math.abs(gesture.dx) > SWIPE_THRESHOLD) {
+          const direction: SwipeDirection = gesture.dx > 0 ? "right" : "left";
           if (flyOffOnSwipe) {
             const toX = gesture.dx > 0 ? EXIT_DISTANCE : -EXIT_DISTANCE;
             Animated.timing(pan, {
@@ -54,7 +57,7 @@ export function SwipeCard({
               useNativeDriver: false,
             }).start(() => {
               pan.setValue({ x: 0, y: 0 });
-              onSwiped();
+              onSwiped(direction);
             });
           } else {
             Animated.spring(pan, {
@@ -62,7 +65,7 @@ export function SwipeCard({
               useNativeDriver: false,
               friction: 6,
             }).start();
-            onSwiped();
+            onSwiped(direction);
           }
         } else {
           Animated.spring(pan, {

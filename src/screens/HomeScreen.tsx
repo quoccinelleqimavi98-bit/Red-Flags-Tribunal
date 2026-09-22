@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ScreenBackground } from "@components/ScreenBackground";
 import { Button } from "@components/Button";
-import { colors, spacing, typography } from "@core/theme";
+import { colors, radius, spacing, typography } from "@core/theme";
 import { RootStackParamList } from "@core/navigation/types";
 import { useSessionStore } from "@core/store/sessionStore";
 
@@ -36,6 +36,13 @@ export function HomeScreen({ navigation }: Props) {
             Le jeu de soirée qui débusque les red flags entre amis —
             verdicts sans pitié, gorgées à la clé.
           </Text>
+          <View style={styles.disclaimer}>
+            <Text style={[typography.caption, styles.disclaimerText]}>
+              🧃 Zéro obligation d'alcool : eau, jus, gage rigolo... à vous de
+              voir. Le seul vrai verdict, c'est de s'amuser dans le respect
+              des limites de chacun·e.
+            </Text>
+          </View>
         </View>
 
         <View style={styles.actions}>
@@ -80,6 +87,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: spacing.sm,
     paddingHorizontal: spacing.lg,
+  },
+  disclaimer: {
+    marginTop: spacing.lg,
+    marginHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
+  },
+  disclaimerText: {
+    color: colors.textFaint,
+    textAlign: "center",
+    textTransform: "none",
+    letterSpacing: 0,
   },
   actions: {
     marginBottom: spacing.lg,
