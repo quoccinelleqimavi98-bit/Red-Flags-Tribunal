@@ -3,5 +3,6 @@
  * Un futur patch qui ajoute un mini-jeu se résume à une ligne ici.
  */
 import "../../games/quiz";
+import "../../games/redflag";
 
 export { getGames, getGame, registerGame } from "./registry";

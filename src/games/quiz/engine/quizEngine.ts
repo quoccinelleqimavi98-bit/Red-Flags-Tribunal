@@ -1,16 +1,7 @@
+import { shuffle } from "@core/utils/shuffle";
 import { QUESTIONS } from "../data/questions";
 import { SIP_EVENTS, SipEventTemplate } from "../data/sipEvents";
 import { DIFFICULTY_POINTS, QuizConfig, QuizQuestion } from "../types";
-
-/** Fisher-Yates : mélange non-biaisé, réutilisé pour questions, choix et joueurs. */
-export function shuffle<T>(input: T[]): T[] {
-  const array = [...input];
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
 
 /** Pioche `count` questions uniques parmi les thèmes sélectionnés, mélangées. */
 export function pickQuestions(config: QuizConfig): QuizQuestion[] {

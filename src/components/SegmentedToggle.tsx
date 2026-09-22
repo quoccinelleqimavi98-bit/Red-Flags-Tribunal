@@ -37,7 +37,7 @@ export function SegmentedToggle<T extends string>({
                 style={[
                   typography.bodyBold,
                   styles.segmentLabel,
-                  { color: selected ? "#1a0a2e" : colors.textMuted },
+                  { color: selected ? colors.background : colors.textMuted },
                 ]}
               >
                 {option.emoji ? `${option.emoji} ` : ""}

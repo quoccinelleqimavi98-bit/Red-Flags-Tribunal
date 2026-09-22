@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   addButtonLabel: {
     fontSize: 24,
     fontWeight: "800",
-    color: "#1a0a2e",
+    color: colors.background,
   },
   list: {
     flexGrow: 1,

@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   title: {
-    color: "#1a0a2e",
+    color: colors.text,
     textAlign: "center",
     marginBottom: spacing.sm,
   },
   description: {
-    color: "#1a0a2e",
+    color: colors.text,
     textAlign: "center",
     marginBottom: spacing.lg,
   },

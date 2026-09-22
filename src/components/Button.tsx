@@ -29,23 +29,26 @@ export function Button({
   style,
 }: ButtonProps) {
   const isGhost = variant === "ghost";
-  const gradientColors =
-    variant === "gold"
-      ? colors.gradientGold
-      : variant === "danger"
-        ? colors.gradientDanger
-        : colors.gradientPrimary;
+  const isGold = variant === "gold";
+  const gradientColors = isGold
+    ? colors.gradientGold
+    : variant === "danger"
+      ? colors.gradientDanger
+      : colors.gradientPrimary;
+  const solidTextColor = isGold ? colors.background : colors.text;
 
   const content = (
     <>
       {loading ? (
-        <ActivityIndicator color={isGhost ? colors.primary : "#1a0a2e"} />
+        <ActivityIndicator color={isGhost ? colors.primary : solidTextColor} />
       ) : (
         <Text
           style={[
             typography.subtitle,
             styles.label,
-            isGhost ? styles.labelGhost : styles.labelSolid,
+            isGhost
+              ? styles.labelGhost
+              : { color: solidTextColor },
           ]}
         >
           {icon ? `${icon}  ` : ""}
@@ -107,9 +110,6 @@ const styles = StyleSheet.create({
   },
   label: {
     textAlign: "center",
-  },
-  labelSolid: {
-    color: "#1a0a2e",
   },
   labelGhost: {
     color: colors.text,

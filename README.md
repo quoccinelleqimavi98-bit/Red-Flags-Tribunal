@@ -1,4 +1,4 @@
-# Soirée Games 🎉
+# Red Flag Tribunal 🚩⚖️
 
 Application mobile (React Native / Expo, TypeScript) regroupant plusieurs
 mini-jeux à jouer entre amis lors d'une soirée. L'architecture est conçue
@@ -8,13 +8,41 @@ toucher au cœur de l'application.
 Version volontairement simple : tout l'état (joueurs, scores) vit en
 mémoire le temps de la soirée, sans base de données ni stats persistées.
 
+## Identité visuelle
+
+Direction artistique sombre et affirmée, pas pastel : fond noir/bordeaux
+nuit (`#0c0508`), rouge vif accusateur en accent (`#e8112d`), touches or
+(`#d4af37`) et blanc cassé (`#f7ede2`) pour l'élégance — voir
+`src/core/theme/colors.ts`.
+
+Deux polices Google Fonts (`src/core/theme/typography.ts`), chargées via
+`expo-font` + `@expo-google-fonts/*` :
+- **Playfair Display** (graisse 900 Black) pour le grand titre de l'app —
+  un serif dramatique à fort contraste, effet "acte d'accusation".
+- **Oswald** (demi-gras/gras, capitales) pour les titres d'écran, badges
+  et boutons — une sans-serif condensée, effet "document officiel".
+
+D'autres pistes envisagées pour le titre : **Bebas Neue** (ultra-condensée,
+très graphique/poster, mais un peu trop "sport" et pas assez féminine) et
+**Anton** (encore plus massive, trop brutale pour l'équilibre "mordant
+mais élégant" recherché). Playfair Display Black a été retenu pour son
+contraste de graisse (fins/épais) qui donne du caractère sans perdre en
+élégance, complété par Oswald pour que le reste de l'interface (labels,
+boutons, badges) reste lisible à petite taille — un serif dramatique
+partout aurait nui à la lisibilité.
+
+Seuls les fichiers de graisse réellement utilisés sont importés
+directement (`App.tsx`), pas le barrel des packages `@expo-google-fonts`,
+pour ne pas embarquer dans l'APK les ~20 variantes de police inutilisées.
+
 ## Stack technique
 
 - **Expo (SDK 51) + React Native 0.74 + TypeScript**
 - **React Navigation** (native-stack) pour la navigation
 - **Zustand** pour l'état de session (joueurs actifs de la soirée, en
   mémoire uniquement — réinitialisé à chaque relance de l'app)
-- **expo-linear-gradient** pour l'habillage visuel "soirée"
+- **expo-linear-gradient** pour l'habillage visuel
+- **expo-font + Google Fonts** pour l'identité typographique
 
 ## Lancer le projet
 
@@ -149,7 +177,28 @@ génériques) détectent automatiquement le nouveau jeu. Aucune autre partie
 de l'app n'a besoin d'être modifiée — c'est ce qui permet de livrer de
 nouveaux jeux via de simples patchs.
 
-## Premier mini-jeu : Le Quiz Ultime
+## Mini-jeu : Red Flag Tribunal
+
+Dossier `src/games/redflag/` — le jeu qui donne son nom à l'app. Après la
+configuration des joueurs, un assistant en 3 étapes (géré entièrement dans
+`RedFlagConfigScreen.tsx`, sans toucher à la navigation centrale) :
+
+1. **Catégorie** : 💔 Amour ou 🤝 Amitié
+2. **Sous-thème** : 5 sous-thèmes Amour (premiers rendez-vous, réseaux
+   sociaux, ex, famille du/de la partenaire, intimité) et 4 sous-thèmes
+   Amitié (groupe d'amis, colocation, argent entre potes, réseaux
+   sociaux) — `data/situations.ts` contient une banque de 8 situations par
+   sous-thème (72 au total), en français, ton fun et provocateur
+3. **Mode de jeu** :
+   - **Red Flag ou Pas** — mode chill, les situations défilent une par
+     une pour lancer la discussion, sans score.
+   - **Le Verdict** — vote à main levée : tout le monde lève la main
+     (🚩 en haut / ✅ en bas), le host reporte ensuite qui a voté quoi en
+     tapant sur les prénoms, l'app calcule la minorité et lui inflige une
+     gorgée chacun. Bilan des gorgées en fin de partie (en mémoire pour
+     la soirée, non sauvegardé).
+
+## Mini-jeu : Le Quiz Ultime
 
 Dossier `src/games/quiz/` :
 - `data/questions.ts` — banque de ~70 questions réparties sur 6 thèmes
@@ -178,13 +227,15 @@ repart de zéro.
 App.tsx
 src/
   core/
-    theme/          couleurs, typographie, espacements ("ambiance soirée")
+    theme/          couleurs, typographie (Playfair Display + Oswald), espacements
     navigation/      RootNavigator + types de routes
     store/           état de session (joueurs actifs) via zustand, en mémoire
     games/           registre central des mini-jeux
+    utils/           utilitaires partagés (shuffle, ...)
     types.ts         type Player partagé
   components/        composants UI partagés (Button, Card, Chip, ...)
   screens/           écrans transverses (Home, PlayerSetup, GameMenu)
   games/
-    quiz/            premier mini-jeu (voir ci-dessus)
+    redflag/         Red Flag Tribunal (voir ci-dessus)
+    quiz/            Le Quiz Ultime (voir ci-dessus)
 ```

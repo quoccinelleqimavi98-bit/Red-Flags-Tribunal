@@ -35,7 +35,7 @@ export function StepperInput({
               <Text
                 style={[
                   typography.bodyBold,
-                  { color: selected ? "#1a0a2e" : colors.textMuted },
+                  { color: selected ? colors.background : colors.textMuted },
                 ]}
               >
                 {option}

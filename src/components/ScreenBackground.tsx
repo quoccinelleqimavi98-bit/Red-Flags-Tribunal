@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 280,
-    backgroundColor: "rgba(255, 45, 149, 0.18)",
+    backgroundColor: "rgba(232, 17, 45, 0.16)",
   },
   glowBottom: {
     position: "absolute",
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     width: 320,
     height: 320,
     borderRadius: 320,
-    backgroundColor: "rgba(0, 229, 199, 0.12)",
+    backgroundColor: "rgba(212, 175, 55, 0.1)",
   },
 });

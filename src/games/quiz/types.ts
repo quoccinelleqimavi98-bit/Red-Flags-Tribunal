@@ -1,3 +1,5 @@
+import { colors } from "@core/theme";
+
 export type QuizTheme =
   | "Manga"
   | "Jeux Vidéo"
@@ -34,12 +36,12 @@ export const DIFFICULTY_POINTS: Record<QuizDifficulty, number> = {
 };
 
 export const THEME_COLORS: Record<QuizTheme, string> = {
-  Manga: "#ff6ad5",
-  "Jeux Vidéo": "#7bffb0",
-  Séries: "#7ab8ff",
-  Films: "#ffb37a",
-  Musique: "#c58bff",
-  "Culture Générale": "#ffe27a",
+  Manga: colors.themeManga,
+  "Jeux Vidéo": colors.themeGaming,
+  Séries: colors.themeSeries,
+  Films: colors.themeFilms,
+  Musique: colors.themeMusique,
+  "Culture Générale": colors.themeCultureG,
 };
 
 export const ALL_THEMES: QuizTheme[] = [

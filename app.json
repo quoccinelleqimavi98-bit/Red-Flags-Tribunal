@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Soirée Games",
+    "name": "Red Flag Tribunal",
     "slug": "soiree-games",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "backgroundColor": "#150a24"
+      "backgroundColor": "#0c0508"
     },
     "assetBundlePatterns": ["**/*"],
     "android": {
@@ -17,7 +17,7 @@
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#150a24"
+        "backgroundColor": "#0c0508"
       }
     },
     "ios": {
