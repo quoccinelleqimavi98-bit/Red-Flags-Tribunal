@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ScreenBackground } from "@components/ScreenBackground";
@@ -7,6 +7,7 @@ import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { PlayerAvatar } from "@components/PlayerAvatar";
 import { SwipeCard } from "@components/SwipeCard";
+import { FlipCard } from "@components/FlipCard";
 import { colors, radius, spacing, typography } from "@core/theme";
 import { RootStackParamList } from "@core/navigation/types";
 import { useSessionStore } from "@core/store/sessionStore";
@@ -17,6 +18,8 @@ import { CATEGORIES, RedFlagConfig, RedFlagSituation, SUBTHEMES } from "../types
 
 type Vote = "red" | "clean";
 type VerdictPhase = "vote" | "tally" | "result";
+type ChillStatus = "vecu" | "pas_vecu" | null;
+type CardPhase = "front" | "back";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Play">;
 
@@ -32,15 +35,16 @@ export function PlayScreen({ navigation, route }: Props) {
   const [index, setIndex] = useState(0);
   const [finished, setFinished] = useState(false);
 
-  // Mode "Red Flag ou Pas" — qui s'accuse sur la carte en cours + compteur cumulé.
-  const [accusedThisCard, setAccusedThisCard] = useState<Record<number, boolean>>(
-    () => zeroBoolMap(players)
+  // Mode "Qui l'a déjà vécu ?" — carte retournée, statut par joueur + compteur cumulé.
+  const [cardPhase, setCardPhase] = useState<CardPhase>("front");
+  const [statuses, setStatuses] = useState<Record<number, ChillStatus>>(() =>
+    zeroStatusMap(players)
   );
   const [accusationCounts, setAccusationCounts] = useState<Record<number, number>>(
     () => zeroTally(players)
   );
 
-  // Mode "Le Verdict" — vote à main levée reporté par le host.
+  // Mode "Le Verdict" — vote à main levée reporté par le host (inchangé).
   const [phase, setPhase] = useState<VerdictPhase>("vote");
   const [assignments, setAssignments] = useState<Record<number, Vote | null>>(
     () => initAssignments(players)
@@ -62,7 +66,7 @@ export function PlayScreen({ navigation, route }: Props) {
     navigation.dispatch(
       CommonActions.reset({
         index: 1,
-        routes: [{ name: "Home" }, { name: "Category" }],
+        routes: [{ name: "Home" }, { name: "Mode" }],
       })
     );
   }
@@ -72,6 +76,19 @@ export function PlayScreen({ navigation, route }: Props) {
       CommonActions.reset({ index: 0, routes: [{ name: "Home" }] })
     );
   }
+
+  // Une fois tout le monde renseigné sur la carte retournée, on avance
+  // automatiquement (le bouton "Valider" reste une alternative manuelle).
+  useEffect(() => {
+    if (mode !== "chill" || cardPhase !== "back" || players.length === 0) {
+      return;
+    }
+    const allSet = players.every((p) => statuses[p.id] != null);
+    if (!allSet) return;
+    const timer = setTimeout(() => commitChillAndAdvance(), 350);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statuses, cardPhase, mode]);
 
   if (!situation) {
     return (
@@ -110,22 +127,27 @@ export function PlayScreen({ navigation, route }: Props) {
       return;
     }
     setIndex((i) => i + 1);
-    setAccusedThisCard(zeroBoolMap(players));
+    setCardPhase("front");
+    setStatuses(zeroStatusMap(players));
     setAssignments(initAssignments(players));
     setLastOutcome(null);
     setPhase("vote");
   }
 
-  // ---------- Mode "Red Flag ou Pas" ----------
-  function toggleAccusation(playerId: number) {
-    setAccusedThisCard((prev) => ({ ...prev, [playerId]: !prev[playerId] }));
+  // ---------- Mode "Qui l'a déjà vécu ?" ----------
+  function flipCard() {
+    setCardPhase("back");
   }
 
-  function chillAdvance() {
+  function setPlayerStatus(playerId: number, status: ChillStatus) {
+    setStatuses((prev) => ({ ...prev, [playerId]: status }));
+  }
+
+  function commitChillAndAdvance() {
     setAccusationCounts((prev) => {
       const next = { ...prev };
       players.forEach((p) => {
-        if (accusedThisCard[p.id]) next[p.id] = (next[p.id] ?? 0) + 1;
+        if (statuses[p.id] === "vecu") next[p.id] = (next[p.id] ?? 0) + 1;
       });
       return next;
     });
@@ -169,7 +191,7 @@ export function PlayScreen({ navigation, route }: Props) {
   }
 
   const allAssigned = players.every((p) => assignments[p.id] !== null);
-  const swipeEnabled = mode === "chill" || phase === "result";
+  const verdictSwipeEnabled = phase === "result";
 
   return (
     <ScreenBackground>
@@ -193,52 +215,66 @@ export function PlayScreen({ navigation, route }: Props) {
               />
             </View>
           ) : null}
-          <SwipeCard
-            onSwiped={mode === "chill" ? chillAdvance : goToNext}
-            swipeEnabled={swipeEnabled}
-            style={styles.frontCard}
-          >
-            <SituationCard
-              situation={situation}
-              category={categoryInfo}
-              subtheme={subthemeInfo}
-            />
-          </SwipeCard>
+
+          {mode === "chill" ? (
+            <SwipeCard
+              onSwiped={flipCard}
+              swipeEnabled={cardPhase === "front"}
+              flyOffOnSwipe={false}
+              style={styles.frontCard}
+            >
+              <FlipCard
+                key={situation.id}
+                flipped={cardPhase === "back"}
+                style={styles.flipCardInner}
+                front={
+                  <SituationCard
+                    situation={situation}
+                    category={categoryInfo}
+                    subtheme={subthemeInfo}
+                  />
+                }
+                back={
+                  <RosterBack
+                    players={players}
+                    statuses={statuses}
+                    onSetStatus={setPlayerStatus}
+                    onValidate={commitChillAndAdvance}
+                    isLast={isLast}
+                  />
+                }
+              />
+            </SwipeCard>
+          ) : (
+            <SwipeCard
+              onSwiped={goToNext}
+              swipeEnabled={verdictSwipeEnabled}
+              style={styles.frontCard}
+            >
+              <SituationCard
+                situation={situation}
+                category={categoryInfo}
+                subtheme={subthemeInfo}
+              />
+            </SwipeCard>
+          )}
         </View>
 
         {mode === "chill" ? (
-          <View style={styles.chillPanel}>
-            <Text style={[typography.bodyBold, styles.chillHint]}>
-              Tu l'as déjà vécu (ou fait) ? Touche ton avatar 👇
-            </Text>
-            <View style={styles.avatarRow}>
-              {players.map((p) => {
-                const accused = !!accusedThisCard[p.id];
-                return (
-                  <Pressable
-                    key={p.id}
-                    onPress={() => toggleAccusation(p.id)}
-                    style={[styles.avatarBig, accused && styles.avatarBigAccused]}
-                  >
-                    <PlayerAvatar avatarId={p.avatarId} size={26} />
-                    <Text
-                      style={[typography.caption, styles.avatarBigLabel]}
-                      numberOfLines={1}
-                    >
-                      {p.name}
-                    </Text>
-                    {accused ? <Text style={styles.avatarBigFlag}>🚩</Text> : null}
-                  </Pressable>
-                );
-              })}
+          cardPhase === "front" ? (
+            <View style={styles.chillPanel}>
+              <Text style={[typography.bodyBold, styles.chillHint]}>
+                Swipe la carte ou appuie ci-dessous pour désigner qui l'a déjà
+                vécue
+              </Text>
+              <Button
+                label="Qui l'a vécu ?"
+                icon="🔄"
+                onPress={flipCard}
+                style={{ marginTop: spacing.sm }}
+              />
             </View>
-            <Button
-              label={isLast ? "Terminer" : "Suivant"}
-              icon={isLast ? "🎉" : "➡️"}
-              onPress={chillAdvance}
-              style={{ marginTop: spacing.md }}
-            />
-          </View>
+          ) : null
         ) : (
           <View style={styles.verdictPanel}>
             {phase === "vote" ? (
@@ -345,6 +381,75 @@ export function PlayScreen({ navigation, route }: Props) {
   );
 }
 
+function RosterBack({
+  players,
+  statuses,
+  onSetStatus,
+  onValidate,
+  isLast,
+}: {
+  players: Player[];
+  statuses: Record<number, ChillStatus>;
+  onSetStatus: (playerId: number, status: ChillStatus) => void;
+  onValidate: () => void;
+  isLast: boolean;
+}) {
+  return (
+    <View style={styles.rosterCard}>
+      <Text style={[typography.caption, styles.rosterTitle]}>
+        🔄 Qui l'a déjà vécu ?
+      </Text>
+      <ScrollView
+        style={styles.rosterList}
+        contentContainerStyle={styles.rosterListContent}
+      >
+        {players.map((p) => {
+          const status = statuses[p.id];
+          return (
+            <View key={p.id} style={styles.rosterRow}>
+              <PlayerAvatar avatarId={p.avatarId} size={20} />
+              <Text
+                style={[typography.bodyBold, styles.rosterName]}
+                numberOfLines={1}
+              >
+                {p.name}
+              </Text>
+              <Pressable
+                onPress={() => onSetStatus(p.id, "vecu")}
+                style={[
+                  styles.rosterPill,
+                  status === "vecu" && styles.rosterPillRed,
+                ]}
+              >
+                <Text style={[typography.caption, styles.rosterPillLabel]}>
+                  Vécu 🚩
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => onSetStatus(p.id, "pas_vecu")}
+                style={[
+                  styles.rosterPill,
+                  status === "pas_vecu" && styles.rosterPillGold,
+                ]}
+              >
+                <Text style={[typography.caption, styles.rosterPillLabel]}>
+                  Pas vécu ✅
+                </Text>
+              </Pressable>
+            </View>
+          );
+        })}
+      </ScrollView>
+      <Button
+        label={isLast ? "Voir le bilan" : "Valider"}
+        icon={isLast ? "🏆" : "✅"}
+        onPress={onValidate}
+        style={{ marginTop: spacing.sm }}
+      />
+    </View>
+  );
+}
+
 function initAssignments(players: Player[]): Record<number, Vote | null> {
   const initial: Record<number, Vote | null> = {};
   players.forEach((p) => (initial[p.id] = null));
@@ -357,9 +462,9 @@ function zeroTally(players: Player[]): Record<number, number> {
   return initial;
 }
 
-function zeroBoolMap(players: Player[]): Record<number, boolean> {
-  const initial: Record<number, boolean> = {};
-  players.forEach((p) => (initial[p.id] = false));
+function zeroStatusMap(players: Player[]): Record<number, ChillStatus> {
+  const initial: Record<number, ChillStatus> = {};
+  players.forEach((p) => (initial[p.id] = null));
   return initial;
 }
 
@@ -423,7 +528,7 @@ function AccusedResults({
         ))}
 
         <Button
-          label="Rejouer (nouvelle catégorie)"
+          label="Rejouer (nouveau mode)"
           icon="🔄"
           onPress={onReplay}
           style={{ marginTop: spacing.lg }}
@@ -489,7 +594,7 @@ function VerdictResults({
         )}
 
         <Button
-          label="Rejouer (nouvelle catégorie)"
+          label="Rejouer (nouveau mode)"
           icon="🔄"
           onPress={onReplay}
           style={{ marginTop: spacing.lg }}
@@ -541,44 +646,69 @@ const styles = StyleSheet.create({
   frontCard: {
     width: CARD_WIDTH,
   },
+  flipCardInner: {
+    width: "100%",
+  },
+  rosterCard: {
+    flex: 1,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1.5,
+    borderColor: colors.primary + "55",
+    padding: spacing.md,
+  },
+  rosterTitle: {
+    color: colors.gold,
+    textAlign: "center",
+    marginBottom: spacing.sm,
+  },
+  rosterList: {
+    flex: 1,
+  },
+  rosterListContent: {
+    paddingBottom: spacing.sm,
+  },
+  rosterRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: spacing.sm,
+  },
+  rosterName: {
+    flex: 1,
+    color: colors.text,
+    marginLeft: spacing.xs,
+    marginRight: spacing.xs,
+  },
+  rosterPill: {
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    borderRadius: radius.pill,
+    paddingVertical: 4,
+    paddingHorizontal: spacing.sm,
+    marginLeft: spacing.xs,
+  },
+  rosterPillRed: {
+    borderColor: colors.primary,
+    backgroundColor: colors.primary + "26",
+  },
+  rosterPillGold: {
+    borderColor: colors.gold,
+    backgroundColor: colors.gold + "26",
+  },
+  rosterPillLabel: {
+    color: colors.text,
+  },
   chillPanel: {
     marginTop: spacing.md,
   },
   chillHint: {
     color: colors.text,
     textAlign: "center",
-    marginBottom: spacing.sm,
   },
   avatarRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-  },
-  avatarBig: {
-    alignItems: "center",
-    backgroundColor: colors.surfaceAlt,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    borderRadius: radius.md,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.sm,
-    margin: spacing.xs,
-    width: 76,
-  },
-  avatarBigAccused: {
-    borderColor: colors.primary,
-    backgroundColor: colors.primary + "26",
-  },
-  avatarBigLabel: {
-    color: colors.text,
-    marginTop: 2,
-    textTransform: "none",
-  },
-  avatarBigFlag: {
-    position: "absolute",
-    top: -6,
-    right: -6,
-    fontSize: 14,
   },
   verdictPanel: {
     marginTop: spacing.md,

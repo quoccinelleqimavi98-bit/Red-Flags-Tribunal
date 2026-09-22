@@ -23,7 +23,6 @@ type Props = NativeStackScreenProps<RootStackParamList, "PlayerSetup">;
 
 export function PlayerSetupScreen({ navigation, route }: Props) {
   const mode = route.params?.mode ?? "onboarding";
-  const category = route.params?.category;
   const storedPlayers = useSessionStore((s) => s.players);
   const setPlayers = useSessionStore((s) => s.setPlayers);
 
@@ -63,8 +62,8 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
     setPlayers(draft);
     if (mode === "manage") {
       navigation.goBack();
-    } else if (category) {
-      navigation.navigate("Subtheme", { category });
+    } else {
+      navigation.navigate("Mode");
     }
   }
 

@@ -65,10 +65,10 @@ export const SUBTHEMES: RedFlagSubtheme[] = [
 export const MODES: RedFlagModeInfo[] = [
   {
     id: "chill",
-    label: "Red Flag ou Pas",
-    emoji: "🍷",
+    label: "Qui l'a déjà vécu ?",
+    emoji: "🔄",
     description:
-      "Mode chill : les situations défilent une par une, on lit à voix haute et on débat. Pas de score, juste de quoi lancer la conversation.",
+      "Chaque situation se retourne : indiquez qui l'a déjà vécue (ou fait). Pas de vote, pas de gorgées — juste un compteur qui couronne le/la Red Flag de la soirée à la fin.",
   },
   {
     id: "verdict",

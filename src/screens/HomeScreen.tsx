@@ -5,10 +5,21 @@ import { ScreenBackground } from "@components/ScreenBackground";
 import { Button } from "@components/Button";
 import { colors, spacing, typography } from "@core/theme";
 import { RootStackParamList } from "@core/navigation/types";
+import { useSessionStore } from "@core/store/sessionStore";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export function HomeScreen({ navigation }: Props) {
+  const players = useSessionStore((s) => s.players);
+
+  function handleStart() {
+    if (players.length === 0) {
+      navigation.navigate("PlayerSetup", { mode: "onboarding" });
+    } else {
+      navigation.navigate("Mode");
+    }
+  }
+
   return (
     <ScreenBackground>
       <View style={styles.container}>
@@ -28,11 +39,7 @@ export function HomeScreen({ navigation }: Props) {
         </View>
 
         <View style={styles.actions}>
-          <Button
-            label="Lancer une soirée"
-            icon="⚖️"
-            onPress={() => navigation.navigate("Category")}
-          />
+          <Button label="Lancer une soirée" icon="⚖️" onPress={handleStart} />
         </View>
       </View>
     </ScreenBackground>

@@ -12,7 +12,7 @@ import { CATEGORIES, SUBTHEMES } from "../types";
 type Props = NativeStackScreenProps<RootStackParamList, "Subtheme">;
 
 export function SubthemeScreen({ navigation, route }: Props) {
-  const { category } = route.params;
+  const { mode, category } = route.params;
   const categoryInfo = CATEGORIES.find((c) => c.id === category);
   const subthemes = SUBTHEMES.filter((s) => s.category === category);
 
@@ -26,12 +26,12 @@ export function SubthemeScreen({ navigation, route }: Props) {
           <View style={styles.dots}>
             <View style={[styles.dot, styles.dotActive]} />
             <View style={[styles.dot, styles.dotActive]} />
-            <View style={styles.dot} />
+            <View style={[styles.dot, styles.dotActive]} />
           </View>
         </View>
 
         <SectionTitle
-          title="Étape 2 / 3"
+          title="Étape 3 / 3"
           subtitle={`${categoryInfo?.emoji} ${categoryInfo?.label} — choisissez le sous-thème`}
         />
 
@@ -44,7 +44,7 @@ export function SubthemeScreen({ navigation, route }: Props) {
               disabled={disabled}
               onPress={() =>
                 !disabled &&
-                navigation.navigate("Mode", { category, subthemeId: sub.id })
+                navigation.navigate("Play", { mode, category, subthemeId: sub.id })
               }
             >
               <Card

@@ -33,9 +33,9 @@ export function RootNavigator() {
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="PlayerSetup" component={PlayerSetupScreen} />
+        <Stack.Screen name="Mode" component={ModeScreen} />
         <Stack.Screen name="Category" component={CategoryScreen} />
         <Stack.Screen name="Subtheme" component={SubthemeScreen} />
-        <Stack.Screen name="Mode" component={ModeScreen} />
         <Stack.Screen name="Play" component={PlayScreen} />
       </Stack.Navigator>
     </NavigationContainer>

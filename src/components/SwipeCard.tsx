@@ -2,9 +2,17 @@ import React, { useRef } from "react";
 import { Animated, PanResponder, StyleProp, ViewStyle } from "react-native";
 
 interface SwipeCardProps {
-  /** Appelé une fois la carte sortie de l'écran (swipe validé). */
+  /** Appelé une fois le swipe validé (seuil dépassé). */
   onSwiped: () => void;
   swipeEnabled?: boolean;
+  /**
+   * true (par défaut) : la carte file hors écran avant d'appeler
+   * `onSwiped` (effet Tinder classique). false : la carte revient
+   * simplement au centre et `onSwiped` est appelé immédiatement — utile
+   * quand le swipe déclenche une autre animation (ex. un retournement)
+   * plutôt qu'un changement de carte.
+   */
+  flyOffOnSwipe?: boolean;
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
 }
@@ -23,6 +31,7 @@ const EXIT_DISTANCE = 500;
 export function SwipeCard({
   onSwiped,
   swipeEnabled = true,
+  flyOffOnSwipe = true,
   style,
   children,
 }: SwipeCardProps) {
@@ -37,15 +46,24 @@ export function SwipeCard({
       }),
       onPanResponderRelease: (_, gesture) => {
         if (Math.abs(gesture.dx) > SWIPE_THRESHOLD) {
-          const toX = gesture.dx > 0 ? EXIT_DISTANCE : -EXIT_DISTANCE;
-          Animated.timing(pan, {
-            toValue: { x: toX, y: gesture.dy },
-            duration: 220,
-            useNativeDriver: false,
-          }).start(() => {
-            pan.setValue({ x: 0, y: 0 });
+          if (flyOffOnSwipe) {
+            const toX = gesture.dx > 0 ? EXIT_DISTANCE : -EXIT_DISTANCE;
+            Animated.timing(pan, {
+              toValue: { x: toX, y: gesture.dy },
+              duration: 220,
+              useNativeDriver: false,
+            }).start(() => {
+              pan.setValue({ x: 0, y: 0 });
+              onSwiped();
+            });
+          } else {
+            Animated.spring(pan, {
+              toValue: { x: 0, y: 0 },
+              useNativeDriver: false,
+              friction: 6,
+            }).start();
             onSwiped();
-          });
+          }
         } else {
           Animated.spring(pan, {
             toValue: { x: 0, y: 0 },

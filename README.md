@@ -145,26 +145,25 @@ Le workflow reste aussi déclenchable manuellement depuis l'onglet
 ## Parcours utilisateur
 
 ```
-Home ──▶ Category ──▶ [PlayerSetup, une seule fois] ──▶ Subtheme ──▶ Mode ──▶ Play ──▶ Résultats
-           ▲                                                                             │
-           └─────────────────────── "Rejouer" (joueurs conservés) ◀──────────────────────┘
+Home ──▶ [PlayerSetup, une seule fois] ──▶ Mode ──▶ Category ──▶ Subtheme ──▶ Play ──▶ Résultats
+                                             ▲                                            │
+                                             └────────── "Rejouer" (joueurs conservés) ◀──┘
 ```
 
-- **Catégorie en premier** (`CategoryScreen`) : 💔 Amour ou 🤝 Amitié,
-  avant même de configurer les joueurs.
-- **Joueurs** (`PlayerSetupScreen`) : uniquement demandé la première fois
-  (`players.length === 0` dans le store). Une fois configurés, ils restent
-  en mémoire pour toute la session — "Rejouer" en fin de partie ramène
-  directement à l'étape Catégorie sans repasser par la saisie des
-  prénoms. La liste des joueurs reste éditable à tout moment via la carte
-  "N joueurs · gérer" sur l'écran Catégorie (route `PlayerSetup` avec
+- **Joueurs** (`PlayerSetupScreen`) : demandé juste après Home, uniquement
+  la première fois (`players.length === 0` dans le store). Une fois
+  configurés, ils restent en mémoire pour toute la session — "Rejouer" en
+  fin de partie ramène directement à l'étape Mode sans repasser par la
+  saisie des prénoms. La liste reste éditable à tout moment via la carte
+  "N joueurs · gérer" sur l'écran Mode (route `PlayerSetup` avec
   `mode: "manage"`, qui revient en arrière au lieu d'avancer dans le
   parcours) — utile pour un retardataire ou quelqu'un qui part plus tôt.
-- **Sous-thème** (`SubthemeScreen`) puis **Mode de jeu** (`ModeScreen`),
-  filtrés par la catégorie choisie.
+- **Mode de jeu** (`ModeScreen`) puis **Catégorie** (`CategoryScreen`,
+  💔 Amour ou 🤝 Amitié) puis **Sous-thème** (`SubthemeScreen`, filtré par
+  la catégorie choisie).
 - **Partie** (`PlayScreen`) puis **résultats**, avec deux actions :
-  *Rejouer* (retour à Catégorie, joueurs conservés) ou *Terminer la
-  soirée* (retour à Home).
+  *Rejouer* (retour à Mode, joueurs conservés) ou *Terminer la soirée*
+  (retour à Home).
 
 ## Avatars
 
@@ -198,20 +197,24 @@ Dossier `src/games/redflag/` :
 - `components/SituationCard.tsx` — la carte visuelle (fond dégradé rouge
   pour Amour / or pour Amitié, cadre, emoji du sous-thème en filigrane)
 - `screens/PlayScreen.tsx` — pile de cartes façon TOD (`@components/SwipeCard`,
-  swipe gauche/droite ou bouton "Suivant", carte suivante visible en
+  swipe gauche/droite ou bouton stylé, carte suivante visible en
   transparence derrière), avec deux modes :
-  - **Red Flag ou Pas** — "Qui l'a déjà vécu ?" : après lecture, chaque
-    joueur qui reconnaît la situation touche son avatar en bas de l'écran
-    pour "s'accuser" (bascule on/off, plusieurs personnes peuvent se
-    désigner). Un compteur discret cumule les auto-accusations de chacun
-    tout au long de la partie ; en fin de partie, la personne au plus
-    haut compteur reçoit le titre "Le Red Flag de la soirée 🚩👑". Pas de
-    vote, pas de gorgées — ce mode reste volontairement léger, pensé pour
-    la discussion plutôt que la sanction.
+  - **Qui l'a déjà vécu ?** — au swipe (ou tap), la carte effectue une
+    animation de retournement (`@components/FlipCard`, rotation 3D sur
+    l'axe vertical) : au dos, la liste des joueurs avec deux options
+    chacun, "Vécu 🚩" / "Pas vécu ✅", que le host coche individuellement.
+    Une fois tout le monde renseigné (ou via le bouton "Valider"), la
+    carte suivante apparaît, repartie sur sa face avant. Un compteur
+    discret cumule les "Vécu" de chacun tout au long de la partie ; en
+    fin de partie, la personne au plus haut compteur reçoit le titre
+    "Le Red Flag de la soirée 🚩👑". Pas de vote, pas de gorgées — ce mode
+    reste volontairement léger, pensé pour la révélation et la discussion
+    plutôt que la sanction.
   - **Le Verdict** — vote à main levée réel (🚩 en haut / ✅ en bas), le
     host reporte ensuite qui a voté quoi en tapant sur les avatars, l'app
     calcule la minorité et lui inflige une gorgée chacun. Classement des
-    gorgées en fin de partie.
+    gorgées en fin de partie. Ce mode n'utilise pas la carte retournée :
+    swiper fait directement avancer à la situation suivante, comme avant.
 
 Toutes les situations sont piochées et mélangées aléatoirement à chaque
 partie. Rien n'est sauvegardé d'une soirée à l'autre : à la fermeture de
@@ -230,7 +233,7 @@ src/
     types.ts         type Player partagé
     avatars.ts       registre des avatars (emoji aujourd'hui, image demain)
   components/        composants UI partagés (Button, Card, SwipeCard,
-                      PlayerAvatar, ScreenBackground, SectionTitle)
+                      FlipCard, PlayerAvatar, ScreenBackground, SectionTitle)
   screens/           Home, PlayerSetup (config + gestion des joueurs)
   games/
     redflag/         Red Flag Tribunal — types, données, moteur, écrans
