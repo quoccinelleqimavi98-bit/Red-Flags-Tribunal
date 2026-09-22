@@ -34,16 +34,27 @@ npx eas build -p android --profile preview
 
 (nécessite un compte Expo/EAS, voir `eas.json` ; ou `npx expo run:android`
 pour un build local avec Android Studio installé). Un APK est aussi généré
-**automatiquement** à chaque push sur `main` via GitHub Actions — voir la
-section suivante.
+**automatiquement via GitHub Actions** sans rien installer localement —
+voir la section suivante.
 
-## Configurer les builds Android automatiques (GitHub Actions + EAS)
+## Générer un APK sans rien installer localement (GitHub Actions + EAS)
 
-Le workflow `.github/workflows/build-android-apk.yml` construit un APK
-Android sur les serveurs **EAS Build** (Expo Application Services) à
-chaque push sur `main`, puis le publie comme fichier `.apk` téléchargeable
-dans une nouvelle **Release GitHub** (déclenchable aussi manuellement
-depuis l'onglet *Actions* → *Build Android APK* → *Run workflow*).
+Le workflow `.github/workflows/build-android-apk.yml` construit l'APK
+Android sur les serveurs **EAS Build** (Expo Application Services), pas sur
+votre machine. Deux façons de récupérer le résultat :
+
+- **À chaque push, sur n'importe quelle branche** : l'APK est déposé comme
+  **artifact du run** — onglet *Actions* → cliquez sur le run → section
+  *Artifacts* en bas de page → téléchargez le `.zip` (contient le
+  `.apk`). Pratique pour tester rapidement une branche, mais l'artifact
+  expire au bout d'un moment (rétention par défaut du dépôt).
+- **En poussant un tag de version `vX.Y.Z`** (ex. `v1.0.0`) : en plus de
+  l'artifact, une **Release GitHub** est créée avec l'APK en pièce jointe
+  permanente — onglet *Releases* du dépôt. C'est la méthode à privilégier
+  pour un lien stable à partager ou garder.
+
+Le workflow reste aussi déclenchable manuellement depuis l'onglet
+*Actions* → *Build Android APK* → *Run workflow*.
 
 Étapes à suivre **une seule fois** pour l'activer :
 
@@ -81,19 +92,26 @@ depuis l'onglet *Actions* → *Build Android APK* → *Run workflow*).
    - Nom : `EXPO_TOKEN`
    - Valeur : le token copié à l'étape 4
 
-6. **Déclencher un build** : poussez un commit sur `main` (ou lancez le
-   workflow manuellement depuis l'onglet *Actions*). Le premier build
-   prend généralement 10 à 20 minutes le temps qu'EAS compile l'APK sur
-   ses serveurs ; EAS génère et stocke automatiquement un keystore de
+6. **Déclencher un build** : poussez simplement un commit (n'importe quelle
+   branche), ou créez un tag `v1.0.0` pour obtenir en plus une Release, ou
+   lancez le workflow manuellement depuis l'onglet *Actions*. Le premier
+   build prend généralement 10 à 20 minutes le temps qu'EAS compile l'APK
+   sur ses serveurs ; EAS génère et stocke automatiquement un keystore de
    signature Android la première fois (aucune action requise de votre
-   part). Une fois terminé, une nouvelle Release GitHub apparaît avec
-   l'APK en pièce jointe, prêt à être téléchargé et installé sur un
-   téléphone Android (activer "Sources inconnues" pour l'installer hors
-   Play Store).
+   part). Une fois terminé, récupérez l'APK dans les *Artifacts* du run
+   (tout push) ou dans *Releases* (si vous avez poussé un tag), puis
+   installez-le sur un téléphone Android (activer "Sources inconnues"
+   pour l'installer hors Play Store).
 
 > Le profil `preview` de `eas.json` génère un `.apk` classique (et non un
 > `.aab` réservé au Play Store), adapté à une installation directe entre
 > amis.
+
+> ⚠️ Le workflow se déclenche sur **chaque push, toute branche confondue**
+> — chaque run consomme un build EAS (quota limité sur le plan gratuit
+> Expo, ~30 builds/mois). Si vous poussez très souvent, pensez à retirer
+> la clé `branches: ["**"]` de `on.push` dans le workflow pour la
+> restreindre à une branche précise (ex. `[main]`).
 
 ## Architecture — comment ajouter un nouveau mini-jeu
 

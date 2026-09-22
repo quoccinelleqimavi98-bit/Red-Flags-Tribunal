@@ -1,21 +1,27 @@
 name: Build Android APK
 
-# Construit un APK Android via EAS Build à chaque push sur main, puis le
-# publie comme fichier téléchargeable dans une nouvelle Release GitHub.
+# Construit un APK Android via EAS Build :
+#   - à chaque push (toute branche) : l'APK est déposé comme artifact du
+#     run, dans l'onglet Actions → (le run) → Artifacts (téléchargement
+#     ZIP, conservé ~30 jours, pas de Release créée).
+#   - à chaque push d'un tag de version "v*" (ex: v1.0.0) : l'APK est en
+#     plus publié comme pièce jointe d'une Release GitHub permanente.
+#   - déclenchable manuellement depuis l'onglet Actions (workflow_dispatch).
 # Nécessite un secret de dépôt EXPO_TOKEN (voir le README, section
 # "Configurer les builds Android automatiques").
 on:
   push:
-    branches: [main]
+    branches: ["**"]
+    tags: ["v*"]
   workflow_dispatch: {}
 
 concurrency:
   group: build-android-apk-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
-    name: Build & release APK
+    name: Build APK
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -52,15 +58,26 @@ jobs:
             --wait \
             --output "${{ github.workspace }}/soiree-games.apk"
 
+      - name: Upload APK as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: soiree-games-apk-${{ steps.meta.outputs.sha_short }}
+          path: soiree-games.apk
+
+      - name: Prepare versioned APK for the release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: cp soiree-games.apk "soiree-games-${{ github.ref_name }}.apk"
+
       - name: Publish APK as a GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: android-build-${{ github.run_number }}-${{ steps.meta.outputs.sha_short }}
-          name: "Build Android #${{ github.run_number }} (${{ steps.meta.outputs.sha_short }})"
+          tag_name: ${{ github.ref_name }}
+          name: "Soirée Games ${{ github.ref_name }}"
           body: |
             APK généré automatiquement par EAS Build à partir du commit
-            ${{ github.sha }} sur `main`.
-          files: soiree-games.apk
-          generate_release_notes: false
+            ${{ github.sha }}.
+          files: soiree-games-${{ github.ref_name }}.apk
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
