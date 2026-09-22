@@ -26,13 +26,6 @@ export function HomeScreen({ navigation }: Props) {
             icon="🚀"
             onPress={() => navigation.navigate("PlayerSetup")}
           />
-          <Button
-            label="Hall of Fame"
-            icon="🏆"
-            variant="gold"
-            onPress={() => navigation.navigate("Stats")}
-            style={styles.spacedButton}
-          />
         </View>
       </View>
     </ScreenBackground>
@@ -65,8 +58,5 @@ const styles = StyleSheet.create({
   },
   actions: {
     marginBottom: spacing.lg,
-  },
-  spacedButton: {
-    marginTop: spacing.md,
   },
 });

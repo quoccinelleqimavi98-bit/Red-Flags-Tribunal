@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import { PlayerRecord } from "../db/repositories/playersRepo";
+import { Player } from "../types";
 
 /**
  * Contrat que doit respecter tout mini-jeu pour s'intégrer à l'app.
@@ -7,16 +7,16 @@ import { PlayerRecord } from "../db/repositories/playersRepo";
  *   1. Créer un dossier src/games/<mon-jeu>/
  *   2. Implémenter ce contrat dans un `index.ts`
  *   3. Ajouter `import "../games/<mon-jeu>";` dans src/core/games/index.ts
- * Aucune autre modification du cœur de l'app n'est nécessaire : la navigation,
- * le menu et les stats découvrent le jeu automatiquement via le registre.
+ * Aucune autre modification du cœur de l'app n'est nécessaire : la
+ * navigation et le menu découvrent le jeu automatiquement via le registre.
  */
 export interface GameConfigScreenProps {
-  players: PlayerRecord[];
+  players: Player[];
   onLaunch: (config: unknown) => void;
 }
 
 export interface GamePlayScreenProps<TConfig = unknown> {
-  players: PlayerRecord[];
+  players: Player[];
   config: TConfig;
   onFinished: () => void;
 }

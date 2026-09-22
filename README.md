@@ -5,27 +5,23 @@ mini-jeux à jouer entre amis lors d'une soirée. L'architecture est conçue
 pour qu'ajouter un nouveau mini-jeu ne nécessite (presque) jamais de
 toucher au cœur de l'application.
 
+Version volontairement simple : tout l'état (joueurs, scores) vit en
+mémoire le temps de la soirée, sans base de données ni stats persistées.
+
 ## Stack technique
 
 - **Expo (SDK 51) + React Native 0.74 + TypeScript**
-- **expo-sqlite** pour une base de données locale persistante (survit aux
-  mises à jour de l'app et aux régénérations d'APK)
 - **React Navigation** (native-stack) pour la navigation
-- **Zustand** pour le petit état de session (joueurs actifs de la soirée)
+- **Zustand** pour l'état de session (joueurs actifs de la soirée, en
+  mémoire uniquement — réinitialisé à chaque relance de l'app)
 - **expo-linear-gradient** pour l'habillage visuel "soirée"
 
 ## Lancer le projet
-
-> **Node.js** : Node 18 ou 20 LTS est recommandé par Expo SDK 51, mais le
-> projet fonctionne aussi sous Node 22.
 
 ```bash
 npm install
 npx expo start
 ```
-
-Le `postinstall` applique automatiquement un correctif (`patch-package`) sur
-`expo-sqlite` — voir la section suivante si vous êtes curieux de pourquoi.
 
 Puis scannez le QR code avec l'app Expo Go, ou lancez un émulateur Android
 (`npm run android`) / simulateur iOS (`npm run ios`).
@@ -40,43 +36,6 @@ npx eas build -p android --profile preview
 pour un build local avec Android Studio installé). Un APK est aussi généré
 **automatiquement** à chaque push sur `main` via GitHub Actions — voir la
 section suivante.
-
-## Correctif appliqué à `expo-sqlite` (patch-package)
-
-Toutes les versions d'`expo-sqlite` publiées pour Expo SDK 51 (14.0.0 à
-14.0.6, vérifié en inspectant chaque version) compilent leurs fichiers
-`build/*.js` avec des `export`/`import` relatifs **sans extension**
-(`export * from './SQLiteDatabase'`). Le bundler **Metro** (qui charge ce
-code sur l'appareil/l'émulateur) n'a aucun souci avec ça — mais si un
-processus Node "nu" tente un jour de `require()` ce paquet en dehors de
-Metro (par ex. si `expo-sqlite` est listé par erreur dans `app.json` →
-`plugins`, ce que ce projet évite déjà), Node ≥ 20 lève :
-
-```
-Error [ERR_MODULE_NOT_FOUND]: Cannot find module '.../expo-sqlite/build/SQLiteDatabase'
-imported from '.../expo-sqlite/build/index.js'
-```
-
-Le dossier `patches/` contient un correctif (`patch-package`) qui ajoute
-l'extension `.js` explicite à ces imports/exports internes dans
-`node_modules/expo-sqlite`. Il est **appliqué automatiquement** après
-chaque `npm install` via le script `postinstall`. Aucune action requise —
-mais si vous voyez encore cette erreur précise après un `npm install` à
-jour, vérifiez que la sortie de `npm install` mentionne bien :
-
-```
-> party-games@0.1.0 postinstall
-> patch-package
-
-patch-package 8.0.1
-Applying patches...
-expo-sqlite@14.0.6 ✔
-```
-
-Si ce n'est pas le cas (patch non appliqué), lancez `npx patch-package`
-manuellement, ou signalez-le : cela indiquerait un souci d'environnement
-(permissions, antivirus bloquant l'écriture dans `node_modules` sur
-Windows, etc.) plutôt qu'un bug du projet.
 
 ## Configurer les builds Android automatiques (GitHub Actions + EAS)
 
@@ -136,11 +95,6 @@ depuis l'onglet *Actions* → *Build Android APK* → *Run workflow*).
 > `.aab` réservé au Play Store), adapté à une installation directe entre
 > amis.
 
-> Remarque : ce dépôt contient le code source complet, mais aucune
-> installation de dépendances ni build mobile n'a été exécutée dans
-> l'environnement qui a généré ce patch (pas d'accès à un SDK Android/iOS).
-> Un `npm install` est nécessaire avant la première exécution.
-
 ## Architecture — comment ajouter un nouveau mini-jeu
 
 Toute la logique de découverte des jeux passe par un **registre central**
@@ -172,36 +126,10 @@ Pour ajouter un mini-jeu "Ballon Prisonnier des Vannes" par exemple :
 2. Ajouter une ligne `import "../../games/ballon-prisonnier";` dans
    `src/core/games/index.ts`.
 
-C'est tout : le menu des mini-jeux, la navigation (`GameConfig`/`GamePlay`
-génériques) et l'écran de stats détectent automatiquement le nouveau jeu.
-Aucune autre partie de l'app n'a besoin d'être modifiée — c'est ce qui
-permet de livrer de nouveaux jeux via de simples patchs.
-
-## Persistance & stats ("Hall of Fame")
-
-Toutes les données de jeu sont stockées dans une base **SQLite locale**
-(`src/core/db/`), avec un système de migrations (`schema.ts`) : chaque
-évolution de schéma s'ajoute en fin de liste `MIGRATIONS`, sans jamais
-modifier une migration déjà publiée, pour ne jamais perdre les stats des
-joueurs lors d'une mise à jour de l'app.
-
-Tables principales :
-- `players` — joueurs identifiés par prénom normalisé (pas de compte)
-- `game_sessions` / `session_players` — une soirée = une session
-- `game_results` — score, bonnes réponses, gorgées données/reçues par
-  joueur et par partie
-- `quiz_answers` — détail question par question (thème, difficulté,
-  indice utilisé) pour des stats fines
-- `sip_events` — gages / gorgées bonus-malus déclenchés pendant la partie
-
-L'écran **Hall of Fame** (`src/screens/StatsScreen.tsx`) agrège ces
-données par période (jour / mois / année / toujours) via
-`src/core/db/repositories/statsRepo.ts`, avec :
-- des stats globales (parties jouées, bonnes réponses, gorgées...)
-- des **superlatifs** décalés ("Le Cerveau du groupe", "Le Semeur de
-  Chaos", "L'Éponge de la Soirée", "Le Cancre du Quiz"...)
-- un classement général par joueur
-- le taux de réussite par thème de quiz
+C'est tout : le menu des mini-jeux et la navigation (`GameConfig`/`GamePlay`
+génériques) détectent automatiquement le nouveau jeu. Aucune autre partie
+de l'app n'a besoin d'être modifiée — c'est ce qui permet de livrer de
+nouveaux jeux via de simples patchs.
 
 ## Premier mini-jeu : Le Quiz Ultime
 
@@ -219,9 +147,12 @@ Dossier `src/games/quiz/` :
   propositions de réponses
 - `screens/QuizPlayScreen.tsx` — déroulé de la partie, gestion du buzz en
   mode "au plus rapide", indices, événements surprise, écran de résultats
+  (classement final, gorgées) tenu en mémoire pour la soirée en cours
 
 Toutes les questions et réponses sont piochées et mélangées aléatoirement
-à chaque partie pour une rejouabilité infinie.
+à chaque partie pour une rejouabilité infinie. Les scores et gorgées ne
+sont pas sauvegardés d'une soirée à l'autre : à la fermeture de l'app, tout
+repart de zéro.
 
 ## Structure du projet
 
@@ -231,11 +162,11 @@ src/
   core/
     theme/          couleurs, typographie, espacements ("ambiance soirée")
     navigation/      RootNavigator + types de routes
-    db/              SQLite : schéma, migrations, repositories
-    store/           état de session (joueurs actifs) via zustand
+    store/           état de session (joueurs actifs) via zustand, en mémoire
     games/           registre central des mini-jeux
+    types.ts         type Player partagé
   components/        composants UI partagés (Button, Card, Chip, ...)
-  screens/           écrans transverses (Home, PlayerSetup, GameMenu, Stats)
+  screens/           écrans transverses (Home, PlayerSetup, GameMenu)
   games/
     quiz/            premier mini-jeu (voir ci-dessus)
 ```

@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { PlayerRecord } from "../db/repositories/playersRepo";
+import { Player } from "../types";
 
 interface SessionState {
-  /** Joueurs actifs pour la soirée en cours (persistés en DB via upsertPlayers). */
-  players: PlayerRecord[];
-  setPlayers: (players: PlayerRecord[]) => void;
+  /** Joueurs actifs pour la soirée en cours, en mémoire uniquement. */
+  players: Player[];
+  setPlayers: (players: Player[]) => void;
   clearPlayers: () => void;
 }
 

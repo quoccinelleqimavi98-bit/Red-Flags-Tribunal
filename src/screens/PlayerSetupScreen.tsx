@@ -15,7 +15,6 @@ import { SectionTitle } from "@components/SectionTitle";
 import { colors, radius, spacing, typography } from "@core/theme";
 import { RootStackParamList } from "@core/navigation/types";
 import { useSessionStore } from "@core/store/sessionStore";
-import { upsertPlayers } from "@core/db/repositories/playersRepo";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PlayerSetup">;
 
@@ -24,7 +23,6 @@ const AVATAR_EMOJIS = ["🦄", "🐸", "🦊", "🐼", "🐵", "🦁", "🐙", "
 export function PlayerSetupScreen({ navigation }: Props) {
   const [names, setNames] = useState<string[]>([]);
   const [draft, setDraft] = useState("");
-  const [saving, setSaving] = useState(false);
   const setPlayers = useSessionStore((s) => s.setPlayers);
 
   function addPlayer() {
@@ -42,16 +40,11 @@ export function PlayerSetupScreen({ navigation }: Props) {
     setNames((prev) => prev.filter((n) => n !== name));
   }
 
-  async function handleContinue() {
+  function handleContinue() {
     if (names.length < 2) return;
-    setSaving(true);
-    try {
-      const players = await upsertPlayers(names);
-      setPlayers(players);
-      navigation.navigate("GameMenu");
-    } finally {
-      setSaving(false);
-    }
+    const players = names.map((name, index) => ({ id: index + 1, name }));
+    setPlayers(players);
+    navigation.navigate("GameMenu");
   }
 
   return (
@@ -111,7 +104,6 @@ export function PlayerSetupScreen({ navigation }: Props) {
           icon="👉"
           onPress={handleContinue}
           disabled={names.length < 2}
-          loading={saving}
         />
       </View>
     </ScreenBackground>

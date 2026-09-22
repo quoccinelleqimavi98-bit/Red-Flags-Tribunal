@@ -8,7 +8,6 @@ import { PlayerSetupScreen } from "@screens/PlayerSetupScreen";
 import { GameMenuScreen } from "@screens/GameMenuScreen";
 import { GameConfigScreen } from "@screens/GameConfigScreen";
 import { GamePlayScreen } from "@screens/GamePlayScreen";
-import { StatsScreen } from "@screens/StatsScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,7 +35,6 @@ export function RootNavigator() {
         <Stack.Screen name="GameMenu" component={GameMenuScreen} />
         <Stack.Screen name="GameConfig" component={GameConfigScreen} />
         <Stack.Screen name="GamePlay" component={GamePlayScreen} />
-        <Stack.Screen name="Stats" component={StatsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

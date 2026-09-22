@@ -1,28 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ScreenBackground } from "@components/ScreenBackground";
 import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { SipEventModal } from "@components/SipEventModal";
 import { colors, radius, spacing, typography } from "@core/theme";
 import { GamePlayScreenProps } from "@core/games/types";
-import {
-  endGameSession,
-  saveGameResults,
-  saveQuizAnswers,
-  saveSipEvents,
-  startGameSession,
-  GameResultInput,
-  QuizAnswerInput,
-  SipEventInput,
-} from "@core/db/repositories/sessionsRepo";
 import {
   computePoints,
   nextPlayerIndex,
@@ -61,7 +44,6 @@ export function QuizPlayScreen({
   onFinished,
 }: GamePlayScreenProps<QuizConfig>) {
   const questions = useMemo(() => pickQuestions(config), [config]);
-  const [sessionId, setSessionId] = useState<number | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [turnIndex, setTurnIndex] = useState(0);
   const [choices, setChoices] = useState<string[]>(() =>
@@ -80,7 +62,6 @@ export function QuizPlayScreen({
   const [buzzElapsedMs, setBuzzElapsedMs] = useState<number | null>(null);
   const [now, setNow] = useState(Date.now());
   const [finished, setFinished] = useState(false);
-  const [saving, setSaving] = useState(false);
   const [activeSipEvent, setActiveSipEvent] = useState<SipEventTemplate | null>(
     null
   );
@@ -91,16 +72,9 @@ export function QuizPlayScreen({
     return initial;
   });
 
-  const answersLogRef = useRef<QuizAnswerInput[]>([]);
-  const sipEventsLogRef = useRef<SipEventInput[]>([]);
-
   const maybeQuestion: QuizQuestion | undefined = questions[questionIndex];
   const currentPlayer =
     config.mode === "tour_par_tour" ? players[turnIndex % players.length] : null;
-
-  useEffect(() => {
-    startGameSession("quiz", players.map((p) => p.id)).then(setSessionId);
-  }, [players]);
 
   useEffect(() => {
     if (config.mode !== "au_plus_rapide" || answeringPlayerId !== null || resolved) {
@@ -118,16 +92,6 @@ export function QuizPlayScreen({
             Aucune question disponible pour cette configuration.
           </Text>
           <Button label="Retour" onPress={onFinished} style={{ marginTop: spacing.md }} />
-        </View>
-      </ScreenBackground>
-    );
-  }
-
-  if (!sessionId) {
-    return (
-      <ScreenBackground>
-        <View style={styles.center}>
-          <ActivityIndicator color={colors.primary} size="large" />
         </View>
       </ScreenBackground>
     );
@@ -192,16 +156,6 @@ export function QuizPlayScreen({
       },
     }));
 
-    answersLogRef.current.push({
-      playerId: answeringPlayerId,
-      questionId: question.id,
-      theme: question.theme,
-      difficulty: question.difficulty,
-      isCorrect,
-      usedHint: hintUsed,
-      pointsEarned: points,
-    });
-
     setLastCorrect(isCorrect);
     setLastPoints(points);
     setResolved(true);
@@ -217,47 +171,12 @@ export function QuizPlayScreen({
       addSipsGiven(playerId, template.amount * others.length);
       others.forEach((p) => addSipsReceived(p.id, template.amount));
     }
-
-    sipEventsLogRef.current.push({
-      playerId,
-      kind: template.kind,
-      label: template.title,
-      amount: template.amount,
-    });
-  }
-
-  async function finishGame(finalScores: Record<number, PlayerScoreAcc>) {
-    setSaving(true);
-    try {
-      const ranked = players
-        .map((p) => ({ player: p, stats: finalScores[p.id] ?? emptyScore() }))
-        .sort((a, b) => b.stats.score - a.stats.score);
-
-      const results: GameResultInput[] = ranked.map((entry, index) => ({
-        playerId: entry.player.id,
-        score: entry.stats.score,
-        correctAnswers: entry.stats.correctAnswers,
-        totalQuestions: entry.stats.totalQuestions,
-        sipsGiven: entry.stats.sipsGiven,
-        sipsReceived: entry.stats.sipsReceived,
-        hintsUsed: entry.stats.hintsUsed,
-        rank: index + 1,
-      }));
-
-      await saveGameResults(sessionId!, "quiz", results);
-      await saveQuizAnswers(sessionId!, answersLogRef.current);
-      await saveSipEvents(sessionId!, "quiz", sipEventsLogRef.current);
-      await endGameSession(sessionId!);
-    } finally {
-      setSaving(false);
-      setFinished(true);
-    }
   }
 
   function goToNextQuestion() {
     const nextIndex = questionIndex + 1;
     if (nextIndex >= questions.length) {
-      finishGame(scores);
+      setFinished(true);
       return;
     }
     setQuestionIndex(nextIndex);
@@ -454,7 +373,6 @@ export function QuizPlayScreen({
               }
               icon="➡️"
               onPress={handleContinue}
-              loading={saving}
               style={{ marginTop: spacing.md }}
             />
           </Card>

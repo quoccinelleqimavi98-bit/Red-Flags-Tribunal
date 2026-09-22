@@ -4,5 +4,4 @@ export type RootStackParamList = {
   GameMenu: undefined;
   GameConfig: { gameId: string };
   GamePlay: { gameId: string; config: unknown };
-  Stats: undefined;
 };
