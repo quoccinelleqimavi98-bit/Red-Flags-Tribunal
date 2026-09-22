@@ -24,6 +24,9 @@ npm install
 npx expo start
 ```
 
+Le `postinstall` applique automatiquement un correctif (`patch-package`) sur
+`expo-sqlite` — voir la section suivante si vous êtes curieux de pourquoi.
+
 Puis scannez le QR code avec l'app Expo Go, ou lancez un émulateur Android
 (`npm run android`) / simulateur iOS (`npm run ios`).
 
@@ -37,6 +40,43 @@ npx eas build -p android --profile preview
 pour un build local avec Android Studio installé). Un APK est aussi généré
 **automatiquement** à chaque push sur `main` via GitHub Actions — voir la
 section suivante.
+
+## Correctif appliqué à `expo-sqlite` (patch-package)
+
+Toutes les versions d'`expo-sqlite` publiées pour Expo SDK 51 (14.0.0 à
+14.0.6, vérifié en inspectant chaque version) compilent leurs fichiers
+`build/*.js` avec des `export`/`import` relatifs **sans extension**
+(`export * from './SQLiteDatabase'`). Le bundler **Metro** (qui charge ce
+code sur l'appareil/l'émulateur) n'a aucun souci avec ça — mais si un
+processus Node "nu" tente un jour de `require()` ce paquet en dehors de
+Metro (par ex. si `expo-sqlite` est listé par erreur dans `app.json` →
+`plugins`, ce que ce projet évite déjà), Node ≥ 20 lève :
+
+```
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '.../expo-sqlite/build/SQLiteDatabase'
+imported from '.../expo-sqlite/build/index.js'
+```
+
+Le dossier `patches/` contient un correctif (`patch-package`) qui ajoute
+l'extension `.js` explicite à ces imports/exports internes dans
+`node_modules/expo-sqlite`. Il est **appliqué automatiquement** après
+chaque `npm install` via le script `postinstall`. Aucune action requise —
+mais si vous voyez encore cette erreur précise après un `npm install` à
+jour, vérifiez que la sortie de `npm install` mentionne bien :
+
+```
+> party-games@0.1.0 postinstall
+> patch-package
+
+patch-package 8.0.1
+Applying patches...
+expo-sqlite@14.0.6 ✔
+```
+
+Si ce n'est pas le cas (patch non appliqué), lancez `npx patch-package`
+manuellement, ou signalez-le : cela indiquerait un souci d'environnement
+(permissions, antivirus bloquant l'écriture dans `node_modules` sur
+Windows, etc.) plutôt qu'un bug du projet.
 
 ## Configurer les builds Android automatiques (GitHub Actions + EAS)
 
