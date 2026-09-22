@@ -1,5 +1,4 @@
 import { shuffle } from "@core/utils/shuffle";
-import { Player } from "@core/types";
 import { SITUATIONS } from "../data/situations";
 import { MOST_LIKELY_PROMPTS } from "../data/mostLikelyPrompts";
 import { RedFlagConfig, RedFlagMode, RedFlagSituation } from "../types";
@@ -19,20 +18,4 @@ export function pickCards(config: RedFlagConfig): RedFlagSituation[] {
     (s) => s.subthemeId === config.subthemeId
   );
   return shuffle(pool);
-}
-
-/**
- * Tire un joueur au hasard (mode "Le Procès"), en évitant si possible de
- * retirer deux fois de suite la même personne.
- */
-export function drawRandomPlayer(
-  players: Player[],
-  excludePlayerId?: number
-): Player {
-  const pool =
-    players.length > 1 && excludePlayerId !== undefined
-      ? players.filter((p) => p.id !== excludePlayerId)
-      : players;
-  const source = pool.length > 0 ? pool : players;
-  return source[Math.floor(Math.random() * source.length)];
 }

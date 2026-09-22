@@ -225,22 +225,30 @@ Dossier `src/games/redflag/` :
     gorgées — ce mode reste volontairement léger, pensé pour la
     révélation et la discussion plutôt que la sanction.
   - **Le Verdict** (`VerdictPlayScreen`) — vote à main levée réel (🚩 en
-    haut / ✅ en bas), le host reporte ensuite qui a voté quoi en tapant
-    sur les avatars, l'app calcule la minorité et lui inflige une gorgée
-    chacun. Classement des gorgées en fin de partie (`SipsResults`). Ce
-    mode n'utilise pas la carte retournée : swiper fait directement
-    avancer à la situation suivante.
+    haut / ✅ en bas) puis, comme pour Qui l'a déjà vécu ?, la carte se
+    retourne (même `@components/FlipCard`) : au dos (`VerdictBack`), le
+    host reporte qui a levé la main en cochant "Red Flag 🚩" / "Pas Red
+    Flag ✅" pour chaque joueur·se. Une fois le vote reporté, la face
+    arrière affiche le résultat (🚩 vs ✅, minoritaires désigné·s) et
+    inflige une gorgée à chacun·e d'eux avant de passer à la carte
+    suivante. Classement des gorgées en fin de partie (`SipsResults`).
   - **Le Procès** 🎭 (`TrialPlayScreen`) — un·e accusé·e est tiré·e au
-    sort dans la liste des joueurs (`drawRandomPlayer`, en évitant si
-    possible de retirer deux fois de suite la même personne) et affiché·e
-    dans un bandeau au-dessus de la carte, avec un compte à rebours de
-    30 secondes pendant lequel iel doit défendre la situation à voix
-    haute comme un·e avocat·e. Une fois le temps (ou la plaidoirie)
-    écoulé, le host swipe la carte : à gauche = "raté" (pas convaincant·e,
-    l'accusé·e boit), à droite = "validé" (convaincant·e, tout le reste
-    du groupe boit) — deux boutons "Raté"/"Validé" dupliquent le geste
-    pour rester jouable sans swipe. Classement des gorgées en fin de
-    partie (`SipsResults`).
+    sort dans la liste des joueurs via un "sac à jetons" mélangé
+    (`shuffle` sur la liste complète à chaque cycle, plutôt qu'un tirage
+    uniforme carte par carte) : tout le monde passe une fois avant qu'un
+    nom ne puisse revenir, pour un tirage réellement équilibré et sans
+    répétition rapprochée, sans bloquer le cas à 2 joueurs. L'accusé·e
+    s'affiche dans un bandeau au-dessus de la carte ; un petit décompte
+    (3, 2, 1) apparaît en overlay léger dans un coin de la carte — sans
+    jamais la masquer — pour laisser le temps de la lire, puis le compte
+    à rebours de 30 secondes démarre pendant lequel iel doit défendre la
+    situation à voix haute comme un·e avocat·e. Une fois le temps (ou la
+    plaidoirie) écoulé, le host swipe la carte : à gauche = "raté" (pas
+    convaincant·e) affiche un petit message ludique annonçant que
+    l'accusé·e boit une gorgée avant de passer à la suivante ; à droite =
+    "validé" (convaincant·e, tout le reste du groupe boit) — deux boutons
+    "Raté"/"Validé" dupliquent le geste pour rester jouable sans swipe.
+    Classement des gorgées en fin de partie (`SipsResults`).
   - **Ce Serait Qui** 🔮 (`WhoIsMostLikelyPlayScreen`) — un prompt du
     type "la personne la plus susceptible de..." s'affiche ; tout le
     monde désigne en même temps qui ça évoque dans le groupe, sans
