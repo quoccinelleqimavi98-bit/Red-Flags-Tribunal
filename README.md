@@ -1,12 +1,13 @@
 # Red Flag Tribunal 🚩⚖️
 
-Application mobile (React Native / Expo, TypeScript) regroupant plusieurs
-mini-jeux à jouer entre amis lors d'une soirée. L'architecture est conçue
-pour qu'ajouter un nouveau mini-jeu ne nécessite (presque) jamais de
-toucher au cœur de l'application.
+Application mobile (React Native / Expo, TypeScript) : un jeu de soirée à
+jouer entre amis pour débusquer les red flags, en amour comme en amitié.
+L'app se concentre exclusivement sur ce jeu pour l'instant — pas de menu
+multi-jeux.
 
-Version volontairement simple : tout l'état (joueurs, scores) vit en
-mémoire le temps de la soirée, sans base de données ni stats persistées.
+Version volontairement simple : tout l'état (joueurs, avatars, scores) vit
+en mémoire le temps de la session (jusqu'à fermeture de l'app), sans base
+de données ni stats persistées.
 
 ## Identité visuelle
 
@@ -141,85 +142,80 @@ Le workflow reste aussi déclenchable manuellement depuis l'onglet
 > la clé `branches: ["**"]` de `on.push` dans le workflow pour la
 > restreindre à une branche précise (ex. `[main]`).
 
-## Architecture — comment ajouter un nouveau mini-jeu
+## Parcours utilisateur
 
-Toute la logique de découverte des jeux passe par un **registre central**
-(`src/core/games/registry.ts`). Un mini-jeu est un simple objet qui respecte
-l'interface `GameModule` (`src/core/games/types.ts`) :
-
-```ts
-export interface GameModule<TConfig> {
-  id: string;
-  name: string;
-  emoji: string;
-  tagline: string;
-  description: string;
-  color: string;
-  minPlayers: number;
-  variantCount?: number;
-  ConfigScreen: ComponentType<GameConfigScreenProps>;
-  PlayScreen: ComponentType<GamePlayScreenProps<TConfig>>;
-}
+```
+Home ──▶ Category ──▶ [PlayerSetup, une seule fois] ──▶ Subtheme ──▶ Mode ──▶ Play ──▶ Résultats
+           ▲                                                                             │
+           └─────────────────────── "Rejouer" (joueurs conservés) ◀──────────────────────┘
 ```
 
-Pour ajouter un mini-jeu "Ballon Prisonnier des Vannes" par exemple :
+- **Catégorie en premier** (`CategoryScreen`) : 💔 Amour ou 🤝 Amitié,
+  avant même de configurer les joueurs.
+- **Joueurs** (`PlayerSetupScreen`) : uniquement demandé la première fois
+  (`players.length === 0` dans le store). Une fois configurés, ils restent
+  en mémoire pour toute la session — "Rejouer" en fin de partie ramène
+  directement à l'étape Catégorie sans repasser par la saisie des
+  prénoms. La liste des joueurs reste éditable à tout moment via la carte
+  "N joueurs · gérer" sur l'écran Catégorie (route `PlayerSetup` avec
+  `mode: "manage"`, qui revient en arrière au lieu d'avancer dans le
+  parcours) — utile pour un retardataire ou quelqu'un qui part plus tôt.
+- **Sous-thème** (`SubthemeScreen`) puis **Mode de jeu** (`ModeScreen`),
+  filtrés par la catégorie choisie.
+- **Partie** (`PlayScreen`) puis **résultats**, avec deux actions :
+  *Rejouer* (retour à Catégorie, joueurs conservés) ou *Terminer la
+  soirée* (retour à Home).
 
-1. Créer `src/games/ballon-prisonnier/` avec :
-   - `types.ts` (config spécifique au jeu)
-   - `screens/ConfigScreen.tsx` (paramétrage avant de lancer)
-   - `screens/PlayScreen.tsx` (déroulé de la partie)
-   - `index.ts` qui appelle `registerGame({...})`
-2. Ajouter une ligne `import "../../games/ballon-prisonnier";` dans
-   `src/core/games/index.ts`.
+## Avatars
 
-C'est tout : le menu des mini-jeux et la navigation (`GameConfig`/`GamePlay`
-génériques) détectent automatiquement le nouveau jeu. Aucune autre partie
-de l'app n'a besoin d'être modifiée — c'est ce qui permet de livrer de
-nouveaux jeux via de simples patchs.
+Chaque joueur choisit un avatar (10 emojis animaux) lors de sa création,
+modifiable à tout moment depuis l'écran de gestion des joueurs. Le système
+est conçu pour accueillir des illustrations custom plus tard sans rien
+casser : un joueur ne stocke qu'un `avatarId` (`src/core/types.ts`), qui
+pointe vers une entrée du registre `src/core/avatars.ts` :
 
-## Mini-jeu : Red Flag Tribunal
+```ts
+export type AvatarDef =
+  | { id: AvatarId; kind: "emoji"; emoji: string }
+  | { id: AvatarId; kind: "image"; source: ImageSourcePropType };
+```
 
-Dossier `src/games/redflag/` — le jeu qui donne son nom à l'app. Après la
-configuration des joueurs, un assistant en 3 étapes (géré entièrement dans
-`RedFlagConfigScreen.tsx`, sans toucher à la navigation centrale) :
+Remplacer un emoji par une illustration dessinée revient à changer une
+entrée de `AVATARS` (passer `kind` à `"image"` + fournir la source) —
+aucun appelant (`<PlayerAvatar avatarId={...} />`) n'a besoin d'être
+modifié, le composant gère déjà les deux cas. L'avatar s'affiche partout
+où le prénom d'un joueur apparaît (vote, classement, bilan).
 
-1. **Catégorie** : 💔 Amour ou 🤝 Amitié
-2. **Sous-thème** : 5 sous-thèmes Amour (premiers rendez-vous, réseaux
-   sociaux, ex, famille du/de la partenaire, intimité) et 4 sous-thèmes
-   Amitié (groupe d'amis, colocation, argent entre potes, réseaux
-   sociaux) — `data/situations.ts` contient une banque de 8 situations par
-   sous-thème (72 au total), en français, ton fun et provocateur
-3. **Mode de jeu** :
-   - **Red Flag ou Pas** — mode chill, les situations défilent une par
-     une pour lancer la discussion, sans score.
-   - **Le Verdict** — vote à main levée : tout le monde lève la main
-     (🚩 en haut / ✅ en bas), le host reporte ensuite qui a voté quoi en
-     tapant sur les prénoms, l'app calcule la minorité et lui inflige une
-     gorgée chacun. Bilan des gorgées en fin de partie (en mémoire pour
-     la soirée, non sauvegardé).
+## Le jeu : Red Flag Tribunal
 
-## Mini-jeu : Le Quiz Ultime
+Dossier `src/games/redflag/` :
+- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 9 sous-thèmes (5 Amour :
+  premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
+  intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
+  réseaux sociaux), 2 modes de jeu
+- `data/situations.ts` — banque de 72 situations red flag (8 par
+  sous-thème), en français, ton fun et provocateur
+- `components/SituationCard.tsx` — la carte visuelle (fond dégradé rouge
+  pour Amour / or pour Amitié, cadre, emoji du sous-thème en filigrane)
+- `screens/PlayScreen.tsx` — pile de cartes façon TOD (`@components/SwipeCard`,
+  swipe gauche/droite ou bouton "Suivant", carte suivante visible en
+  transparence derrière), avec deux modes :
+  - **Red Flag ou Pas** — "Qui l'a déjà vécu ?" : après lecture, chaque
+    joueur qui reconnaît la situation touche son avatar en bas de l'écran
+    pour "s'accuser" (bascule on/off, plusieurs personnes peuvent se
+    désigner). Un compteur discret cumule les auto-accusations de chacun
+    tout au long de la partie ; en fin de partie, la personne au plus
+    haut compteur reçoit le titre "Le Red Flag de la soirée 🚩👑". Pas de
+    vote, pas de gorgées — ce mode reste volontairement léger, pensé pour
+    la discussion plutôt que la sanction.
+  - **Le Verdict** — vote à main levée réel (🚩 en haut / ✅ en bas), le
+    host reporte ensuite qui a voté quoi en tapant sur les avatars, l'app
+    calcule la minorité et lui inflige une gorgée chacun. Classement des
+    gorgées en fin de partie.
 
-Dossier `src/games/quiz/` :
-- `data/questions.ts` — banque de ~70 questions réparties sur 6 thèmes
-  (Manga, Jeux Vidéo, Séries, Films, Musique, Culture Générale), avec 3
-  niveaux de difficulté, un indice et une anecdote par question
-- `data/sipEvents.ts` — banque d'événements surprise (bonus/malus de
-  gorgées, gages, distributions) tirés aléatoirement pendant la partie
-- `engine/quizEngine.ts` — pioche/mélange aléatoire des questions (pas de
-  répétition dans une partie), calcul du barème (facile/moyen/difficile,
-  pénalité d'indice, bonus de vitesse en mode "au plus rapide")
-- `screens/QuizConfigScreen.tsx` — choix des thèmes, nombre de questions,
-  mode de jeu (chacun son tour / au plus rapide), avec ou sans
-  propositions de réponses
-- `screens/QuizPlayScreen.tsx` — déroulé de la partie, gestion du buzz en
-  mode "au plus rapide", indices, événements surprise, écran de résultats
-  (classement final, gorgées) tenu en mémoire pour la soirée en cours
-
-Toutes les questions et réponses sont piochées et mélangées aléatoirement
-à chaque partie pour une rejouabilité infinie. Les scores et gorgées ne
-sont pas sauvegardés d'une soirée à l'autre : à la fermeture de l'app, tout
-repart de zéro.
+Toutes les situations sont piochées et mélangées aléatoirement à chaque
+partie. Rien n'est sauvegardé d'une soirée à l'autre : à la fermeture de
+l'app, tout repart de zéro (joueurs, avatars, compteurs).
 
 ## Structure du projet
 
@@ -230,12 +226,12 @@ src/
     theme/          couleurs, typographie (Playfair Display + Oswald), espacements
     navigation/      RootNavigator + types de routes
     store/           état de session (joueurs actifs) via zustand, en mémoire
-    games/           registre central des mini-jeux
     utils/           utilitaires partagés (shuffle, ...)
     types.ts         type Player partagé
-  components/        composants UI partagés (Button, Card, Chip, ...)
-  screens/           écrans transverses (Home, PlayerSetup, GameMenu)
+    avatars.ts       registre des avatars (emoji aujourd'hui, image demain)
+  components/        composants UI partagés (Button, Card, SwipeCard,
+                      PlayerAvatar, ScreenBackground, SectionTitle)
+  screens/           Home, PlayerSetup (config + gestion des joueurs)
   games/
-    redflag/         Red Flag Tribunal (voir ci-dessus)
-    quiz/            Le Quiz Ultime (voir ci-dessus)
+    redflag/         Red Flag Tribunal — types, données, moteur, écrans
 ```

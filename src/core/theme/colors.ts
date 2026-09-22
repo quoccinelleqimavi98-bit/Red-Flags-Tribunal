@@ -10,6 +10,10 @@ export const colors = {
   gradientPrimary: ["#ff2d55", "#7a0a1f"] as const,
   gradientGold: ["#f3d98a", "#c9962f"] as const,
   gradientDanger: ["#ff1a3c", "#42030f"] as const,
+  // Fonds de carte par catégorie de situation : Amour = rouge (passion,
+  // accusation), Amitié = or/bronze (loyauté, chaleur).
+  gradientAmour: ["#ff2d55", "#5c0416"] as const,
+  gradientAmitie: ["#e8c98a", "#6b4a1f"] as const,
 
   primary: "#e8112d",
   secondary: "#8a0f2b",
@@ -23,13 +27,6 @@ export const colors = {
   textFaint: "rgba(247, 237, 226, 0.4)",
 
   overlay: "rgba(6, 2, 4, 0.78)",
-
-  themeManga: "#c9184a",
-  themeGaming: "#b08d57",
-  themeSeries: "#7a1f3d",
-  themeFilms: "#d4af37",
-  themeMusique: "#9c2b3d",
-  themeCultureG: "#e8c9a0",
 };
 
 export type AppColors = typeof colors;

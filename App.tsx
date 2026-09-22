@@ -5,8 +5,6 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { RootNavigator } from "@core/navigation/RootNavigator";
 import { colors } from "@core/theme";
-// Enregistre tous les mini-jeux disponibles auprès du registre central.
-import "@core/games";
 
 export default function App() {
   // Import direct des fichiers .ttf (plutôt que le barrel du package) pour

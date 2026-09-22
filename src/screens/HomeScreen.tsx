@@ -22,8 +22,8 @@ export function HomeScreen({ navigation }: Props) {
             La cour est en session
           </Text>
           <Text style={[typography.body, styles.tagline]}>
-            Le pack de mini-jeux pour animer vos soirées entre amis — verdicts
-            sans pitié, gorgées à la clé.
+            Le jeu de soirée qui débusque les red flags entre amis —
+            verdicts sans pitié, gorgées à la clé.
           </Text>
         </View>
 
@@ -31,7 +31,7 @@ export function HomeScreen({ navigation }: Props) {
           <Button
             label="Lancer une soirée"
             icon="⚖️"
-            onPress={() => navigation.navigate("PlayerSetup")}
+            onPress={() => navigation.navigate("Category")}
           />
         </View>
       </View>
