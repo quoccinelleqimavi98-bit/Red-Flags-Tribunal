@@ -16,10 +16,8 @@ toucher au cœur de l'application.
 
 ## Lancer le projet
 
-> **Node.js** : utilisez Node 18 ou 20 LTS (version recommandée par Expo
-> SDK 51). Node 22 provoque une erreur de résolution ESM dans certains
-> paquets natifs (dont `expo-sqlite`) lors de commandes comme
-> `expo export`/`expo prebuild` — sans rapport avec le code de l'app.
+> **Node.js** : Node 18 ou 20 LTS est recommandé par Expo SDK 51, mais le
+> projet fonctionne aussi sous Node 22.
 
 ```bash
 npm install

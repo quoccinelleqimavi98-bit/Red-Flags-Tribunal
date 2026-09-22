@@ -23,7 +23,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.soireegames.app"
-    },
-    "plugins": ["expo-sqlite"]
+    }
   }
 }
