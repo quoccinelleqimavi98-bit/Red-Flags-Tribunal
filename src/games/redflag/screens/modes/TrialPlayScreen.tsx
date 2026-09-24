@@ -12,7 +12,9 @@ import { CardDeck } from "../../components/CardDeck";
 import { SipsResults } from "../../components/SipsResults";
 import { ModePlayScreenProps } from "./types";
 
-const PRE_COUNT_S = 3;
+// 2 secondes de lecture en plus qu'un simple 3-2-1, pour laisser le temps
+// de lire la situation avant que le vrai chrono de 30s ne démarre.
+const PRE_COUNT_S = 5;
 const TRIAL_DURATION_S = 30;
 const LOSE_TOAST_DURATION_MS = 1800;
 

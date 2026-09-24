@@ -14,13 +14,11 @@ interface CrownResultsProps {
   counts: Record<number, number>;
   emptyMessage: string;
   championLabel: string;
-  /** Si défini, affiche "🍻 x N" à côté du/des champion·nes (ex. la double peine de "Ce Serait Qui"). */
-  sipsAwarded?: number;
   onReplay: () => void;
   onEnd: () => void;
 }
 
-/** Classement générique "compteur + couronne" — réutilisé par "Qui l'a déjà vécu ?" et "Ce Serait Qui". */
+/** Classement générique "compteur + couronne" — réutilisé par "Qui l'a déjà vécu ?". */
 export function CrownResults({
   emoji,
   title,
@@ -28,7 +26,6 @@ export function CrownResults({
   counts,
   emptyMessage,
   championLabel,
-  sipsAwarded,
   onReplay,
   onEnd,
 }: CrownResultsProps) {
@@ -63,11 +60,6 @@ export function CrownResults({
             <Text style={[typography.caption, styles.championLabel]}>
               {championLabel}
             </Text>
-            {sipsAwarded ? (
-              <Text style={[typography.bodyBold, styles.championSips]}>
-                {"🍻".repeat(sipsAwarded)} {sipsAwarded} gorgées d'un coup !
-              </Text>
-            ) : null}
           </Card>
         ) : (
           <Text style={[typography.body, styles.subtitle]}>{emptyMessage}</Text>
@@ -135,10 +127,6 @@ const styles = StyleSheet.create({
   championLabel: {
     color: colors.ink,
     marginTop: 2,
-  },
-  championSips: {
-    color: colors.primary,
-    marginTop: spacing.sm,
   },
   tallyRow: {
     flexDirection: "row",

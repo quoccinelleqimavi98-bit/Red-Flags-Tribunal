@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ScreenBackground } from "@components/ScreenBackground";
 import { Button } from "@components/Button";
@@ -22,7 +22,7 @@ export function HomeScreen({ navigation }: Props) {
 
   return (
     <ScreenBackground>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.hero}>
           <Image
             source={require("../../assets/home-logo.png")}
@@ -39,9 +39,9 @@ export function HomeScreen({ navigation }: Props) {
           </Text>
           <View style={styles.disclaimer}>
             <Text style={[typography.caption, styles.disclaimerText]}>
-              🧃 Zéro obligation d'alcool : eau, jus, gage rigolo... à vous de
+              🧃 Zéro obligation d'alcool : eau, jus, gage rigolo, à vous de
               voir. Le seul vrai verdict, c'est de s'amuser dans le respect
-              des limites de chacun·e.
+              des limites de tout le monde.
             </Text>
           </View>
         </View>
@@ -49,43 +49,43 @@ export function HomeScreen({ navigation }: Props) {
         <View style={styles.actions}>
           <Button label="Lancer une soirée" icon="⚖️" onPress={handleStart} />
         </View>
-      </View>
+      </ScrollView>
     </ScreenBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "space-between",
     padding: spacing.lg,
   },
   hero: {
-    marginTop: spacing.xxl,
+    marginTop: spacing.lg,
     alignItems: "center",
   },
   logo: {
-    width: "84%",
+    width: "70%",
     aspectRatio: 924 / 548,
   },
   divider: {
     width: 64,
     height: 2,
     backgroundColor: colors.ink,
-    marginTop: spacing.md,
+    marginTop: spacing.sm,
   },
   kicker: {
     color: colors.ink,
-    marginTop: spacing.sm,
+    marginTop: spacing.xs,
   },
   tagline: {
     color: colors.textMuted,
     textAlign: "center",
-    marginTop: spacing.sm,
+    marginTop: spacing.xs,
     paddingHorizontal: spacing.lg,
   },
   disclaimer: {
-    marginTop: spacing.lg,
+    marginTop: spacing.md,
     marginHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
   },
   actions: {
-    marginBottom: spacing.lg,
+    marginTop: spacing.lg,
+    marginBottom: spacing.md,
   },
 });

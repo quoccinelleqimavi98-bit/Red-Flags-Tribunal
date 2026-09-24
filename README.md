@@ -203,9 +203,9 @@ Dossier `src/games/redflag/` :
   premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
   intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
   réseaux sociaux), 4 modes de jeu
-- `data/situations.ts` — banque de 72 situations red flag (8 par
-  sous-thème), en français, ton fun et provocateur — utilisée par les
-  modes Qui l'a déjà vécu ?, Le Verdict et Le Procès
+- `data/situations.ts` — banque de 93 situations red flag (8 à 15 par
+  sous-thème), en français, ton fun, mordant et bien tranché — utilisée
+  par les modes Qui l'a déjà vécu ?, Le Verdict et Le Procès
 - `data/mostLikelyPrompts.ts` — banque de 36 prompts "la personne la plus
   susceptible de..." (4 par sous-thème), utilisée uniquement par Ce
   Serait Qui — `engine/redflagEngine.ts` (`getCardBank`) sélectionne la
@@ -236,9 +236,9 @@ Dossier `src/games/redflag/` :
     retourne (même `@components/FlipCard`) : au dos (`VerdictBack`), le
     host reporte qui a levé la main en cochant "Red Flag 🚩" / "Pas Red
     Flag ✅" pour chaque joueur·se. Une fois le vote reporté, la face
-    arrière affiche le résultat (🚩 vs ✅, minoritaires désigné·s) et
-    inflige une gorgée à chacun·e d'eux avant de passer à la carte
-    suivante. Classement des gorgées en fin de partie (`SipsResults`).
+    arrière affiche le résultat (🚩 vs ✅, minoritaires désigné·s) : la
+    majorité ne boit rien, seul·e·s les minoritaires prennent une gorgée
+    chacun·e, avant de passer à la carte suivante.
   - **Le Procès** 🎭 (`TrialPlayScreen`) — un·e accusé·e est tiré·e au
     sort dans la liste des joueurs via un "sac à jetons" mélangé
     (`shuffle` sur la liste complète à chaque cycle, plutôt qu'un tirage
@@ -246,16 +246,16 @@ Dossier `src/games/redflag/` :
     nom ne puisse revenir, pour un tirage réellement équilibré et sans
     répétition rapprochée, sans bloquer le cas à 2 joueurs. L'accusé·e
     s'affiche dans un bandeau au-dessus de la carte ; un petit décompte
-    (3, 2, 1) apparaît en overlay léger dans un coin de la carte — sans
-    jamais la masquer — pour laisser le temps de la lire, puis le compte
-    à rebours de 30 secondes démarre pendant lequel iel doit défendre la
-    situation à voix haute comme un·e avocat·e. Une fois le temps (ou la
-    plaidoirie) écoulé, le host swipe la carte : à gauche = "raté" (pas
-    convaincant·e) affiche un petit message ludique annonçant que
-    l'accusé·e boit une gorgée avant de passer à la suivante ; à droite =
-    "validé" (convaincant·e, tout le reste du groupe boit) — deux boutons
-    "Raté"/"Validé" dupliquent le geste pour rester jouable sans swipe.
-    Classement des gorgées en fin de partie (`SipsResults`).
+    (5, 4, 3, 2, 1 — de quoi lire la situation avant que le vrai chrono ne
+    démarre) apparaît en overlay léger dans un coin de la carte — sans
+    jamais la masquer — puis le compte à rebours de 30 secondes démarre
+    pendant lequel iel doit défendre la situation à voix haute comme
+    un·e avocat·e. Une fois le temps (ou la plaidoirie) écoulé, le host
+    swipe la carte : à gauche = "raté" (pas convaincant·e) affiche un
+    petit message ludique annonçant que l'accusé·e boit une gorgée avant
+    de passer à la suivante ; à droite = "validé" (convaincant·e, tout le
+    reste du groupe boit) — deux boutons "Raté"/"Validé" dupliquent le
+    geste pour rester jouable sans swipe.
   - **Ce Serait Qui** 🔮 (`WhoIsMostLikelyPlayScreen`) — un prompt du
     type "la personne la plus susceptible de..." s'affiche ; tout le
     monde désigne en même temps qui ça évoque dans le groupe, sans
@@ -263,10 +263,13 @@ Dossier `src/games/redflag/` :
     la carte (même mécanique de flip que Qui l'a déjà vécu ?) pour
     accéder au dos (`DesignationBack`), où il sélectionne un ou plusieurs
     noms comme "red flag(s) désigné·s" pour cette carte (sélection
-    multiple, un compteur discret par joueur·se en arrière-plan). En fin
-    de partie, la ou les personnes au plus haut compteur reçoivent le
-    titre "Le Red Flag de la soirée" et boivent deux gorgées d'un coup
-    (double peine), via `CrownResults` avec `sipsAwarded={2}`.
+    multiple) : chaque personne désignée boit une gorgée, carte après
+    carte.
+
+Le Verdict, Le Procès et Ce Serait Qui partagent le même écran de fin
+(`SipsResults`) : classement des gorgées de chacun·e, et un encart
+spécial "☠️ Grand·e perdant·e de la soirée" qui inflige une gorgée
+supplémentaire à qui a le score le plus élevé (ex æquo compris).
 
 Toutes les cartes sont piochées et mélangées aléatoirement à chaque
 partie. Rien n'est sauvegardé d'une soirée à l'autre : à la fermeture de

@@ -6,8 +6,8 @@ import { FlipCard } from "@components/FlipCard";
 import { colors, spacing, typography } from "@core/theme";
 import { Player } from "@core/types";
 import { CardDeck } from "../../components/CardDeck";
-import { CrownResults } from "../../components/CrownResults";
 import { DesignationBack } from "../../components/DesignationBack";
+import { SipsResults } from "../../components/SipsResults";
 import { SituationCard } from "../../components/SituationCard";
 import { ModePlayScreenProps } from "./types";
 
@@ -23,7 +23,7 @@ function zeroTally(players: Player[]): Record<number, number> {
   return initial;
 }
 
-/** Mode "Ce Serait Qui" : le groupe désigne à voix haute, le host reporte sur le dos de la carte. */
+/** Mode "Ce Serait Qui" : le groupe désigne à voix haute, chaque désigné·e boit une gorgée, carte par carte. */
 export function WhoIsMostLikelyPlayScreen({
   players,
   category,
@@ -38,7 +38,7 @@ export function WhoIsMostLikelyPlayScreen({
   const [designated, setDesignated] = useState<Record<number, boolean>>(() =>
     zeroBoolMap(players)
   );
-  const [counts, setCounts] = useState<Record<number, number>>(() =>
+  const [sipsTotal, setSipsTotal] = useState<Record<number, number>>(() =>
     zeroTally(players)
   );
 
@@ -61,14 +61,12 @@ export function WhoIsMostLikelyPlayScreen({
 
   if (finished) {
     return (
-      <CrownResults
-        emoji="🔮👑"
+      <SipsResults
+        emoji="🔮"
         title="Le verdict est tombé"
         players={players}
-        counts={counts}
+        sipsTotal={sipsTotal}
         emptyMessage="Personne n'a été désigné·e ce soir, groupe étonnamment discret."
-        championLabel="Le Red Flag de la soirée"
-        sipsAwarded={2}
         onReplay={onReplay}
         onEnd={onEnd}
       />
@@ -80,7 +78,7 @@ export function WhoIsMostLikelyPlayScreen({
   }
 
   function commitAndAdvance() {
-    setCounts((prev) => {
+    setSipsTotal((prev) => {
       const next = { ...prev };
       players.forEach((p) => {
         if (designated[p.id]) next[p.id] = (next[p.id] ?? 0) + 1;

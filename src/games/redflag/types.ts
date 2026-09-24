@@ -89,6 +89,6 @@ export const MODES: RedFlagModeInfo[] = [
     label: "Ce Serait Qui",
     emoji: "🔮",
     description:
-      "Un trait s'affiche, tout le monde désigne en même temps qui ça évoque dans le groupe. Le compteur du/de la plus désigné·e s'affole — double gorgée en fin de soirée.",
+      "Un trait s'affiche, tout le monde désigne en même temps qui ça évoque dans le groupe. Chaque désigné·e boit une gorgée, carte après carte.",
   },
 ];
