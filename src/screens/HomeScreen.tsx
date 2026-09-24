@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ScreenBackground } from "@components/ScreenBackground";
 import { Button } from "@components/Button";
@@ -24,10 +24,11 @@ export function HomeScreen({ navigation }: Props) {
     <ScreenBackground>
       <View style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.emoji}>🚩</Text>
-          <Text style={[typography.huge, styles.title]}>
-            Red Flag{"\n"}Tribunal
-          </Text>
+          <Image
+            source={require("../../assets/home-logo.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
           <View style={styles.divider} />
           <Text style={[typography.caption, styles.kicker]}>
             La cour est en session
@@ -63,23 +64,18 @@ const styles = StyleSheet.create({
     marginTop: spacing.xxl,
     alignItems: "center",
   },
-  emoji: {
-    fontSize: 40,
-    marginBottom: spacing.md,
-  },
-  title: {
-    color: colors.text,
-    textAlign: "center",
-    lineHeight: 44,
+  logo: {
+    width: "84%",
+    aspectRatio: 924 / 548,
   },
   divider: {
     width: 64,
     height: 2,
-    backgroundColor: colors.gold,
+    backgroundColor: colors.ink,
     marginTop: spacing.md,
   },
   kicker: {
-    color: colors.gold,
+    color: colors.ink,
     marginTop: spacing.sm,
   },
   tagline: {

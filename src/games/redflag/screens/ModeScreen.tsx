@@ -62,7 +62,7 @@ export function ModeScreen({ navigation }: Props) {
             key={mode.id}
             onPress={() => navigation.navigate("Category", { mode: mode.id })}
           >
-            <Card accentColor={colors.gold} style={styles.optionCard}>
+            <Card accentColor={colors.ink} style={styles.optionCard}>
               <Text style={styles.optionEmoji}>{mode.emoji}</Text>
               <View style={styles.optionBody}>
                 <Text style={[typography.subtitle, styles.optionLabel]}>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderColor: colors.background,
   },
   playersLabel: {
-    color: colors.gold,
+    color: colors.ink,
   },
   optionCard: {
     flexDirection: "row",

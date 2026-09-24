@@ -21,11 +21,10 @@ export function SituationCard({
 }: SituationCardProps) {
   const gradient =
     category.id === "amour" ? colors.gradientAmour : colors.gradientAmitie;
-  const textColor = category.id === "amour" ? colors.text : colors.background;
-  const mutedTextColor =
-    category.id === "amour"
-      ? "rgba(247, 237, 226, 0.75)"
-      : "rgba(12, 5, 8, 0.65)";
+  // Les deux dégradés (fuchsia vif / mauve sombre) sont assez sombres pour
+  // toujours nécessiter un texte clair, quelle que soit la catégorie.
+  const textColor = colors.onVivid;
+  const mutedTextColor = "rgba(255, 243, 248, 0.75)";
 
   return (
     <LinearGradient

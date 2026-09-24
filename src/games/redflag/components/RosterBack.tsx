@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   title: {
-    color: colors.gold,
+    color: colors.ink,
     textAlign: "center",
     marginBottom: spacing.sm,
   },
@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary + "26",
   },
   pillGold: {
-    borderColor: colors.gold,
-    backgroundColor: colors.gold + "26",
+    borderColor: colors.ink,
+    backgroundColor: colors.ink + "26",
   },
   pillLabel: {
     color: colors.text,

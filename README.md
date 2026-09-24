@@ -11,30 +11,37 @@ de données ni stats persistées.
 
 ## Identité visuelle
 
-Direction artistique sombre et affirmée, pas pastel : fond noir/bordeaux
-nuit (`#0c0508`), rouge vif accusateur en accent (`#e8112d`), touches or
-(`#d4af37`) et blanc cassé (`#f7ede2`) pour l'élégance — voir
-`src/core/theme/colors.ts`.
+Direction artistique claire mais mordante, pas girly/pastel : fond blanc
+cassé légèrement rosé (`#FFF7F9`), rose fuchsia vif en accent principal
+(`#D1146D`, dégradés jusqu'à `#F2278A`), touches mauve/plum sombre pour la
+catégorie Amitié, et un accent sombre quasi-noir (`#3A1428` / texte
+`#1B0714`) pour le texte et les éléments importants — voir
+`src/core/theme/colors.ts`. Le fort contraste texte/fond et les dégradés
+saturés (jamais de rose délavé) gardent le côté "tribunal" tranchant
+malgré une base claire.
 
-Deux polices Google Fonts (`src/core/theme/typography.ts`), chargées via
-`expo-font` + `@expo-google-fonts/*` :
-- **Playfair Display** (graisse 900 Black) pour le grand titre de l'app —
-  un serif dramatique à fort contraste, effet "acte d'accusation".
-- **Oswald** (demi-gras/gras, capitales) pour les titres d'écran, badges
-  et boutons — une sans-serif condensée, effet "document officiel".
+Logo et icônes : illustration 3D dédiée ("RED FLAG TRIBUNAL", cœur brisé)
+déclinée en plusieurs fichiers dans `assets/` —
+- `icon.png` / `adaptive-icon.png` : icône de l'app (classique + Android
+  adaptive, avec `android.adaptiveIcon.backgroundColor` réglé sur le ton
+  rose pâle du badge d'origine dans `app.json`).
+- `home-logo.png` : version détourée (fond transparent) du lockup,
+  affichée en `<Image>` à la place de l'ancien titre texte sur l'écran
+  d'accueil.
+- `splash.png` : même lockup, centré sur le fond clair du splash screen
+  (`app.json` → `splash.backgroundColor`).
 
-D'autres pistes envisagées pour le titre : **Bebas Neue** (ultra-condensée,
-très graphique/poster, mais un peu trop "sport" et pas assez féminine) et
-**Anton** (encore plus massive, trop brutale pour l'équilibre "mordant
-mais élégant" recherché). Playfair Display Black a été retenu pour son
-contraste de graisse (fins/épais) qui donne du caractère sans perdre en
-élégance, complété par Oswald pour que le reste de l'interface (labels,
-boutons, badges) reste lisible à petite taille — un serif dramatique
-partout aurait nui à la lisibilité.
+Une police Google Font (`src/core/theme/typography.ts`), chargée via
+`expo-font` + `@expo-google-fonts/oswald` : **Oswald** (demi-gras/gras,
+capitales) pour les titres d'écran, badges et boutons — une sans-serif
+condensée, effet "document officiel" — complétée par la police système
+pour le texte courant. Le grand titre de l'app n'utilise plus de police
+display dédiée : c'est désormais le logo illustré (`home-logo.png`), donc
+Playfair Display a été retirée du bundle (police et dépendance).
 
 Seuls les fichiers de graisse réellement utilisés sont importés
-directement (`App.tsx`), pas le barrel des packages `@expo-google-fonts`,
-pour ne pas embarquer dans l'APK les ~20 variantes de police inutilisées.
+directement (`App.tsx`), pas le barrel du package `@expo-google-fonts`,
+pour ne pas embarquer dans l'APK les ~12 variantes de police inutilisées.
 
 ## Stack technique
 

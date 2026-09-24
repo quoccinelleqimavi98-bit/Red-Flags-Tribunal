@@ -9,10 +9,8 @@ import { colors } from "@core/theme";
 export default function App() {
   // Import direct des fichiers .ttf (plutôt que le barrel du package) pour
   // que Metro ne bundle que les graisses réellement utilisées, pas les
-  // ~24 variantes disponibles des deux familles de polices.
+  // ~12 variantes disponibles de la famille.
   const [fontsLoaded] = useFonts({
-    PlayfairDisplay_900Black: require("@expo-google-fonts/playfair-display/900Black/PlayfairDisplay_900Black.ttf"),
-    PlayfairDisplay_700Bold_Italic: require("@expo-google-fonts/playfair-display/700Bold_Italic/PlayfairDisplay_700Bold_Italic.ttf"),
     Oswald_400Regular: require("@expo-google-fonts/oswald/400Regular/Oswald_400Regular.ttf"),
     Oswald_500Medium: require("@expo-google-fonts/oswald/500Medium/Oswald_500Medium.ttf"),
     Oswald_600SemiBold: require("@expo-google-fonts/oswald/600SemiBold/Oswald_600SemiBold.ttf"),
@@ -29,7 +27,7 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <RootNavigator />
     </GestureHandlerRootView>
   );

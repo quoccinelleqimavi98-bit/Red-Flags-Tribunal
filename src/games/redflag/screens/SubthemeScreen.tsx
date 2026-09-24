@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   optionCount: {
-    color: colors.gold,
+    color: colors.ink,
     marginTop: 2,
   },
   chevron: {

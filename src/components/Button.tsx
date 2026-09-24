@@ -31,11 +31,13 @@ export function Button({
   const isGhost = variant === "ghost";
   const isGold = variant === "gold";
   const gradientColors = isGold
-    ? colors.gradientGold
+    ? colors.gradientInk
     : variant === "danger"
       ? colors.gradientDanger
       : colors.gradientPrimary;
-  const solidTextColor = isGold ? colors.background : colors.text;
+  // Les trois dégradés pleins (primary/ink/danger) sont tous assez
+  // sombres/vifs pour nécessiter un texte clair, quel que soit le variant.
+  const solidTextColor = colors.onVivid;
 
   const content = (
     <>

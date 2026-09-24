@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   addButtonLabel: {
     fontSize: 24,
     fontWeight: "800",
-    color: colors.background,
+    color: colors.onVivid,
   },
   list: {
     flexGrow: 1,

@@ -4,12 +4,12 @@
     "slug": "soiree-games",
     "version": "0.1.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "scheme": "soireegames",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "backgroundColor": "#0c0508"
+      "backgroundColor": "#FFF7F9"
     },
     "assetBundlePatterns": ["**/*"],
     "android": {
@@ -17,7 +17,7 @@
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0c0508"
+        "backgroundColor": "#ECD8DA"
       }
     },
     "ios": {

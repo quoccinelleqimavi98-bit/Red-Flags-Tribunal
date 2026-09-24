@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   championLabel: {
-    color: colors.gold,
+    color: colors.ink,
     marginTop: 2,
   },
   championSips: {

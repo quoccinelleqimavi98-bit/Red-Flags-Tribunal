@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderWidth: 1.5,
-    borderColor: colors.gold + "55",
+    borderColor: colors.ink + "55",
     padding: spacing.md,
   },
   title: {
-    color: colors.gold,
+    color: colors.ink,
     textAlign: "center",
     marginBottom: spacing.sm,
   },

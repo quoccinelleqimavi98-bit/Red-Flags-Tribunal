@@ -46,7 +46,7 @@ export function VerdictBack({
         </Text>
         <Card
           style={styles.resultCard}
-          accentColor={outcome.minority.length > 0 ? colors.primary : colors.gold}
+          accentColor={outcome.minority.length > 0 ? colors.primary : colors.ink}
         >
           <Text style={[typography.subtitle, { color: colors.text }]}>
             🚩 {outcome.redCount} vs ✅ {outcome.cleanCount}
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   title: {
-    color: colors.gold,
+    color: colors.ink,
     textAlign: "center",
     marginBottom: spacing.sm,
   },
@@ -172,8 +172,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary + "26",
   },
   pillGold: {
-    borderColor: colors.gold,
-    backgroundColor: colors.gold + "26",
+    borderColor: colors.ink,
+    backgroundColor: colors.ink + "26",
   },
   pillLabel: {
     color: colors.text,

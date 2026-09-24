@@ -177,7 +177,7 @@ export function TrialPlayScreen({
           </Text>
         </View>
 
-        <Card accentColor={colors.gold} style={styles.defendantCard}>
+        <Card accentColor={colors.ink} style={styles.defendantCard}>
           <PlayerAvatar avatarId={defendant.avatarId} size={24} />
           <View style={styles.defendantTextBlock}>
             <Text
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   timer: {
-    color: colors.gold,
+    color: colors.ink,
   },
   timerUp: {
     color: colors.primary,
@@ -316,11 +316,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "rgba(12,5,8,0.85)",
     borderWidth: 2,
-    borderColor: colors.gold,
+    borderColor: colors.ink,
     zIndex: 5,
   },
   preCountText: {
-    color: colors.gold,
+    color: colors.ink,
     fontSize: 20,
     fontFamily: typography.bodyBold.fontFamily,
   },
