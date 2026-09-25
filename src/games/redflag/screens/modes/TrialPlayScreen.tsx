@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, View } from "react-native";
 import { ScreenBackground } from "@components/ScreenBackground";
 import { Button } from "@components/Button";
 import { Card } from "@components/Card";
@@ -9,6 +9,7 @@ import { Player } from "@core/types";
 import { shuffle } from "@core/utils/shuffle";
 import { SwipeDirection } from "@components/SwipeCard";
 import { CardDeck } from "../../components/CardDeck";
+import { ModeHeader } from "../../components/ModeHeader";
 import { SipsResults } from "../../components/SipsResults";
 import { ModePlayScreenProps } from "./types";
 
@@ -16,7 +17,9 @@ import { ModePlayScreenProps } from "./types";
 // de lire la situation avant que le vrai chrono de 30s ne démarre.
 const PRE_COUNT_S = 5;
 const TRIAL_DURATION_S = 30;
-const LOSE_TOAST_DURATION_MS = 1800;
+// Le temps qu'un "raté" reste affiché — largement plus long qu'un simple
+// toast, pour laisser le temps de voir/annoncer la gorgée avant d'enchaîner.
+const LOSE_TOAST_DURATION_MS = 3200;
 
 const LOSE_MESSAGES: Array<(name: string) => string> = [
   (name) => `${name} s'écroule à la barre... une gorgée pour ce mensonge !`,
@@ -34,6 +37,7 @@ function zeroTally(players: Player[]): Record<number, number> {
 
 /** Mode "Le Procès" : un·e accusé·e tiré·e au sort défend la situation, le host tranche au swipe. */
 export function TrialPlayScreen({
+  mode,
   players,
   category,
   subtheme,
@@ -69,10 +73,21 @@ export function TrialPlayScreen({
     zeroTally(players)
   );
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toastAnim = useRef(new Animated.Value(0)).current;
 
   const current = cards[index];
   const next = cards[index + 1];
   const isLast = index + 1 >= cards.length;
+
+  useEffect(() => {
+    if (!toast) return;
+    toastAnim.setValue(0);
+    Animated.spring(toastAnim, {
+      toValue: 1,
+      friction: 6,
+      useNativeDriver: true,
+    }).start();
+  }, [toast, toastAnim]);
 
   useEffect(() => {
     if (finished || !current || toast) return;
@@ -170,6 +185,7 @@ export function TrialPlayScreen({
   return (
     <ScreenBackground>
       <View style={styles.content}>
+        <ModeHeader mode={mode} />
         <View style={styles.progressRow}>
           <Text style={[typography.caption, styles.progressText]}>
             {category.emoji} {category.label} · {subtheme.label}
@@ -225,11 +241,29 @@ export function TrialPlayScreen({
 
           {toast ? (
             <View style={styles.toastOverlay} pointerEvents="none">
-              <Card accentColor={colors.primary} style={styles.toastCard}>
-                <Text style={[typography.subtitle, styles.toastText]}>
-                  🍻 {toast}
-                </Text>
-              </Card>
+              <Animated.View
+                style={{
+                  opacity: toastAnim,
+                  transform: [
+                    {
+                      scale: toastAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0.85, 1],
+                      }),
+                    },
+                  ],
+                }}
+              >
+                <Card accentColor={colors.primary} style={styles.toastCard}>
+                  <Text style={styles.toastEmoji}>🍻</Text>
+                  <Text style={[typography.subtitle, styles.toastText]}>
+                    {toast}
+                  </Text>
+                  <Text style={[typography.bodyBold, styles.toastSips]}>
+                    +1 gorgée à boire, séance tenante !
+                  </Text>
+                </Card>
+              </Animated.View>
             </View>
           ) : null}
         </View>
@@ -337,9 +371,18 @@ const styles = StyleSheet.create({
   toastCard: {
     alignItems: "center",
   },
+  toastEmoji: {
+    fontSize: 32,
+    marginBottom: spacing.xs,
+  },
   toastText: {
     color: colors.text,
     textAlign: "center",
+  },
+  toastSips: {
+    color: colors.primary,
+    textAlign: "center",
+    marginTop: spacing.sm,
   },
   panel: {
     marginTop: spacing.md,

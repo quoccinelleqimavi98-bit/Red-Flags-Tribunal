@@ -13,6 +13,8 @@ interface SipsResultsProps {
   players: Player[];
   sipsTotal: Record<number, number>;
   emptyMessage: string;
+  /** Titre affiché au-dessus du/de la premier·e du classement. */
+  grandLoserLabel?: string;
   onReplay: () => void;
   onEnd: () => void;
 }
@@ -29,6 +31,7 @@ export function SipsResults({
   players,
   sipsTotal,
   emptyMessage,
+  grandLoserLabel = "☠️ Grand·e perdant·e de la soirée",
   onReplay,
   onEnd,
 }: SipsResultsProps) {
@@ -66,7 +69,7 @@ export function SipsResults({
                 {grandLosers.map((p) => p.name).join(" & ")}
               </Text>
               <Text style={[typography.caption, styles.grandLoserLabel]}>
-                ☠️ Grand·e perdant·e de la soirée
+                {grandLoserLabel}
               </Text>
               <Text style={[typography.bodyBold, styles.grandLoserBonus]}>
                 +1 gorgée supplémentaire à boire, séance tenante !

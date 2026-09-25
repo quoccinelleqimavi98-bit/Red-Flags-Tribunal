@@ -34,8 +34,8 @@ export function HomeScreen({ navigation }: Props) {
             La cour est en session
           </Text>
           <Text style={[typography.body, styles.tagline]}>
-            Le jeu de soirée qui débusque les red flags entre amis —
-            verdicts sans pitié, gorgées à la clé.
+            Le jeu de soirée qui débusque les red flags entre amis, verdict
+            sans pitié.
           </Text>
           <View style={styles.disclaimer}>
             <Text style={[typography.caption, styles.disclaimerText]}>

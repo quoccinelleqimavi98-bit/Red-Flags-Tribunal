@@ -7,6 +7,7 @@ import { colors, spacing, typography } from "@core/theme";
 import { Player } from "@core/types";
 import { CardDeck } from "../../components/CardDeck";
 import { CrownResults } from "../../components/CrownResults";
+import { ModeHeader } from "../../components/ModeHeader";
 import { RosterBack, ChillStatus } from "../../components/RosterBack";
 import { SituationCard } from "../../components/SituationCard";
 import { ModePlayScreenProps } from "./types";
@@ -25,6 +26,7 @@ function zeroTally(players: Player[]): Record<number, number> {
 
 /** Mode "Qui l'a déjà vécu ?" : la carte se retourne, chaque joueur est marqué vécu/pas vécu. */
 export function ChillPlayScreen({
+  mode,
   players,
   category,
   subtheme,
@@ -71,12 +73,12 @@ export function ChillPlayScreen({
   if (finished) {
     return (
       <CrownResults
-        emoji="🚩👑"
+        emoji="🍀💀"
         title="Le verdict de la soirée"
         players={players}
         counts={counts}
         emptyMessage="Groupe irréprochable ce soir, personne ne s'est accusé·e."
-        championLabel="Le Red Flag de la soirée"
+        championLabel="Champion·ne incontesté·e de la poisse"
         onReplay={onReplay}
         onEnd={onEnd}
       />
@@ -107,6 +109,7 @@ export function ChillPlayScreen({
   return (
     <ScreenBackground>
       <View style={styles.content}>
+        <ModeHeader mode={mode} />
         <View style={styles.progressRow}>
           <Text style={[typography.caption, styles.progressText]}>
             {category.emoji} {category.label} · {subtheme.label}

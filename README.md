@@ -219,7 +219,9 @@ Dossier `src/games/redflag/` :
   du sous-thème (`pickCards`) puis délègue à l'écran du mode choisi dans
   `screens/modes/`. Ajouter un mode = une entrée dans `types.ts` (`MODES`)
   + un écran dans `screens/modes/` + une ligne dans ce switch, sans
-  toucher au reste de l'app :
+  toucher au reste de l'app. Chaque écran de mode affiche en permanence
+  un bandeau `ModeHeader` en haut de l'écran (nom + emoji du mode actif),
+  pour que les joueurs sachent toujours dans quel mode ils sont :
   - **Qui l'a déjà vécu ?** (`ChillPlayScreen`) — au swipe (ou tap), la
     carte effectue une animation de retournement (`@components/FlipCard`,
     rotation 3D sur l'axe vertical) : au dos (`RosterBack`), la liste des
@@ -227,9 +229,10 @@ Dossier `src/games/redflag/` :
     host coche individuellement. Une fois tout le monde renseigné (ou via
     le bouton "Valider"), la carte suivante apparaît, repartie sur sa
     face avant. Un compteur discret cumule les "Vécu" de chacun ; en fin
-    de partie, la personne au plus haut compteur reçoit le titre "Le Red
-    Flag de la soirée 🚩👑" (`CrownResults`). Pas de vote, pas de
-    gorgées — ce mode reste volontairement léger, pensé pour la
+    de partie, la personne au plus haut compteur reçoit le titre
+    "Champion·ne incontesté·e de la poisse 🍀💀" (`CrownResults`) — un
+    clin d'œil à la poisse plutôt qu'un nouveau "red flag". Pas de vote,
+    pas de gorgées — ce mode reste volontairement léger, pensé pour la
     révélation et la discussion plutôt que la sanction.
   - **Le Verdict** (`VerdictPlayScreen`) — vote à main levée réel (🚩 en
     haut / ✅ en bas) puis, comme pour Qui l'a déjà vécu ?, la carte se
@@ -251,11 +254,13 @@ Dossier `src/games/redflag/` :
     jamais la masquer — puis le compte à rebours de 30 secondes démarre
     pendant lequel iel doit défendre la situation à voix haute comme
     un·e avocat·e. Une fois le temps (ou la plaidoirie) écoulé, le host
-    swipe la carte : à gauche = "raté" (pas convaincant·e) affiche un
-    petit message ludique annonçant que l'accusé·e boit une gorgée avant
-    de passer à la suivante ; à droite = "validé" (convaincant·e, tout le
-    reste du groupe boit) — deux boutons "Raté"/"Validé" dupliquent le
-    geste pour rester jouable sans swipe.
+    swipe la carte : à gauche = "raté" (pas convaincant·e) affiche
+    pendant 3,2 secondes un message ludique animé (fondu + zoom en
+    entrée) annonçant la gorgée de l'accusé·e avant de passer à la
+    suivante — volontairement plus long qu'un simple toast, pour laisser
+    le temps de la voir/l'annoncer à voix haute ; à droite = "validé"
+    (convaincant·e, tout le reste du groupe boit) — deux boutons
+    "Raté"/"Validé" dupliquent le geste pour rester jouable sans swipe.
   - **Ce Serait Qui** 🔮 (`WhoIsMostLikelyPlayScreen`) — un prompt du
     type "la personne la plus susceptible de..." s'affiche ; tout le
     monde désigne en même temps qui ça évoque dans le groupe, sans
@@ -268,11 +273,21 @@ Dossier `src/games/redflag/` :
 
 Le Verdict, Le Procès et Ce Serait Qui partagent le même écran de fin
 (`SipsResults`) : classement des gorgées de chacun·e, et un encart
-spécial "☠️ Grand·e perdant·e de la soirée" qui inflige une gorgée
-supplémentaire à qui a le score le plus élevé (ex æquo compris).
+"grand·e perdant·e" qui inflige une gorgée supplémentaire à qui a le
+score le plus élevé (ex æquo compris) — le libellé de cet encart est
+personnalisable par mode (prop `grandLoserLabel`) : "☠️ Grand·e
+perdant·e de la soirée" par défaut (Le Verdict, Le Procès), et "🚩 C'est
+toi le red flag" pour Ce Serait Qui.
 
-Toutes les cartes sont piochées et mélangées aléatoirement à chaque
-partie. Rien n'est sauvegardé d'une soirée à l'autre : à la fermeture de
+Chaque partie pioche au maximum 10 cartes (`MAX_CARDS_PER_GAME` dans
+`engine/redflagEngine.ts`) dans la banque du sous-thème choisi, sans
+répéter une carte déjà servie tant que le reste du sous-thème n'est pas
+épuisé : les ids déjà vus sont mémorisés par sous-thème dans le store de
+session (`seenCardIdsBySubtheme`), et le cycle repart de zéro une fois
+toutes les cartes du sous-thème vues — au fil des parties suivantes de la
+même session, le contenu tourne donc sans répétition immédiate. Toutes
+les cartes piochées sont mélangées aléatoirement. Rien n'est sauvegardé
+d'une soirée à l'autre : à la fermeture de
 l'app, tout repart de zéro (joueurs, avatars, compteurs).
 
 ## Structure du projet

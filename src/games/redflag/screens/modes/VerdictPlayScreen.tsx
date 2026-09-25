@@ -6,6 +6,7 @@ import { FlipCard } from "@components/FlipCard";
 import { colors, spacing, typography } from "@core/theme";
 import { Player } from "@core/types";
 import { CardDeck } from "../../components/CardDeck";
+import { ModeHeader } from "../../components/ModeHeader";
 import { SipsResults } from "../../components/SipsResults";
 import { SituationCard } from "../../components/SituationCard";
 import { Vote, VerdictBack, VerdictOutcome } from "../../components/VerdictBack";
@@ -29,6 +30,7 @@ function zeroTally(players: Player[]): Record<number, number> {
  * a levé la main — l'app calcule la minorité et lui inflige une gorgée.
  */
 export function VerdictPlayScreen({
+  mode,
   players,
   category,
   subtheme,
@@ -117,6 +119,7 @@ export function VerdictPlayScreen({
   return (
     <ScreenBackground>
       <View style={styles.content}>
+        <ModeHeader mode={mode} />
         <View style={styles.progressRow}>
           <Text style={[typography.caption, styles.progressText]}>
             {category.emoji} {category.label} · {subtheme.label}

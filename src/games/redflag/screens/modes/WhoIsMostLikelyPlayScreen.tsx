@@ -7,6 +7,7 @@ import { colors, spacing, typography } from "@core/theme";
 import { Player } from "@core/types";
 import { CardDeck } from "../../components/CardDeck";
 import { DesignationBack } from "../../components/DesignationBack";
+import { ModeHeader } from "../../components/ModeHeader";
 import { SipsResults } from "../../components/SipsResults";
 import { SituationCard } from "../../components/SituationCard";
 import { ModePlayScreenProps } from "./types";
@@ -25,6 +26,7 @@ function zeroTally(players: Player[]): Record<number, number> {
 
 /** Mode "Ce Serait Qui" : le groupe désigne à voix haute, chaque désigné·e boit une gorgée, carte par carte. */
 export function WhoIsMostLikelyPlayScreen({
+  mode,
   players,
   category,
   subtheme,
@@ -67,6 +69,7 @@ export function WhoIsMostLikelyPlayScreen({
         players={players}
         sipsTotal={sipsTotal}
         emptyMessage="Personne n'a été désigné·e ce soir, groupe étonnamment discret."
+        grandLoserLabel="🚩 C'est toi le red flag"
         onReplay={onReplay}
         onEnd={onEnd}
       />
@@ -97,6 +100,7 @@ export function WhoIsMostLikelyPlayScreen({
   return (
     <ScreenBackground>
       <View style={styles.content}>
+        <ModeHeader mode={mode} />
         <View style={styles.progressRow}>
           <Text style={[typography.caption, styles.progressText]}>
             {category.emoji} {category.label} · {subtheme.label}
