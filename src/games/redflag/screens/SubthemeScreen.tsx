@@ -40,7 +40,11 @@ export function SubthemeScreen({ navigation, route }: Props) {
           const count = bank.filter((s) => s.subthemeId === sub.id).length;
           const disabled = count === 0;
           const countLabel =
-            mode === "whoismostlikely" ? "prompts" : "situations";
+            mode === "whoismostlikely"
+              ? "prompts"
+              : mode === "trial"
+                ? "cas à défendre"
+                : "situations";
           return (
             <Pressable
               key={sub.id}

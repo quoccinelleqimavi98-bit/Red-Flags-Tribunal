@@ -203,13 +203,22 @@ Dossier `src/games/redflag/` :
   premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
   intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
   réseaux sociaux), 4 modes de jeu
-- `data/situations.ts` — banque de 93 situations red flag (8 à 15 par
-  sous-thème), en français, ton fun, mordant et bien tranché — utilisée
-  par les modes Qui l'a déjà vécu ?, Le Verdict et Le Procès
+- `data/situations.ts` — banque de 93 situations red flag à la 3e
+  personne ("Il/elle fait X", 8 à 15 par sous-thème), en français, ton
+  fun, mordant et bien tranché — utilisée par Qui l'a déjà vécu ? et
+  Le Verdict
 - `data/mostLikelyPrompts.ts` — banque de 36 prompts "la personne la plus
   susceptible de..." (4 par sous-thème), utilisée uniquement par Ce
-  Serait Qui — `engine/redflagEngine.ts` (`getCardBank`) sélectionne la
-  bonne banque selon le mode
+  Serait Qui
+- `data/defenseCases.ts` — banque de 72 cas à défendre (8 par sous-thème,
+  mêmes sous-thèmes que `situations.ts`), utilisée uniquement par Le
+  Procès : formulés à la 2e personne, en mode plaidoyer ("Défends le fait
+  de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les
+  situations classiques, puisque c'est l'accusé·e lui/elle-même qui doit
+  défendre le comportement à voix haute
+- `engine/redflagEngine.ts` (`getCardBank`) sélectionne la bonne banque
+  selon le mode : Ce Serait Qui → `mostLikelyPrompts.ts`, Le Procès →
+  `defenseCases.ts`, tous les autres modes → `situations.ts`
 - `components/SituationCard.tsx` — la carte visuelle, volontairement
   grande (fond dégradé rouge pour Amour / or pour Amitié, cadre, emoji du
   sous-thème en filigrane), et `components/CardDeck.tsx` qui factorise la
@@ -242,13 +251,16 @@ Dossier `src/games/redflag/` :
     arrière affiche le résultat (🚩 vs ✅, minoritaires désigné·s) : la
     majorité ne boit rien, seul·e·s les minoritaires prennent une gorgée
     chacun·e, avant de passer à la carte suivante.
-  - **Le Procès** 🎭 (`TrialPlayScreen`) — un·e accusé·e est tiré·e au
-    sort dans la liste des joueurs via un "sac à jetons" mélangé
-    (`shuffle` sur la liste complète à chaque cycle, plutôt qu'un tirage
-    uniforme carte par carte) : tout le monde passe une fois avant qu'un
-    nom ne puisse revenir, pour un tirage réellement équilibré et sans
-    répétition rapprochée, sans bloquer le cas à 2 joueurs. L'accusé·e
-    s'affiche dans un bandeau au-dessus de la carte ; un petit décompte
+  - **Le Procès** 🎭 (`TrialPlayScreen`) — pioche dans `defenseCases.ts`
+    (et non `situations.ts`) : la carte affiche directement un plaidoyer
+    à la 2e personne ("Défends le fait de...") que l'accusé·e doit
+    reprendre à son compte. L'accusé·e est tiré·e au sort dans la liste
+    des joueurs via un "sac à jetons" mélangé (`shuffle` sur la liste
+    complète à chaque cycle, plutôt qu'un tirage uniforme carte par
+    carte) : tout le monde passe une fois avant qu'un nom ne puisse
+    revenir, pour un tirage réellement équilibré et sans répétition
+    rapprochée, sans bloquer le cas à 2 joueurs. L'accusé·e s'affiche
+    dans un bandeau au-dessus de la carte ; un petit décompte
     (5, 4, 3, 2, 1 — de quoi lire la situation avant que le vrai chrono ne
     démarre) apparaît en overlay léger dans un coin de la carte — sans
     jamais la masquer — puis le compte à rebours de 30 secondes démarre
