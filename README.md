@@ -210,10 +210,10 @@ Dossier `src/games/redflag/` :
 - `data/mostLikelyPrompts.ts` — banque de 36 prompts "la personne la plus
   susceptible de..." (4 par sous-thème), utilisée uniquement par Ce
   Serait Qui
-- `data/defenseCases.ts` — banque de 72 cas à défendre (8 par sous-thème,
-  mêmes sous-thèmes que `situations.ts`), utilisée uniquement par Le
-  Procès : formulés à la 2e personne, en mode plaidoyer ("Défends le fait
-  de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les
+- `data/defenseCases.ts` — banque de 300 cas à défendre (33 à 34 par
+  sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement
+  par Le Procès : formulés à la 2e personne, en mode plaidoyer ("Défends
+  le fait de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les
   situations classiques, puisque c'est l'accusé·e lui/elle-même qui doit
   défendre le comportement à voix haute
 - `engine/redflagEngine.ts` (`getCardBank`) sélectionne la bonne banque
