@@ -213,6 +213,18 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     subthemeId: "premiers-rdv",
     text: "Défends le fait de rester scotché·e à ton téléphone pour 'juste répondre vite fait' toutes les deux minutes.",
   },
+  {
+    id: "def-rdv-35",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Justifie pourquoi tu précises souvent préférer les amitiés avec le sexe opposé, 'moins compliqué'.",
+  },
+  {
+    id: "def-rdv-36",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Explique pourquoi tu commandes toujours le plat le plus généreux de la carte, question de principe.",
+  },
 
   // ---------- AMOUR — Réseaux sociaux ----------
   {
@@ -412,6 +424,18 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "reseaux-amour",
     text: "Défends le fait de mentir sur ta situation amoureuse en ligne pour continuer à recevoir des messages.",
+  },
+  {
+    id: "def-rsa-34",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "Défends le fait d'affirmer détester les embrouilles, tout en envoyant des messages à rallonge tard le soir.",
+  },
+  {
+    id: "def-rsa-35",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "Justifie pourquoi tu dis ne rien comprendre aux réseaux sociaux sans jamais lâcher ton téléphone.",
   },
 
   // ---------- AMOUR — Les ex ----------
@@ -1273,6 +1297,30 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     subthemeId: "groupe-amis",
     text: "Justifie pourquoi tu ramènes systématiquement quelqu'un de nouveau sans prévenir le groupe.",
   },
+  {
+    id: "def-gpe-35",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Défends le fait de reformuler systématiquement ce que les autres viennent de dire, avec un petit ton d'expert.",
+  },
+  {
+    id: "def-gpe-36",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Défends le fait d'avoir deux discours légèrement différents sur les mêmes sujets selon qui t'écoute.",
+  },
+  {
+    id: "def-gpe-37",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Défends le fait de rire facilement aux blagues un peu limites du groupe, question d'ambiance.",
+  },
+  {
+    id: "def-gpe-38",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Justifie pourquoi tu commentes volontiers les autres du groupe une fois qu'iels ne sont plus là, 'entre nous'.",
+  },
 
   // ---------- AMITIÉ — Colocation ----------
   {
@@ -2085,6 +2133,30 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     subthemeId: "gouts-style",
     text: "Défends le fait de ne jurer que par les trois mêmes films depuis l'enfance, sans jamais regarder une nouveauté.",
   },
+  {
+    id: "def-gst-34",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Justifie pourquoi tu refuses certaines couleurs de vêtements sans trop savoir pourquoi, 'c'est juste pas pour toi'.",
+  },
+  {
+    id: "def-gst-35",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Justifie pourquoi tu portes des vêtements un peu trop ajustés 'pour te sentir bien', même si ça ne colle pas à ton quotidien.",
+  },
+  {
+    id: "def-gst-36",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Justifie ton petit sourire en coin dès que la conversation tourne vers la mode ou la culture pop.",
+  },
+  {
+    id: "def-gst-37",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Explique ton avis tranché sur ce qui est 'authentique' ou non chez les gens.",
+  },
 
   // ---------- TRANSVERSAL — Personnalité & Manies ----------
   {
@@ -2320,5 +2392,53 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "manies-perso",
     text: "Explique pourquoi tu éteins ton téléphone du vendredi soir au lundi matin pour une 'digital detox radicale', en paniquant tout ton entourage.",
+  },
+  {
+    id: "def-man-40",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Explique ta théorie bien à toi sur 'la vraie logique des échecs', sachant que tu n'as jamais dépassé le niveau débutant.",
+  },
+  {
+    id: "def-man-41",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Explique pourquoi tu te décris comme quelqu'un de 'solide', tout en appelant à l'aide pour un rien.",
+  },
+  {
+    id: "def-man-42",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Défends le fait de raconter en détail comment tu gérerais une catastrophe, en mode scénario permanent.",
+  },
+  {
+    id: "def-man-43",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Explique pourquoi tu insistes pour porter les trucs lourds, même quand personne ne te demande rien.",
+  },
+  {
+    id: "def-man-44",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Justifie ton avis tranché sur l'actualité mondiale, construit sur une seule vidéo vue la veille.",
+  },
+  {
+    id: "def-man-45",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Explique pourquoi tu refuses systématiquement de demander ton chemin, quitte à tourner en rond un bon moment.",
+  },
+  {
+    id: "def-man-46",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Défends le fait de rappeler régulièrement que tu sors un peu du lot, sans trop savoir de quel lot exactement.",
+  },
+  {
+    id: "def-man-47",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Explique pourquoi tu minimises volontiers ton anniversaire, tout en gardant un œil sur qui y pense.",
   },
 ];

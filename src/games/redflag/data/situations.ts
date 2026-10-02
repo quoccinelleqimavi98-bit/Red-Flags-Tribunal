@@ -86,6 +86,18 @@ export const SITUATIONS: RedFlagSituation[] = [
     subthemeId: "premiers-rdv",
     text: "Il/elle prend les plats les moins chers pour lui/elle quand c'est le moment de raquer.",
   },
+  {
+    id: "rdv-14",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Il/elle précise souvent préférer les amitiés avec le sexe opposé, 'moins compliqué'.",
+  },
+  {
+    id: "rdv-15",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Il/elle commande toujours le plat le plus généreux de la carte, question de principe.",
+  },
 
   // ---------- AMOUR — Réseaux sociaux ----------
   {
@@ -165,6 +177,18 @@ export const SITUATIONS: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "reseaux-amour",
     text: "Il/elle ne supprime jamais ses mails (le genre à avoir 47 000 e-mails non lus, le chaos incarné).",
+  },
+  {
+    id: "rsa-14",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "Il/elle affirme détester les embrouilles, tout en envoyant des messages assez longs tard le soir.",
+  },
+  {
+    id: "rsa-15",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "Il/elle dit ne rien comprendre aux réseaux sociaux, sans trop lâcher son téléphone pour autant.",
   },
 
   // ---------- AMOUR — Les ex ----------
@@ -443,6 +467,30 @@ export const SITUATIONS: RedFlagSituation[] = [
     category: "amitie",
     subthemeId: "groupe-amis",
     text: "Il/elle va plus souvent au restau avec ses potes qu'avec toi, et franchement, tout le monde y gagne.",
+  },
+  {
+    id: "gpe-12",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Il/elle a tendance à reformuler ce que les autres viennent de dire, avec un petit ton d'expert.",
+  },
+  {
+    id: "gpe-13",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Il/elle a deux discours légèrement différents sur les mêmes sujets selon qui l'écoute.",
+  },
+  {
+    id: "gpe-14",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Il/elle rit facilement aux blagues un peu limites du groupe, question d'ambiance.",
+  },
+  {
+    id: "gpe-15",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Il/elle commente volontiers les autres du groupe une fois qu'iels ne sont plus là, en mode 'entre nous'.",
   },
 
   // ---------- AMITIÉ — Colocation ----------
@@ -844,6 +892,30 @@ export const SITUATIONS: RedFlagSituation[] = [
     subthemeId: "gouts-style",
     text: "Il/elle refuse catégoriquement de regarder la moindre nouveauté cinéma, et ne jure que par les trois mêmes films depuis l'enfance.",
   },
+  {
+    id: "gst-34",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Il/elle refuse certaines couleurs de vêtements sans trop savoir pourquoi, 'c'est juste pas pour moi'.",
+  },
+  {
+    id: "gst-35",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Il/elle porte des vêtements un peu ajustés 'pour se sentir bien', même si le style ne colle pas trop à son quotidien.",
+  },
+  {
+    id: "gst-36",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Il/elle a un petit sourire en coin quand la conversation tourne vers la mode ou la culture pop.",
+  },
+  {
+    id: "gst-37",
+    category: "amour",
+    subthemeId: "gouts-style",
+    text: "Il/elle a un avis assez tranché sur ce qui est 'authentique' ou non chez les gens.",
+  },
 
   // ---------- TRANSVERSAL — Personnalité & Manies ----------
   {
@@ -1079,5 +1151,53 @@ export const SITUATIONS: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "manies-perso",
     text: "Il/elle éteint son téléphone du vendredi soir au lundi matin pour faire une 'digital detox radicale', et panique tout le monde.",
+  },
+  {
+    id: "man-40",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle a une théorie bien à lui/elle sur 'la vraie logique des échecs' qu'il/elle t'explique sans jamais avoir dépassé le niveau débutant.",
+  },
+  {
+    id: "man-41",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle se décrit volontiers comme quelqu'un de 'solide', mais appelle à l'aide pour un rien.",
+  },
+  {
+    id: "man-42",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle raconte volontiers comment il/elle gérerait une catastrophe, en mode scénario catastrophe permanent.",
+  },
+  {
+    id: "man-43",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle insiste pour porter les trucs lourds, même quand personne ne demande rien.",
+  },
+  {
+    id: "man-44",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle a un avis tranché sur l'actualité mondiale, construit sur une vidéo vue la veille.",
+  },
+  {
+    id: "man-45",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle refuse systématiquement de demander son chemin, quitte à tourner en rond un bon moment.",
+  },
+  {
+    id: "man-46",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle aime bien rappeler qu'il/elle sort un peu du lot, sans trop savoir de quel lot exactement.",
+  },
+  {
+    id: "man-47",
+    category: "amour",
+    subthemeId: "manies-perso",
+    text: "Il/elle minimise volontiers son anniversaire, tout en gardant un œil sur qui y pense.",
   },
 ];

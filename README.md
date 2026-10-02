@@ -208,16 +208,18 @@ Dossier `src/games/redflag/` :
   (une entrée par catégorie, même `id`) — sans risque puisque `pickCards`/
   `getCardBank` filtrent uniquement par `subthemeId`, jamais par
   `category` (qui n'est qu'une étiquette d'affichage par carte).
-- `data/situations.ts` — banque de 175 situations red flag à la 3e
-  personne ("Il/elle fait X", 8 à 39 par sous-thème — les deux
+- `data/situations.ts` — banque de 195 situations red flag à la 3e
+  personne ("Il/elle fait X", 8 à 47 par sous-thème — les deux
   transversales sont plus fournies car elles regroupent plusieurs grands
-  thèmes), en français, ton fun, mordant et bien tranché — utilisée par
-  Qui l'a déjà vécu ? et Le Verdict
+  thèmes), en français, ton fun, mordant et bien tranché, avec aussi des
+  formulations volontairement plus subtiles et sujettes à débat (pour
+  susciter l'hésitation plutôt qu'un vote unanime immédiat) — utilisée
+  par Qui l'a déjà vécu ? et Le Verdict
 - `data/mostLikelyPrompts.ts` — banque de 36 prompts "la personne la plus
   susceptible de..." (4 par sous-thème, sous-thèmes classiques
   uniquement — pas encore de contenu pour Goûts & Style / Personnalité &
   Manies), utilisée uniquement par Ce Serait Qui
-- `data/defenseCases.ts` — banque de 382 cas à défendre (33 à 42 par
+- `data/defenseCases.ts` — banque de 402 cas à défendre (33 à 47 par
   sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement
   par Le Procès : formulés à la 2e personne, en mode plaidoyer ("Défends
   le fait de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les
