@@ -199,18 +199,25 @@ où le prénom d'un joueur apparaît (vote, classement, bilan).
 ## Le jeu : Red Flag Tribunal
 
 Dossier `src/games/redflag/` :
-- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 9 sous-thèmes (5 Amour :
+- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 11 sous-thèmes (5 Amour :
   premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
   intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
-  réseaux sociaux), 4 modes de jeu
-- `data/situations.ts` — banque de 93 situations red flag à la 3e
-  personne ("Il/elle fait X", 8 à 15 par sous-thème), en français, ton
-  fun, mordant et bien tranché — utilisée par Qui l'a déjà vécu ? et
-  Le Verdict
+  réseaux sociaux ; 2 **transversales**, accessibles depuis les deux
+  catégories : Goûts & Style 🎨 et Personnalité & Manies 🤪), 4 modes de jeu.
+  Les deux sous-thèmes transversaux apparaissent deux fois dans `SUBTHEMES`
+  (une entrée par catégorie, même `id`) — sans risque puisque `pickCards`/
+  `getCardBank` filtrent uniquement par `subthemeId`, jamais par
+  `category` (qui n'est qu'une étiquette d'affichage par carte).
+- `data/situations.ts` — banque de 175 situations red flag à la 3e
+  personne ("Il/elle fait X", 8 à 39 par sous-thème — les deux
+  transversales sont plus fournies car elles regroupent plusieurs grands
+  thèmes), en français, ton fun, mordant et bien tranché — utilisée par
+  Qui l'a déjà vécu ? et Le Verdict
 - `data/mostLikelyPrompts.ts` — banque de 36 prompts "la personne la plus
-  susceptible de..." (4 par sous-thème), utilisée uniquement par Ce
-  Serait Qui
-- `data/defenseCases.ts` — banque de 300 cas à défendre (33 à 34 par
+  susceptible de..." (4 par sous-thème, sous-thèmes classiques
+  uniquement — pas encore de contenu pour Goûts & Style / Personnalité &
+  Manies), utilisée uniquement par Ce Serait Qui
+- `data/defenseCases.ts` — banque de 382 cas à défendre (33 à 42 par
   sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement
   par Le Procès : formulés à la 2e personne, en mode plaidoyer ("Défends
   le fait de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les
