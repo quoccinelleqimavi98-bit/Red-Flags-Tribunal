@@ -199,26 +199,26 @@ où le prénom d'un joueur apparaît (vote, classement, bilan).
 ## Le jeu : Red Flag Tribunal
 
 Dossier `src/games/redflag/` :
-- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 11 sous-thèmes (5 Amour :
+- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 9 sous-thèmes (5 Amour :
   premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
   intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
-  réseaux sociaux ; 2 **transversales**, accessibles depuis les deux
-  catégories : Goûts & Style 🎨 et Personnalité & Manies 🤪), 4 modes de jeu.
-  Les deux sous-thèmes transversaux apparaissent deux fois dans `SUBTHEMES`
-  (une entrée par catégorie, même `id`) — sans risque puisque `pickCards`/
-  `getCardBank` filtrent uniquement par `subthemeId`, jamais par
-  `category` (qui n'est qu'une étiquette d'affichage par carte).
+  réseaux sociaux), 4 modes de jeu. Tout le contenu "style/goûts/musique/
+  cinéma/manies/phobies" ajouté à une étape antérieure (qui vivait dans
+  deux sous-thèmes transversaux dédiés, "Goûts & Style" et "Personnalité
+  & Manies") a depuis été redistribué dans ces 9 sous-thèmes d'origine,
+  au cas par cas selon le contexte le plus pertinent — pour éviter l'effet
+  "deux méga-catégories à 40+ cartes contre huit à 8-18 cartes" que les
+  deux transversales créaient.
 - `data/situations.ts` — banque de 195 situations red flag à la 3e
-  personne ("Il/elle fait X", 8 à 47 par sous-thème — les deux
-  transversales sont plus fournies car elles regroupent plusieurs grands
-  thèmes), en français, ton fun, mordant et bien tranché, avec aussi des
-  formulations volontairement plus subtiles et sujettes à débat (pour
-  susciter l'hésitation plutôt qu'un vote unanime immédiat) — utilisée
-  par Qui l'a déjà vécu ? et Le Verdict
+  personne ("Il/elle fait X", 9 à 33 par sous-thème), en français, ton
+  fun, mordant et bien tranché, avec aussi des formulations volontairement
+  plus subtiles et sujettes à débat (pour susciter l'hésitation plutôt
+  qu'un vote unanime immédiat) — utilisée par Qui l'a déjà vécu ? et
+  Le Verdict
 - `data/mostLikelyPrompts.ts` — banque de 175 prompts "la personne la plus
-  susceptible de..." (15 par sous-thème classique, 20 pour chacune des
-  deux transversales), utilisée uniquement par Ce Serait Qui
-- `data/defenseCases.ts` — banque de 402 cas à défendre (33 à 47 par
+  susceptible de..." (15 à 25 par sous-thème), utilisée uniquement par
+  Ce Serait Qui
+- `data/defenseCases.ts` — banque de 402 cas à défendre (34 à 56 par
   sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement
   par Le Procès : formulés à la 2e personne, en mode plaidoyer ("Défends
   le fait de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les

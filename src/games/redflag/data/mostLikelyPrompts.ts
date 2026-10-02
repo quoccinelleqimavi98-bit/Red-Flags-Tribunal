@@ -97,6 +97,48 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     subthemeId: "premiers-rdv",
     text: "La personne la plus susceptible d'annoncer vouloir des enfants ou pas dès les cinq premières minutes.",
   },
+  {
+    id: "ml-rdv-16",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de porter la même tenue à toutes les occasions, du mariage au déménagement.",
+  },
+  {
+    id: "ml-rdv-17",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de connaître toutes les tendances mode sans jamais les appliquer à elle/lui-même.",
+  },
+  {
+    id: "ml-rdv-18",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de porter un vêtement bien trop ajusté 'pour se sentir bien'.",
+  },
+  {
+    id: "ml-rdv-19",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de refuser certaines couleurs de vêtements sans trop savoir pourquoi.",
+  },
+  {
+    id: "ml-rdv-20",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de vouloir absolument tester la culture générale de son date.",
+  },
+  {
+    id: "ml-rdv-21",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible d'avoir un style qui ne colle jamais vraiment à l'occasion.",
+  },
+  {
+    id: "ml-rdv-22",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de refuser catégoriquement de demander son chemin, quitte à tourner en rond.",
+  },
 
   // ---------- AMOUR — Réseaux sociaux ----------
   {
@@ -188,6 +230,42 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "reseaux-amour",
     text: "La personne la plus susceptible de prendre des captures d'écran de conversations 'juste au cas où'.",
+  },
+  {
+    id: "ml-rsa-16",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "La personne la plus susceptible d'avoir un tatouage dont iel regrette déjà le dessin.",
+  },
+  {
+    id: "ml-rsa-17",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "La personne la plus susceptible de connaître par cœur la discographie d'un artiste que personne d'autre n'écoute.",
+  },
+  {
+    id: "ml-rsa-18",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "La personne la plus susceptible de porter fièrement un t-shirt de groupe dont iel ne connaît que deux chansons.",
+  },
+  {
+    id: "ml-rsa-19",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "La personne la plus susceptible de répondre avec deux jours de retard en prétextant avoir 'oublié' son téléphone.",
+  },
+  {
+    id: "ml-rsa-20",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "La personne la plus susceptible d'analyser chaque message reçu comme s'il cachait un sens secret.",
+  },
+  {
+    id: "ml-rsa-21",
+    category: "amour",
+    subthemeId: "reseaux-amour",
+    text: "La personne la plus susceptible d'éteindre son téléphone tout un weekend pour une 'digital detox' non annoncée.",
   },
 
   // ---------- AMOUR — Les ex ----------
@@ -465,6 +543,66 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     subthemeId: "intimite",
     text: "La personne la plus susceptible de juger le passé amoureux de son/sa partenaire à voix haute.",
   },
+  {
+    id: "ml-int-16",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de noter chaque film vu avec une rigueur digne d'un concours.",
+  },
+  {
+    id: "ml-int-17",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de collectionner un objet improbable en pensant que ça prendra de la valeur.",
+  },
+  {
+    id: "ml-int-18",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de refuser une télévision tout en ayant un équipement hors de prix pour ses films.",
+  },
+  {
+    id: "ml-int-19",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de raconter en détail comment iel gérerait une catastrophe imaginaire.",
+  },
+  {
+    id: "ml-int-20",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible d'insister pour porter les objets lourds même quand personne ne demande rien.",
+  },
+  {
+    id: "ml-int-21",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de refuser de fêter son anniversaire tout en guettant qui y pense.",
+  },
+  {
+    id: "ml-int-22",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible d'avoir une collection d'enfance qui prend la moitié du lit.",
+  },
+  {
+    id: "ml-int-23",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible d'avoir une phobie très précise et complètement disproportionnée.",
+  },
+  {
+    id: "ml-int-24",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de préférer passer ses weekends seul·e plutôt qu'en société.",
+  },
+  {
+    id: "ml-int-25",
+    category: "amour",
+    subthemeId: "intimite",
+    text: "La personne la plus susceptible de garder une routine du quotidien immuable, quoi qu'il arrive.",
+  },
 
   // ---------- AMITIÉ — Groupe d'amis ----------
   {
@@ -556,6 +694,54 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     category: "amitie",
     subthemeId: "groupe-amis",
     text: "La personne la plus susceptible d'avoir deux discours différents sur le même sujet selon qui l'écoute.",
+  },
+  {
+    id: "ml-gpe-16",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'avoir une théorie bien à elle/lui sur un sujet qu'iel maîtrise à peine.",
+  },
+  {
+    id: "ml-gpe-17",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de ne jurer que par un seul genre musical, au point d'en écœurer tout le monde.",
+  },
+  {
+    id: "ml-gpe-18",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de remettre toujours le même tube à fond dès que la soirée commence à traîner.",
+  },
+  {
+    id: "ml-gpe-19",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de refuser tout film grand public par pur réflexe de snobisme.",
+  },
+  {
+    id: "ml-gpe-20",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'imposer sa playlist à toute la voiture sans demander l'avis de personne.",
+  },
+  {
+    id: "ml-gpe-21",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de s'endormir en pleine conversation dès que l'énergie sociale est épuisée.",
+  },
+  {
+    id: "ml-gpe-22",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'avoir un filtre proche de zéro sur les commentaires physiques.",
+  },
+  {
+    id: "ml-gpe-23",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de ne jamais retenir un prénom du premier coup.",
   },
 
   // ---------- AMITIÉ — Colocation ----------
@@ -649,6 +835,24 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     subthemeId: "coloc",
     text: "La personne la plus susceptible de laisser la vaisselle tremper 'pour plus tard' pendant des jours.",
   },
+  {
+    id: "ml-col-16",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de tout planifier à la minute près, tableur à l'appui.",
+  },
+  {
+    id: "ml-col-17",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de refuser d'allumer le chauffage en hiver par principe.",
+  },
+  {
+    id: "ml-col-18",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de refuser de prêter un objet précis, ligne rouge absolue.",
+  },
 
   // ---------- AMITIÉ — Argent entre potes ----------
   {
@@ -740,6 +944,18 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     category: "amitie",
     subthemeId: "argent-potes",
     text: "La personne la plus susceptible de dépenser sans compter en soirée puis de dire qu'iel est fauché·e le lendemain.",
+  },
+  {
+    id: "ml-arg-16",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "La personne la plus susceptible de passer des heures à comparer des produits pour acheter toujours la même chose.",
+  },
+  {
+    id: "ml-arg-17",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "La personne la plus susceptible de refuser tout abonnement payant par principe, quitte à perdre des heures à chercher une alternative.",
   },
 
   // ---------- AMITIÉ — Réseaux sociaux ----------
@@ -833,248 +1049,28 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     subthemeId: "reseaux-amitie",
     text: "La personne la plus susceptible de partager sans prévenir une photo de soirée gênante d'un·e ami·e.",
   },
-
-  // ---------- TRANSVERSAL — Goûts & Style ----------
   {
-    id: "ml-gst-1",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible d'avoir une théorie bien à elle/lui sur un sujet qu'iel maîtrise à peine.",
-  },
-  {
-    id: "ml-gst-2",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de porter la même tenue à toutes les occasions, du mariage au déménagement.",
-  },
-  {
-    id: "ml-gst-3",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de connaître toutes les tendances mode sans jamais les appliquer à elle/lui-même.",
-  },
-  {
-    id: "ml-gst-4",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible d'avoir un tatouage dont iel regrette déjà le dessin.",
-  },
-  {
-    id: "ml-gst-5",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de ne jurer que par un seul genre musical, au point d'en écœurer tout le monde.",
-  },
-  {
-    id: "ml-gst-6",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de connaître par cœur la discographie d'un artiste que personne d'autre n'écoute.",
-  },
-  {
-    id: "ml-gst-7",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de remettre toujours le même tube à fond dès que la soirée commence à traîner.",
-  },
-  {
-    id: "ml-gst-8",
-    category: "amour",
-    subthemeId: "gouts-style",
+    id: "ml-rse-16",
+    category: "amitie",
+    subthemeId: "reseaux-amitie",
     text: "La personne la plus susceptible de juger les goûts musicaux ou cinéma des autres sans se l'avouer.",
   },
   {
-    id: "ml-gst-9",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de refuser tout film grand public par pur réflexe de snobisme.",
-  },
-  {
-    id: "ml-gst-10",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de noter chaque film vu avec une rigueur digne d'un concours.",
-  },
-  {
-    id: "ml-gst-11",
-    category: "amour",
-    subthemeId: "gouts-style",
+    id: "ml-rse-17",
+    category: "amitie",
+    subthemeId: "reseaux-amitie",
     text: "La personne la plus susceptible d'avoir un avis tranché sur ce qui est 'authentique' ou non chez les autres.",
   },
   {
-    id: "ml-gst-12",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de collectionner un objet improbable en pensant que ça prendra de la valeur.",
-  },
-  {
-    id: "ml-gst-13",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de porter un vêtement bien trop ajusté 'pour se sentir bien'.",
-  },
-  {
-    id: "ml-gst-14",
-    category: "amour",
-    subthemeId: "gouts-style",
+    id: "ml-rse-18",
+    category: "amitie",
+    subthemeId: "reseaux-amitie",
     text: "La personne la plus susceptible d'avoir un petit sourire en coin dès qu'on parle de culture populaire.",
   },
   {
-    id: "ml-gst-15",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de refuser certaines couleurs de vêtements sans trop savoir pourquoi.",
-  },
-  {
-    id: "ml-gst-16",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible d'imposer sa playlist à toute la voiture sans demander l'avis de personne.",
-  },
-  {
-    id: "ml-gst-17",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de porter fièrement un t-shirt de groupe dont iel ne connaît que deux chansons.",
-  },
-  {
-    id: "ml-gst-18",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de vouloir absolument tester la culture générale de son date.",
-  },
-  {
-    id: "ml-gst-19",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible de refuser une télévision tout en ayant un équipement hors de prix pour ses films.",
-  },
-  {
-    id: "ml-gst-20",
-    category: "amour",
-    subthemeId: "gouts-style",
-    text: "La personne la plus susceptible d'avoir un style qui ne colle jamais vraiment à l'occasion.",
-  },
-
-  // ---------- TRANSVERSAL — Personnalité & Manies ----------
-  {
-    id: "ml-man-1",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de tout planifier à la minute près, tableur à l'appui.",
-  },
-  {
-    id: "ml-man-2",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de s'endormir en pleine conversation dès que l'énergie sociale est épuisée.",
-  },
-  {
-    id: "ml-man-3",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de refuser catégoriquement de demander son chemin, quitte à tourner en rond.",
-  },
-  {
-    id: "ml-man-4",
-    category: "amour",
-    subthemeId: "manies-perso",
+    id: "ml-rse-19",
+    category: "amitie",
+    subthemeId: "reseaux-amitie",
     text: "La personne la plus susceptible d'avoir un avis tranché sur l'actualité basé sur une seule vidéo vue la veille.",
-  },
-  {
-    id: "ml-man-5",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de raconter en détail comment iel gérerait une catastrophe imaginaire.",
-  },
-  {
-    id: "ml-man-6",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible d'insister pour porter les objets lourds même quand personne ne demande rien.",
-  },
-  {
-    id: "ml-man-7",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de refuser de fêter son anniversaire tout en guettant qui y pense.",
-  },
-  {
-    id: "ml-man-8",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible d'avoir un filtre proche de zéro sur les commentaires physiques.",
-  },
-  {
-    id: "ml-man-9",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de refuser d'allumer le chauffage en hiver par principe.",
-  },
-  {
-    id: "ml-man-10",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de passer des heures à comparer des produits pour acheter toujours la même chose.",
-  },
-  {
-    id: "ml-man-11",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de répondre avec deux jours de retard en prétextant avoir 'oublié' son téléphone.",
-  },
-  {
-    id: "ml-man-12",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible d'analyser chaque message reçu comme s'il cachait un sens secret.",
-  },
-  {
-    id: "ml-man-13",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible d'avoir une collection d'enfance qui prend la moitié du lit.",
-  },
-  {
-    id: "ml-man-14",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de refuser de prêter un objet précis, ligne rouge absolue.",
-  },
-  {
-    id: "ml-man-15",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible d'éteindre son téléphone tout un weekend pour une 'digital detox' non annoncée.",
-  },
-  {
-    id: "ml-man-16",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible d'avoir une phobie très précise et complètement disproportionnée.",
-  },
-  {
-    id: "ml-man-17",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de ne jamais retenir un prénom du premier coup.",
-  },
-  {
-    id: "ml-man-18",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de préférer passer ses weekends seul·e plutôt qu'en société.",
-  },
-  {
-    id: "ml-man-19",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de refuser tout abonnement payant par principe, quitte à perdre des heures à chercher une alternative.",
-  },
-  {
-    id: "ml-man-20",
-    category: "amour",
-    subthemeId: "manies-perso",
-    text: "La personne la plus susceptible de garder une routine du quotidien immuable, quoi qu'il arrive.",
   },
 ];
