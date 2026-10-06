@@ -7,15 +7,23 @@ import { SectionTitle } from "@components/SectionTitle";
 import { colors, spacing, typography } from "@core/theme";
 import { RootStackParamList } from "@core/navigation/types";
 import { getCardBank } from "../engine/redflagEngine";
+import { SITUATIONS } from "../data/situations";
+import { DEFENSE_CASES } from "../data/defenseCases";
+import { MOST_LIKELY_PROMPTS } from "../data/mostLikelyPrompts";
 import { CATEGORIES, SUBTHEMES } from "../types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Subtheme">;
+
+/** "Mode Surprise" n'a pas de banque propre : le compteur additionne les
+ * 3 banques classiques, puisque chaque carte piochée peut venir de l'une
+ * ou l'autre selon le sous-mode tiré au sort. */
+const ALL_BANKS = [...SITUATIONS, ...DEFENSE_CASES, ...MOST_LIKELY_PROMPTS];
 
 export function SubthemeScreen({ navigation, route }: Props) {
   const { mode, category } = route.params;
   const categoryInfo = CATEGORIES.find((c) => c.id === category);
   const subthemes = SUBTHEMES.filter((s) => s.category === category);
-  const bank = getCardBank(mode);
+  const bank = mode === "mix" ? ALL_BANKS : getCardBank(mode);
 
   return (
     <ScreenBackground>
@@ -44,7 +52,9 @@ export function SubthemeScreen({ navigation, route }: Props) {
               ? "prompts"
               : mode === "trial"
                 ? "cas à défendre"
-                : "situations";
+                : mode === "mix"
+                  ? "cartes mélangées"
+                  : "situations";
           return (
             <Pressable
               key={sub.id}

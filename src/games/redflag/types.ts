@@ -1,5 +1,7 @@
 export type RedFlagCategory = "amour" | "amitie";
-export type RedFlagMode = "chill" | "verdict" | "trial" | "whoismostlikely";
+export type RedFlagMode = "chill" | "verdict" | "trial" | "whoismostlikely" | "mix";
+/** Les 4 modes "classiques" que "Mode Surprise" peut piocher au hasard. */
+export type RedFlagSubMode = Exclude<RedFlagMode, "mix">;
 
 export interface RedFlagCategoryInfo {
   id: RedFlagCategory;
@@ -90,5 +92,12 @@ export const MODES: RedFlagModeInfo[] = [
     emoji: "🔮",
     description:
       "Un trait s'affiche, tout le monde désigne en même temps qui ça évoque dans le groupe. Chaque désigné·e boit une gorgée, carte après carte.",
+  },
+  {
+    id: "mix",
+    label: "Mode Surprise",
+    emoji: "🎲",
+    description:
+      "Trop dur de choisir ? L'appli tire au hasard entre les 4 modes au fil des cartes, par petites salves pour garder le rythme. Les règles du mode actif s'affichent à chaque carte, et toutes les gorgées se cumulent dans un seul bilan final.",
   },
 ];

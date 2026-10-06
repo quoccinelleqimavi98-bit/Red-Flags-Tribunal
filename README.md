@@ -202,7 +202,8 @@ Dossier `src/games/redflag/` :
 - `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 9 sous-thèmes (5 Amour :
   premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
   intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
-  réseaux sociaux), 4 modes de jeu. Tout le contenu "style/goûts/musique/
+  réseaux sociaux), 5 modes de jeu (4 "classiques" + Mode Surprise, qui les
+  mélange). Tout le contenu "style/goûts/musique/
   cinéma/manies/phobies" ajouté à une étape antérieure (qui vivait dans
   deux sous-thèmes transversaux dédiés, "Goûts & Style" et "Personnalité
   & Manies") a depuis été redistribué dans ces 9 sous-thèmes d'origine,
@@ -231,19 +232,21 @@ Dossier `src/games/redflag/` :
   défendre le comportement à voix haute
 - `engine/redflagEngine.ts` (`getCardBank`) sélectionne la bonne banque
   selon le mode : Ce Serait Qui → `mostLikelyPrompts.ts`, Le Procès →
-  `defenseCases.ts`, tous les autres modes → `situations.ts`
+  `defenseCases.ts`, tous les autres modes classiques → `situations.ts`
+  (Mode Surprise n'a pas de banque propre, voir plus bas)
 - `components/SituationCard.tsx` — la carte visuelle, volontairement
   grande (fond dégradé rouge pour Amour / or pour Amitié, cadre, emoji du
   sous-thème en filigrane), et `components/CardDeck.tsx` qui factorise la
   pile façon TOD (carte suivante visible en transparence derrière +
-  carte active swipeable) partagée par les 4 modes
+  carte active swipeable) partagée par tous les modes
 - `screens/PlayScreen.tsx` — un simple dispatcher : il pioche les cartes
-  du sous-thème (`pickCards`) puis délègue à l'écran du mode choisi dans
-  `screens/modes/`. Ajouter un mode = une entrée dans `types.ts` (`MODES`)
-  + un écran dans `screens/modes/` + une ligne dans ce switch, sans
-  toucher au reste de l'app. Chaque écran de mode affiche en permanence
-  un bandeau `ModeHeader` en haut de l'écran (nom + emoji du mode actif),
-  pour que les joueurs sachent toujours dans quel mode ils sont :
+  du sous-thème (`pickPlayCards`) puis délègue à l'écran du mode choisi
+  dans `screens/modes/`. Ajouter un mode classique = une entrée dans
+  `types.ts` (`MODES`) + un écran dans `screens/modes/` + une ligne dans
+  ce switch, sans toucher au reste de l'app. Chaque écran de mode affiche
+  en permanence un bandeau `ModeHeader` en haut de l'écran (nom + emoji du
+  mode actif), pour que les joueurs sachent toujours dans quel mode ils
+  sont :
   - **Qui l'a déjà vécu ?** (`ChillPlayScreen`) — au swipe (ou tap), la
     carte effectue une animation de retournement (`@components/FlipCard`,
     rotation 3D sur l'axe vertical) : au dos (`RosterBack`), la liste des
@@ -295,17 +298,45 @@ Dossier `src/games/redflag/` :
     noms comme "red flag(s) désigné·s" pour cette carte (sélection
     multiple) : chaque personne désignée boit une gorgée, carte après
     carte.
+  - **Mode Surprise** 🎲 (`MixPlayScreen`) — pour les tables qui ne
+    veulent pas choisir entre les 4 modes ci-dessus : à chaque nouvelle
+    partie, une séquence de sous-modes est tirée au hasard par salves de
+    2 ou 3 cartes consécutives (`buildMixRoundPlan` /
+    `pickMixCards`), sans jamais répéter le sous-mode de la salve
+    précédente — assez pour garder une mécanique cohérente le temps de
+    quelques cartes, assez court pour que ça reste une surprise. Chaque
+    carte est piochée à la volée dans la banque du sous-mode tiré
+    (`situations.ts` pour Vécu/Verdict, `defenseCases.ts` pour le Procès,
+    `mostLikelyPrompts.ts` pour Ce Serait Qui), en excluant à chaque
+    tirage toutes les cartes déjà servies cette partie — un seul
+    historique partagé entre tous les sous-modes, pour qu'une même
+    situation ne ressorte jamais deux fois sous deux mécaniques
+    différentes (Vécu et Verdict piochent tous les deux dans
+    `situations.ts`). `MixPlayScreen` réutilise directement les dos de
+    carte des 4 écrans dédiés (`RosterBack`, `VerdictBack`,
+    `DesignationBack`, la mise en page du Procès) : le `ModeHeader` en
+    haut de l'écran affiche systématiquement le sous-mode actif (nom +
+    emoji), avec un petit bandeau "🎲 Mode Surprise" au-dessus pour le
+    contexte, afin que les joueurs sachent toujours quelle règle
+    appliquer à la carte en cours. Toutes les gorgées des 4 mécaniques se
+    cumulent dans un seul et même bilan final : un "vécu" compte comme
+    une gorgée au même titre qu'un vote minoritaire, une plaidoirie ratée
+    ou une désignation.
 
-Le Verdict, Le Procès et Ce Serait Qui partagent le même écran de fin
-(`SipsResults`) : classement des gorgées de chacun·e, et un encart
-"grand·e perdant·e" qui inflige une gorgée supplémentaire à qui a le
-score le plus élevé (ex æquo compris) — le libellé de cet encart est
+Le Verdict, Le Procès, Ce Serait Qui et Mode Surprise partagent le même
+écran de fin (`SipsResults`) : classement des gorgées de chacun·e, et un
+encart "grand·e perdant·e" qui inflige une gorgée supplémentaire à qui a
+le score le plus élevé (ex æquo compris) — le libellé de cet encart est
 personnalisable par mode (prop `grandLoserLabel`) : "☠️ Grand·e
-perdant·e de la soirée" par défaut (Le Verdict, Le Procès), et "🚩 C'est
-toi le red flag" pour Ce Serait Qui.
+perdant·e de la soirée" par défaut (Le Verdict, Le Procès), "🚩 C'est
+toi le red flag" pour Ce Serait Qui, et "🚩 Red Flag de la soirée" pour
+Mode Surprise. Seul "Qui l'a déjà vécu ?" reste à part avec son propre
+écran (`CrownResults`), puisque joué seul il reste volontairement sans
+gorgées — un simple compteur de "poisse".
 
 Chaque partie pioche au maximum 10 cartes (`MAX_CARDS_PER_GAME` dans
-`engine/redflagEngine.ts`) dans la banque du sous-thème choisi, sans
+`engine/redflagEngine.ts`) dans la banque du sous-thème choisi (ou, pour
+Mode Surprise, dans celle du sous-mode tiré au sort carte par carte), sans
 répéter une carte déjà servie tant que le reste du sous-thème n'est pas
 épuisé : les ids déjà vus sont mémorisés par sous-thème dans le store de
 session (`seenCardIdsBySubtheme`), et le cycle repart de zéro une fois
