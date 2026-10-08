@@ -215,8 +215,8 @@ Dossier `src/games/redflag/` :
   tranché, avec aussi des formulations volontairement plus subtiles et
   sujettes à débat (pour susciter l'hésitation plutôt qu'un vote unanime
   immédiat) — utilisée par Qui l'a déjà vécu ? et Le Verdict
-- `data/mostLikelyPrompts.ts` — banque de 178 prompts "la personne la plus
-  susceptible de..." (15 à 42 par sous-thème), utilisée uniquement par
+- `data/mostLikelyPrompts.ts` — banque de 192 prompts "la personne la plus
+  susceptible de..." (15 à 44 par sous-thème), utilisée uniquement par
   Ce Serait Qui
 - `data/defenseCases.ts` — banque de 524 cas à défendre (39 à 103 par
   sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement

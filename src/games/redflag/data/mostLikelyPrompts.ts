@@ -165,6 +165,18 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible de répondre avec deux jours de retard en prétextant avoir 'oublié' son téléphone.",
   },
 
+  {
+    id: "ml-rdv-27",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de porter son sac à dos sur le ventre.",
+  },
+  {
+    id: "ml-rdv-28",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "La personne la plus susceptible de porter des claquettes-chaussettes ou des Birkenstock en toute occasion.",
+  },
   // ---------- AMOUR — Quotidien à deux ----------
   {
     id: "ml-qad-1",
@@ -256,6 +268,36 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "quotidien-deux",
     text: "La personne la plus susceptible de refuser le savon 'pour respecter son microbiote', au grand désespoir de tout le monde.",
+  },
+  {
+    id: "ml-qad-16",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de passer des heures à fabriquer des costumes pour des conventions.",
+  },
+  {
+    id: "ml-qad-17",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de passer des soirées entières sur son jeu vidéo du moment.",
+  },
+  {
+    id: "ml-qad-18",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de partir pour de longues sorties vélo tous les samedis matin.",
+  },
+  {
+    id: "ml-qad-19",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de peser ses pâtes avant de les cuire.",
+  },
+  {
+    id: "ml-qad-20",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de s'arracher les ongles avec les dents plutôt que de les couper.",
   },
   // ---------- AMOUR — Les ex ----------
   {
@@ -879,6 +921,18 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible d'avoir un avis tranché sur l'actualité basé sur une seule vidéo vue la veille.",
   },
 
+  {
+    id: "ml-gpe-43",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de collectionner des panneaux de circulation récupérés en soirée.",
+  },
+  {
+    id: "ml-gpe-44",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de marcher si lentement que tout le monde doit la/le dépasser sur le trottoir.",
+  },
   // ---------- AMITIÉ — Colocation ----------
   {
     id: "ml-col-1",
@@ -989,6 +1043,36 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible de refuser de prêter un objet précis, ligne rouge absolue.",
   },
 
+  {
+    id: "ml-col-19",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible d'utiliser absolument tous les ustensiles de la cuisine en même temps.",
+  },
+  {
+    id: "ml-col-20",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de laisser une pile de tasses sales traîner sur son bureau.",
+  },
+  {
+    id: "ml-col-21",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de ne jamais refermer correctement le paquet de beurre au frigo.",
+  },
+  {
+    id: "ml-col-22",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de manger ses céréales directement dans le sachet pour éviter la vaisselle.",
+  },
+  {
+    id: "ml-col-23",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "La personne la plus susceptible de marcher pieds nus absolument partout.",
+  },
   // ---------- AMITIÉ — Argent entre potes ----------
   {
     id: "ml-arg-1",
