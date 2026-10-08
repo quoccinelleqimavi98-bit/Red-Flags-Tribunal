@@ -309,6 +309,18 @@ export const SITUATIONS: RedFlagSituation[] = [
     text: "Il/elle insiste pour venir au mariage de ta meilleure amie alors que vous êtes ensemble depuis deux mois.",
   },
 
+  {
+    id: "rdv-51",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Il/elle porte son sac à dos sur le ventre.",
+  },
+  {
+    id: "rdv-52",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Il/elle porte des claquettes-chaussettes ou des Birkenstock.",
+  },
   // ---------- AMOUR — Quotidien à deux ----------
   {
     id: "qad-1",
@@ -575,6 +587,96 @@ export const SITUATIONS: RedFlagSituation[] = [
     text: "Il/elle passe trois heures au supermarché à comparer la composition exacte de chaque produit avant d'acheter toujours la même chose.",
   },
 
+  {
+    id: "qad-45",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle aime tellement le bricolage qu'un coin de la pièce ressemble à un atelier.",
+  },
+  {
+    id: "qad-46",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle passe des heures à fabriquer des costumes pour des conventions.",
+  },
+  {
+    id: "qad-47",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle passe des soirées entières sur son jeu vidéo du moment.",
+  },
+  {
+    id: "qad-48",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle fait du cyclisme et part pour de longues sorties le samedi matin.",
+  },
+  {
+    id: "qad-49",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle passe des heures à bichonner son vélo.",
+  },
+  {
+    id: "qad-50",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle est à fond dans sa prépa marathon et pèse ses pâtes.",
+  },
+  {
+    id: "qad-51",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle regarde le foot en hurlant devant la télé les soirs de match.",
+  },
+  {
+    id: "qad-52",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle est incollable sur le cinéma et fait des pauses explicatives pendant les films.",
+  },
+  {
+    id: "qad-53",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle a une collection impressionnante de plantes vertes qu'il/elle arrose avec des prénoms et des règles strictes.",
+  },
+  {
+    id: "qad-54",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle collectionne les vinyles rares mais prend un soin maniaque à les nettoyer avant chaque écoute.",
+  },
+  {
+    id: "qad-55",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle remet les mêmes chaussettes de sport plusieurs fois dans la semaine \"parce qu'elles n'ont pas l'air si sales\".",
+  },
+  {
+    id: "qad-56",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle se maquille plus que toi.",
+  },
+  {
+    id: "qad-57",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle ne se lave jamais avec du savon, juste \"à l'eau pour respecter le microbiote de la peau\".",
+  },
+  {
+    id: "qad-58",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle s'arrache les ongles avec les dents au lieu de les couper proprement.",
+  },
+  {
+    id: "qad-59",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Il/elle est toujours beaucoup trop positif·ve, même quand tout va mal.",
+  },
   // ---------- AMOUR — Les ex ----------
   {
     id: "ex-1",
@@ -1261,6 +1363,18 @@ export const SITUATIONS: RedFlagSituation[] = [
     text: "Il/elle aime bien rappeler qu'il/elle sort un peu du lot, sans trop savoir de quel lot exactement.",
   },
 
+  {
+    id: "gpe-34",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Il/elle collectionne les panneaux de circulation récupérés lors de soirées arrosées.",
+  },
+  {
+    id: "gpe-35",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Il/elle marche beaucoup trop lentement sur le trottoir.",
+  },
   // ---------- AMITIÉ — Colocation ----------
   {
     id: "col-1",
@@ -1359,6 +1473,36 @@ export const SITUATIONS: RedFlagSituation[] = [
     text: "Il/elle refuse catégoriquement de prêter son stylo préféré ou son épluche-légumes, ligne rouge absolue.",
   },
 
+  {
+    id: "col-17",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Il/elle adore cuisiner, mais utilise tous les ustensiles de la cuisine en même temps.",
+  },
+  {
+    id: "col-18",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Il/elle a une petite pile de tasses qui traîne sur son bureau.",
+  },
+  {
+    id: "col-19",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Il/elle laisse le paquet de beurre au frigo à moitié ouvert, sans même le refermer correctement.",
+  },
+  {
+    id: "col-20",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Il/elle mange ses céréales directement dans le sachet en carton pour éviter d'avoir un bol à laver.",
+  },
+  {
+    id: "col-21",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Il/elle marche pieds nus absolument partout.",
+  },
   // ---------- AMITIÉ — Argent entre potes ----------
   {
     id: "arg-1",

@@ -450,6 +450,18 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     text: "Explique pourquoi tu cites le dernier épisode de ton podcast de développement personnel comme une preuve en plein date.",
   },
 
+  {
+    id: "def-rdv-74",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Défends le fait de porter ton sac à dos sur le ventre.",
+  },
+  {
+    id: "def-rdv-75",
+    category: "amour",
+    subthemeId: "premiers-rdv",
+    text: "Justifie pourquoi tu portes des claquettes-chaussettes ou des Birkenstock.",
+  },
   // ---------- AMOUR — Quotidien à deux ----------
   {
     id: "def-qad-1",
@@ -716,6 +728,90 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     text: "Justifie pourquoi, après avoir été pris·e en train de mentir, tu réponds 'tu n'avais pas à le savoir'.",
   },
 
+  {
+    id: "def-qad-45",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Défends le fait d'avoir transformé un coin de la pièce en atelier de bricolage.",
+  },
+  {
+    id: "def-qad-46",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Justifie pourquoi tu passes des heures à fabriquer des costumes pour des conventions.",
+  },
+  {
+    id: "def-qad-47",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Explique pourquoi c'est normal de passer des soirées entières sur ton jeu vidéo du moment.",
+  },
+  {
+    id: "def-qad-48",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Justifie pourquoi tu pars pour de longues sorties vélo tous les samedis matin.",
+  },
+  {
+    id: "def-qad-49",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Explique pourquoi tu passes des heures à bichonner ton vélo.",
+  },
+  {
+    id: "def-qad-50",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Défends le fait de peser tes pâtes en pleine prépa marathon.",
+  },
+  {
+    id: "def-qad-51",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Justifie pourquoi tu hurles devant la télé les soirs de match de foot.",
+  },
+  {
+    id: "def-qad-52",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Explique pourquoi tu fais des pauses explicatives sur le cinéma en plein film.",
+  },
+  {
+    id: "def-qad-53",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Défends le fait de donner des prénoms à tes plantes vertes et de leur imposer des règles d'arrosage strictes.",
+  },
+  {
+    id: "def-qad-54",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Justifie pourquoi tu nettoies tes vinyles rares avec un soin maniaque avant chaque écoute.",
+  },
+  {
+    id: "def-qad-55",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Défends le fait de remettre les mêmes chaussettes de sport plusieurs fois dans la semaine, \"parce qu'elles n'ont pas l'air si sales\".",
+  },
+  {
+    id: "def-qad-56",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Justifie pourquoi tu ne te laves jamais avec du savon, juste \"à l'eau pour respecter le microbiote de la peau\".",
+  },
+  {
+    id: "def-qad-57",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Explique pourquoi tu t'arraches les ongles avec les dents au lieu de les couper proprement.",
+  },
+  {
+    id: "def-qad-58",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "Explique pourquoi tu restes toujours beaucoup trop positif·ve, même quand tout va mal.",
+  },
   // ---------- AMOUR — Les ex ----------
   {
     id: "def-ex-1",
@@ -2581,6 +2677,18 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     text: "Défends le fait de rappeler régulièrement que tu sors un peu du lot, sans trop savoir de quel lot exactement.",
   },
 
+  {
+    id: "def-gpe-98",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Défends le fait de collectionner des panneaux de circulation récupérés lors de soirées arrosées.",
+  },
+  {
+    id: "def-gpe-99",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "Explique pourquoi tu marches si lentement que tout le monde doit te dépasser sur le trottoir.",
+  },
   // ---------- AMITIÉ — Colocation ----------
   {
     id: "def-col-1",
@@ -2799,6 +2907,36 @@ export const DEFENSE_CASES: RedFlagSituation[] = [
     text: "Justifie pourquoi prêter ton stylo préféré ou ton épluche-légumes est une ligne rouge absolue pour toi.",
   },
 
+  {
+    id: "def-col-37",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Défends le fait d'utiliser absolument tous les ustensiles de la cuisine en même temps quand tu cuisines.",
+  },
+  {
+    id: "def-col-38",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Justifie pourquoi une pile de tasses sales traîne toujours sur ton bureau.",
+  },
+  {
+    id: "def-col-39",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Explique pourquoi tu ne refermes jamais correctement le paquet de beurre au frigo.",
+  },
+  {
+    id: "def-col-40",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Défends le fait de manger tes céréales directement dans le sachet en carton pour éviter d'avoir un bol à laver.",
+  },
+  {
+    id: "def-col-41",
+    category: "amitie",
+    subthemeId: "coloc",
+    text: "Justifie pourquoi tu marches pieds nus absolument partout.",
+  },
   // ---------- AMITIÉ — Argent entre potes ----------
   {
     id: "def-arg-1",
