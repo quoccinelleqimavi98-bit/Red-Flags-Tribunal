@@ -1558,4 +1558,58 @@ export const SITUATIONS: RedFlagSituation[] = [
     subthemeId: "argent-potes",
     text: "Il/elle veut tout diviser au centime près sur l'addition, calculatrice à la main, avec un calme olympien.",
   },
+  {
+    id: "arg-10",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle te propose de 'faire un pot commun' pour les sorties, mais c'est toujours le même pot qui se vide côté toi.",
+  },
+  {
+    id: "arg-11",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle arrondit systématiquement en sa faveur quand il faut rendre la monnaie entre vous. Mathématiques créatives.",
+  },
+  {
+    id: "arg-12",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle t'emprunte ta carte bancaire 'juste pour une course', et revient avec un ticket à trois chiffres.",
+  },
+  {
+    id: "arg-13",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle ne paie jamais sa tournée, mais commande systématiquement le plus cher quand c'est offert.",
+  },
+  {
+    id: "arg-14",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle promet de 'régler plus tard sur l'appli' et ne règle jamais. L'appli reste un concept abstrait.",
+  },
+  {
+    id: "arg-15",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle revend ses vieux objets à ses propres potes au prix du neuf, en toute bonne conscience.",
+  },
+  {
+    id: "arg-16",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle organise le voyage de groupe et 's'arrange' toujours pour avoir la plus belle chambre sans sur-coût.",
+  },
+  {
+    id: "arg-17",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle te fait une 'réduction entre amis' qui coûte quand même plus cher que le prix public ailleurs.",
+  },
+  {
+    id: "arg-18",
+    category: "amitie",
+    subthemeId: "argent-potes",
+    text: "Il/elle sort sa carte bancaire en tout dernier, juste après que quelqu'un d'autre ait déjà réglé pour tout le monde.",
+  },
 ];

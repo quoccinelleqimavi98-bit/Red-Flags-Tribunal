@@ -203,6 +203,60 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible de suivre la localisation de son/sa partenaire sur Snapchat 'juste pour savoir'.",
   },
 
+  {
+    id: "ml-qad-7",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de transformer un coin de la pièce en atelier de bricolage improvisé.",
+  },
+  {
+    id: "ml-qad-8",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de passer des heures à bichonner son vélo plutôt que de passer du temps avec vous.",
+  },
+  {
+    id: "ml-qad-9",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de hurler devant la télé un soir de match, façon stade entier à elle/lui seul·e.",
+  },
+  {
+    id: "ml-qad-10",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de faire des pauses explicatives sur le cinéma en plein milieu d'un film.",
+  },
+  {
+    id: "ml-qad-11",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de donner un prénom et des règles d'arrosage strictes à ses plantes vertes.",
+  },
+  {
+    id: "ml-qad-12",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de nettoyer ses vinyles rares avec un soin presque religieux avant chaque écoute.",
+  },
+  {
+    id: "ml-qad-13",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de remettre les mêmes chaussettes de sport toute la semaine, 'elles sentent encore rien'.",
+  },
+  {
+    id: "ml-qad-14",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de rester désespérément optimiste alors que tout s'effondre autour d'elle/lui.",
+  },
+  {
+    id: "ml-qad-15",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de refuser le savon 'pour respecter son microbiote', au grand désespoir de tout le monde.",
+  },
   // ---------- AMOUR — Les ex ----------
   {
     id: "ml-ex-1",

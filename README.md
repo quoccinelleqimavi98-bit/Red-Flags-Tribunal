@@ -209,15 +209,14 @@ Dossier `src/games/redflag/` :
   pour accueillir les manies de couple au sens large (habitudes,
   références culturelles, petites phrases qui piquent) qui n'avaient pas
   vraiment leur place ailleurs.
-- `data/situations.ts` — banque de 256 situations red flag à la 3e
-  personne ("Il/elle fait X", 9 à 59 par sous-thème — "Argent entre
-  potes" est sous le seuil de 10 cartes/partie visé, voir note plus bas),
-  en français, ton fun, mordant et bien tranché, avec aussi des
-  formulations volontairement plus subtiles et sujettes à débat (pour
-  susciter l'hésitation plutôt qu'un vote unanime immédiat) — utilisée
-  par Qui l'a déjà vécu ? et Le Verdict
-- `data/mostLikelyPrompts.ts` — banque de 169 prompts "la personne la plus
-  susceptible de..." (6 à 42 par sous-thème), utilisée uniquement par
+- `data/situations.ts` — banque de 265 situations red flag à la 3e
+  personne ("Il/elle fait X", 18 à 59 par sous-thème — tous au-dessus du
+  seuil de 10 cartes/partie), en français, ton fun, mordant et bien
+  tranché, avec aussi des formulations volontairement plus subtiles et
+  sujettes à débat (pour susciter l'hésitation plutôt qu'un vote unanime
+  immédiat) — utilisée par Qui l'a déjà vécu ? et Le Verdict
+- `data/mostLikelyPrompts.ts` — banque de 178 prompts "la personne la plus
+  susceptible de..." (15 à 42 par sous-thème), utilisée uniquement par
   Ce Serait Qui
 - `data/defenseCases.ts` — banque de 524 cas à défendre (39 à 103 par
   sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement
