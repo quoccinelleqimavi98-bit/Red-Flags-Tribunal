@@ -199,32 +199,26 @@ où le prénom d'un joueur apparaît (vote, classement, bilan).
 ## Le jeu : Red Flag Tribunal
 
 Dossier `src/games/redflag/` :
-- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 9 sous-thèmes (5 Amour :
-  premiers rendez-vous, réseaux sociaux, ex, famille du/de la partenaire,
-  intimité ; 4 Amitié : groupe d'amis, colocation, argent entre potes,
-  réseaux sociaux), 5 modes de jeu (4 "classiques" + Mode Surprise, qui les
-  mélange). Tout le contenu "style/goûts/musique/
-  cinéma/manies/phobies" ajouté à une étape antérieure (qui vivait dans
-  deux sous-thèmes transversaux dédiés, "Goûts & Style" et "Personnalité
-  & Manies") a depuis été redistribué dans ces 9 sous-thèmes d'origine,
-  au cas par cas selon le contexte le plus pertinent — pour éviter l'effet
-  "deux méga-catégories à 40+ cartes contre huit à 8-18 cartes" que les
-  deux transversales créaient.
-- `data/situations.ts` — banque de 256 situations red flag à la 3e
-  personne ("Il/elle fait X", 13 à 70 par sous-thème), en français, ton
+- `types.ts` — 2 catégories (💔 Amour, 🤝 Amitié), 8 sous-thèmes (5 Amour :
+  premiers rendez-vous, quotidien à deux, ex, famille du/de la partenaire,
+  intimité ; 3 Amitié : groupe d'amis, colocation, argent entre potes),
+  5 modes de jeu (4 "classiques" + Mode Surprise, qui les mélange). Le
+  sous-thème "Réseaux sociaux" (Amour et Amitié) a été supprimé : son
+  contenu a été redistribué dans les sous-thèmes restants selon le
+  contexte le plus pertinent, et "Quotidien à deux" (nouveau) a été créé
+  pour accueillir les manies de couple au sens large (habitudes,
+  références culturelles, petites phrases qui piquent) qui n'avaient pas
+  vraiment leur place ailleurs.
+- `data/situations.ts` — banque de 232 situations red flag à la 3e
+  personne ("Il/elle fait X", 9 à 50 par sous-thème), en français, ton
   fun, mordant et bien tranché, avec aussi des formulations volontairement
   plus subtiles et sujettes à débat (pour susciter l'hésitation plutôt
   qu'un vote unanime immédiat) — utilisée par Qui l'a déjà vécu ? et
-  Le Verdict. Le sous-thème "Les ex" concentre à lui seul 70 entrées
-  (dont 61 formulées en traces résiduelles subtiles d'une relation passée,
-  volontairement ambiguës) suite à un ajout ciblé demandé sur cette
-  sous-catégorie précisément — un déséquilibre connu et accepté, par
-  opposition à la redistribution faite plus tôt pour les sous-thèmes
-  transversaux
-- `data/mostLikelyPrompts.ts` — banque de 175 prompts "la personne la plus
-  susceptible de..." (15 à 25 par sous-thème), utilisée uniquement par
+  Le Verdict
+- `data/mostLikelyPrompts.ts` — banque de 169 prompts "la personne la plus
+  susceptible de..." (6 à 42 par sous-thème), utilisée uniquement par
   Ce Serait Qui
-- `data/defenseCases.ts` — banque de 463 cas à défendre (36 à 95 par
+- `data/defenseCases.ts` — banque de 501 cas à défendre (36 à 103 par
   sous-thème, mêmes sous-thèmes que `situations.ts`), utilisée uniquement
   par Le Procès : formulés à la 2e personne, en mode plaidoyer ("Défends
   le fait de...", "Justifie pourquoi tu...") plutôt qu'à la 3e comme les

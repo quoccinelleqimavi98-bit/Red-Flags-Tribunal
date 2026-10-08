@@ -1,9 +1,9 @@
 import { RedFlagSituation } from "../types";
 
 /**
- * Banque de prompts pour le mode "Ce Serait Qui" — même forme que les
- * situations (RedFlagSituation), même sous-thèmes, mais formulés comme
- * des traits à désigner dans le groupe plutôt que des situations vécues.
+ * Banque de prompts "La personne la plus susceptible de..." pour le mode
+ * "Ce Serait Qui" — mêmes sous-thèmes que situations.ts (8 au total, pas
+ * de "Réseaux sociaux" dédié).
  */
 export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
   // ---------- AMOUR — Premiers rendez-vous ----------
@@ -140,132 +140,67 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible de refuser catégoriquement de demander son chemin, quitte à tourner en rond.",
   },
 
-  // ---------- AMOUR — Réseaux sociaux ----------
   {
-    id: "ml-rsa-1",
+    id: "ml-rdv-23",
     category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de stalker les réseaux de son ex à 2h du mat', en mode enquête judiciaire.",
-  },
-  {
-    id: "ml-rsa-2",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de liker une vieille photo en faisant style c'était un accident, on y croit tous.",
-  },
-  {
-    id: "ml-rsa-3",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de refaire toute sa bio Instagram dans l'heure qui suit une rupture.",
-  },
-  {
-    id: "ml-rsa-4",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible d'espionner à fond le compte de la nouvelle personne de son ex, dossier complet en cours.",
-  },
-  {
-    id: "ml-rsa-5",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de garder une appli de rencontre active en étant en couple.",
-  },
-  {
-    id: "ml-rsa-6",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de vérifier en cachette qui like les photos de son/sa partenaire.",
-  },
-  {
-    id: "ml-rsa-7",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de poster une photo de couple juste après une grosse dispute 'pour faire genre'.",
-  },
-  {
-    id: "ml-rsa-8",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de ne jamais mettre à jour son statut 'en couple', même après un an.",
-  },
-  {
-    id: "ml-rsa-9",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de suivre encore tous ses ex sur tous les réseaux, sans exception.",
-  },
-  {
-    id: "ml-rsa-10",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de changer sa photo de profil à la moindre contrariété.",
-  },
-  {
-    id: "ml-rsa-11",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de laisser son/sa partenaire en 'vu' pendant des heures sans répondre.",
-  },
-  {
-    id: "ml-rsa-12",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de commenter avec des émojis insistants les photos d'inconnu·es.",
-  },
-  {
-    id: "ml-rsa-13",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de demander le mot de passe du téléphone de son/sa partenaire.",
-  },
-  {
-    id: "ml-rsa-14",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de liker en cachette une photo d'un ex depuis un compte secret.",
-  },
-  {
-    id: "ml-rsa-15",
-    category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible de prendre des captures d'écran de conversations 'juste au cas où'.",
-  },
-  {
-    id: "ml-rsa-16",
-    category: "amour",
-    subthemeId: "reseaux-amour",
+    subthemeId: "premiers-rdv",
     text: "La personne la plus susceptible d'avoir un tatouage dont iel regrette déjà le dessin.",
   },
   {
-    id: "ml-rsa-17",
+    id: "ml-rdv-24",
     category: "amour",
-    subthemeId: "reseaux-amour",
+    subthemeId: "premiers-rdv",
     text: "La personne la plus susceptible de connaître par cœur la discographie d'un artiste que personne d'autre n'écoute.",
   },
   {
-    id: "ml-rsa-18",
+    id: "ml-rdv-25",
     category: "amour",
-    subthemeId: "reseaux-amour",
+    subthemeId: "premiers-rdv",
     text: "La personne la plus susceptible de porter fièrement un t-shirt de groupe dont iel ne connaît que deux chansons.",
   },
   {
-    id: "ml-rsa-19",
+    id: "ml-rdv-26",
     category: "amour",
-    subthemeId: "reseaux-amour",
+    subthemeId: "premiers-rdv",
     text: "La personne la plus susceptible de répondre avec deux jours de retard en prétextant avoir 'oublié' son téléphone.",
   },
+
+  // ---------- AMOUR — Quotidien à deux ----------
   {
-    id: "ml-rsa-20",
+    id: "ml-qad-1",
     category: "amour",
-    subthemeId: "reseaux-amour",
-    text: "La personne la plus susceptible d'analyser chaque message reçu comme s'il cachait un sens secret.",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de garder une appli de rencontre active en étant en couple.",
   },
   {
-    id: "ml-rsa-21",
+    id: "ml-qad-2",
     category: "amour",
-    subthemeId: "reseaux-amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de vérifier en cachette qui like les photos de son/sa partenaire.",
+  },
+  {
+    id: "ml-qad-3",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de changer sa photo de profil à la moindre contrariété.",
+  },
+  {
+    id: "ml-qad-4",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de demander le mot de passe du téléphone de son/sa partenaire.",
+  },
+  {
+    id: "ml-qad-5",
+    category: "amour",
+    subthemeId: "quotidien-deux",
     text: "La personne la plus susceptible d'éteindre son téléphone tout un weekend pour une 'digital detox' non annoncée.",
+  },
+  {
+    id: "ml-qad-6",
+    category: "amour",
+    subthemeId: "quotidien-deux",
+    text: "La personne la plus susceptible de suivre la localisation de son/sa partenaire sur Snapchat 'juste pour savoir'.",
   },
 
   // ---------- AMOUR — Les ex ----------
@@ -358,6 +293,37 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     category: "amour",
     subthemeId: "ex",
     text: "La personne la plus susceptible de présenter son/sa partenaire à un ex sans prévenir avant.",
+  },
+
+  {
+    id: "ml-ex-16",
+    category: "amour",
+    subthemeId: "ex",
+    text: "La personne la plus susceptible de stalker les réseaux de son ex à 2h du mat', en mode enquête judiciaire.",
+  },
+  {
+    id: "ml-ex-17",
+    category: "amour",
+    subthemeId: "ex",
+    text: "La personne la plus susceptible de refaire toute sa bio Instagram dans l'heure qui suit une rupture.",
+  },
+  {
+    id: "ml-ex-18",
+    category: "amour",
+    subthemeId: "ex",
+    text: "La personne la plus susceptible d'espionner à fond le compte de la nouvelle personne de son ex, dossier complet en cours.",
+  },
+  {
+    id: "ml-ex-19",
+    category: "amour",
+    subthemeId: "ex",
+    text: "La personne la plus susceptible de suivre encore tous ses ex sur tous les réseaux, sans exception.",
+  },
+  {
+    id: "ml-ex-20",
+    category: "amour",
+    subthemeId: "ex",
+    text: "La personne la plus susceptible de liker en cachette une photo d'un ex depuis un compte secret.",
   },
 
   // ---------- AMOUR — Famille du/de la partenaire ----------
@@ -744,6 +710,121 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible de ne jamais retenir un prénom du premier coup.",
   },
 
+  {
+    id: "ml-gpe-24",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de liker une story juste pour faire style qu'iel a vu ton message, technique bien rodée.",
+  },
+  {
+    id: "ml-gpe-25",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de poster une story bien indirecte juste après une embrouille, le courage en option.",
+  },
+  {
+    id: "ml-gpe-26",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de recadrer discrètement quelqu'un hors d'une photo de groupe avant de la poster.",
+  },
+  {
+    id: "ml-gpe-27",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de screenshoter une conversation privée pour la balancer à qui veut bien la voir.",
+  },
+  {
+    id: "ml-gpe-28",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de liker les stories de tout le monde sauf celles d'un·e ami·e précis·e.",
+  },
+  {
+    id: "ml-gpe-29",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de poster une sortie de groupe où quelqu'un n'a clairement pas été invité·e.",
+  },
+  {
+    id: "ml-gpe-30",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de partager une info confiée en privé dans un groupe de discussion.",
+  },
+  {
+    id: "ml-gpe-31",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de commenter négativement un post 'pour rire', en public.",
+  },
+  {
+    id: "ml-gpe-32",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'unfollow discrètement quelqu'un après une dispute, sans un mot.",
+  },
+  {
+    id: "ml-gpe-33",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de créer un groupe de discussion parallèle pour exclure certain·es potes.",
+  },
+  {
+    id: "ml-gpe-34",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de republier le contenu des autres sans jamais les créditer.",
+  },
+  {
+    id: "ml-gpe-35",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de réagir à absolument tout sauf au sujet vraiment important.",
+  },
+  {
+    id: "ml-gpe-36",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de stalker discrètement le profil d'un·e ancien·ne pote avec qui iel est fâché·e.",
+  },
+  {
+    id: "ml-gpe-37",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de laisser des ami·es en 'vu' pendant des jours avant de répondre.",
+  },
+  {
+    id: "ml-gpe-38",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de partager sans prévenir une photo de soirée gênante d'un·e ami·e.",
+  },
+  {
+    id: "ml-gpe-39",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible de juger les goûts musicaux ou cinéma des autres sans se l'avouer.",
+  },
+  {
+    id: "ml-gpe-40",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'avoir un avis tranché sur ce qui est 'authentique' ou non chez les autres.",
+  },
+  {
+    id: "ml-gpe-41",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'avoir un petit sourire en coin dès qu'on parle de culture populaire.",
+  },
+  {
+    id: "ml-gpe-42",
+    category: "amitie",
+    subthemeId: "groupe-amis",
+    text: "La personne la plus susceptible d'avoir un avis tranché sur l'actualité basé sur une seule vidéo vue la veille.",
+  },
+
   // ---------- AMITIÉ — Colocation ----------
   {
     id: "ml-col-1",
@@ -958,119 +1039,4 @@ export const MOST_LIKELY_PROMPTS: RedFlagSituation[] = [
     text: "La personne la plus susceptible de refuser tout abonnement payant par principe, quitte à perdre des heures à chercher une alternative.",
   },
 
-  // ---------- AMITIÉ — Réseaux sociaux ----------
-  {
-    id: "ml-rse-1",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de liker une story juste pour faire style qu'iel a vu ton message, technique bien rodée.",
-  },
-  {
-    id: "ml-rse-2",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de poster une story bien indirecte juste après une embrouille, le courage en option.",
-  },
-  {
-    id: "ml-rse-3",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de recadrer discrètement quelqu'un hors d'une photo de groupe avant de la poster.",
-  },
-  {
-    id: "ml-rse-4",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de screenshoter une conversation privée pour la balancer à qui veut bien la voir.",
-  },
-  {
-    id: "ml-rse-5",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de liker les stories de tout le monde sauf celles d'un·e ami·e précis·e.",
-  },
-  {
-    id: "ml-rse-6",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de poster une sortie de groupe où quelqu'un n'a clairement pas été invité·e.",
-  },
-  {
-    id: "ml-rse-7",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de partager une info confiée en privé dans un groupe de discussion.",
-  },
-  {
-    id: "ml-rse-8",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de commenter négativement un post 'pour rire', en public.",
-  },
-  {
-    id: "ml-rse-9",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible d'unfollow discrètement quelqu'un après une dispute, sans un mot.",
-  },
-  {
-    id: "ml-rse-10",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de créer un groupe de discussion parallèle pour exclure certain·es potes.",
-  },
-  {
-    id: "ml-rse-11",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de republier le contenu des autres sans jamais les créditer.",
-  },
-  {
-    id: "ml-rse-12",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de réagir à absolument tout sauf au sujet vraiment important.",
-  },
-  {
-    id: "ml-rse-13",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de stalker discrètement le profil d'un·e ancien·ne pote avec qui iel est fâché·e.",
-  },
-  {
-    id: "ml-rse-14",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de laisser des ami·es en 'vu' pendant des jours avant de répondre.",
-  },
-  {
-    id: "ml-rse-15",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de partager sans prévenir une photo de soirée gênante d'un·e ami·e.",
-  },
-  {
-    id: "ml-rse-16",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible de juger les goûts musicaux ou cinéma des autres sans se l'avouer.",
-  },
-  {
-    id: "ml-rse-17",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible d'avoir un avis tranché sur ce qui est 'authentique' ou non chez les autres.",
-  },
-  {
-    id: "ml-rse-18",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible d'avoir un petit sourire en coin dès qu'on parle de culture populaire.",
-  },
-  {
-    id: "ml-rse-19",
-    category: "amitie",
-    subthemeId: "reseaux-amitie",
-    text: "La personne la plus susceptible d'avoir un avis tranché sur l'actualité basé sur une seule vidéo vue la veille.",
-  },
 ];

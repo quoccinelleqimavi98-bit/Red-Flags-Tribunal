@@ -54,14 +54,13 @@ export const CATEGORIES: RedFlagCategoryInfo[] = [
 
 export const SUBTHEMES: RedFlagSubtheme[] = [
   { id: "premiers-rdv", category: "amour", label: "Premiers rendez-vous", emoji: "🍷" },
-  { id: "reseaux-amour", category: "amour", label: "Réseaux sociaux", emoji: "📱" },
+  { id: "quotidien-deux", category: "amour", label: "Quotidien à deux", emoji: "🛋️" },
   { id: "ex", category: "amour", label: "Les ex", emoji: "👻" },
   { id: "belle-famille", category: "amour", label: "Famille du/de la partenaire", emoji: "🍽️" },
   { id: "intimite", category: "amour", label: "Intimité", emoji: "🔥" },
   { id: "groupe-amis", category: "amitie", label: "Groupe d'amis", emoji: "🎉" },
   { id: "coloc", category: "amitie", label: "Colocation", emoji: "🏠" },
   { id: "argent-potes", category: "amitie", label: "Argent entre potes", emoji: "💸" },
-  { id: "reseaux-amitie", category: "amitie", label: "Réseaux sociaux", emoji: "📲" },
 ];
 
 export const MODES: RedFlagModeInfo[] = [
