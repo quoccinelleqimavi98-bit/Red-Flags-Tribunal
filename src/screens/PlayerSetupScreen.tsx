@@ -31,6 +31,7 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
   const [openAvatarPickerFor, setOpenAvatarPickerFor] = useState<number | null>(
     null
   );
+  const [maxPlayersWarning, setMaxPlayersWarning] = useState(false);
 
   function addPlayer() {
     const trimmed = nameInput.trim();
@@ -39,6 +40,13 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
       setNameInput("");
       return;
     }
+    // Un avatar par joueur, jamais partagé : au-delà, on prévient plutôt
+    // que de laisser pickNextAvatarId retomber sur un avatar déjà pris.
+    if (draft.length >= AVATARS.length) {
+      setMaxPlayersWarning(true);
+      return;
+    }
+    setMaxPlayersWarning(false);
     const nextId = (draft.reduce((max, p) => Math.max(max, p.id), 0) || 0) + 1;
     const avatarId = pickNextAvatarId(draft.map((p) => p.avatarId));
     setDraft((prev) => [...prev, { id: nextId, name: trimmed, avatarId }]);
@@ -48,6 +56,7 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
   function removePlayer(id: number) {
     setDraft((prev) => prev.filter((p) => p.id !== id));
     if (openAvatarPickerFor === id) setOpenAvatarPickerFor(null);
+    setMaxPlayersWarning(false);
   }
 
   function setAvatar(id: number, avatarId: Player["avatarId"]) {
@@ -95,6 +104,14 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
           </Pressable>
         </View>
 
+        {maxPlayersWarning ? (
+          <Text style={[typography.caption, styles.maxPlayersWarning]}>
+            Maximum {AVATARS.length} joueur{AVATARS.length > 1 ? "s" : ""}{" "}
+            atteint — autant que d'avatars disponibles, chacun doit avoir le
+            sien.
+          </Text>
+        ) : null}
+
         <FlatList
           data={draft}
           keyExtractor={(item) => String(item.id)}
@@ -110,7 +127,7 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
                   }
                   style={styles.avatarButton}
                 >
-                  <PlayerAvatar avatarId={item.avatarId} size={26} />
+                  <PlayerAvatar avatarId={item.avatarId} size={36} />
                 </Pressable>
                 <Text
                   style={[typography.bodyBold, styles.playerName]}
@@ -125,18 +142,28 @@ export function PlayerSetupScreen({ navigation, route }: Props) {
 
               {openAvatarPickerFor === item.id ? (
                 <View style={styles.avatarPicker}>
-                  {AVATARS.map((avatar) => (
-                    <Pressable
-                      key={avatar.id}
-                      onPress={() => setAvatar(item.id, avatar.id)}
-                      style={[
-                        styles.avatarOption,
-                        avatar.id === item.avatarId && styles.avatarOptionSelected,
-                      ]}
-                    >
-                      <PlayerAvatar avatarId={avatar.id} size={22} />
-                    </Pressable>
-                  ))}
+                  {AVATARS.map((avatar) => {
+                    const isOwn = avatar.id === item.avatarId;
+                    const isTakenByOther = draft.some(
+                      (p) => p.id !== item.id && p.avatarId === avatar.id
+                    );
+                    return (
+                      <Pressable
+                        key={avatar.id}
+                        onPress={() =>
+                          !isTakenByOther && setAvatar(item.id, avatar.id)
+                        }
+                        disabled={isTakenByOther}
+                        style={[
+                          styles.avatarOption,
+                          isOwn && styles.avatarOptionSelected,
+                          isTakenByOther && styles.avatarOptionTaken,
+                        ]}
+                      >
+                        <PlayerAvatar avatarId={avatar.id} size={36} />
+                      </Pressable>
+                    );
+                  })}
                 </View>
               ) : null}
             </Card>
@@ -210,9 +237,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   avatarButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: colors.surfaceAlt,
     alignItems: "center",
     justifyContent: "center",
@@ -238,9 +265,9 @@ const styles = StyleSheet.create({
     borderTopColor: colors.border,
   },
   avatarOption: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     alignItems: "center",
     justifyContent: "center",
     marginRight: spacing.xs,
@@ -251,6 +278,13 @@ const styles = StyleSheet.create({
   avatarOptionSelected: {
     borderColor: colors.primary,
     backgroundColor: colors.primary + "26",
+  },
+  avatarOptionTaken: {
+    opacity: 0.3,
+  },
+  maxPlayersWarning: {
+    color: colors.danger,
+    marginBottom: spacing.sm,
   },
   empty: {
     color: colors.textFaint,

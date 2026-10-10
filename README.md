@@ -178,11 +178,11 @@ jus, gage rigolo...) — ton toujours fun, jamais moralisateur.
 
 ## Avatars
 
-Chaque joueur choisit un avatar (10 emojis animaux) lors de sa création,
-modifiable à tout moment depuis l'écran de gestion des joueurs. Le système
-est conçu pour accueillir des illustrations custom plus tard sans rien
-casser : un joueur ne stocke qu'un `avatarId` (`src/core/types.ts`), qui
-pointe vers une entrée du registre `src/core/avatars.ts` :
+Chaque joueur choisit un avatar (15 illustrations originales, portraits
+dessinés, fond transparent) lors de sa création, modifiable à tout moment
+depuis l'écran de gestion des joueurs. Un joueur ne stocke qu'un
+`avatarId` (`src/core/types.ts`), qui pointe vers une entrée du registre
+`src/core/avatars.ts` :
 
 ```ts
 export type AvatarDef =
@@ -190,11 +190,30 @@ export type AvatarDef =
   | { id: AvatarId; kind: "image"; source: ImageSourcePropType };
 ```
 
-Remplacer un emoji par une illustration dessinée revient à changer une
-entrée de `AVATARS` (passer `kind` à `"image"` + fournir la source) —
-aucun appelant (`<PlayerAvatar avatarId={...} />`) n'a besoin d'être
-modifié, le composant gère déjà les deux cas. L'avatar s'affiche partout
-où le prénom d'un joueur apparaît (vote, classement, bilan).
+Les deux `kind` restent supportés : `"image"` pour les 15 avatars actuels,
+`"emoji"` disponible en secours si jamais une illustration venait à
+manquer pour un id — `<PlayerAvatar avatarId={...} />` gère déjà les deux
+cas, donc aucun appelant n'a besoin d'être modifié selon le `kind`.
+L'avatar s'affiche partout où le prénom d'un joueur apparaît (sélection,
+liste des joueurs, dos de carte pour les votes/désignations, tirage au
+sort du Procès, classements et bilans de fin de partie), toujours via ce
+même composant, avec un petit cadre rose (`colors.surfaceAlt` +
+`colors.border`) et `resizeMode="contain"` pour ne jamais rogner ni
+déformer l'image, quelle que soit la taille demandée.
+
+**Ajouter un avatar** : dépose un PNG carré, fond transparent, 512px de
+côté max et moins de 300 Ko (redimensionne-le avant si besoin — React
+Native ne le fait pas pour toi) dans `assets/avatars/`, puis ajoute une
+ligne dans `AVATARS` (`src/core/avatars.ts`) avec un nouvel id et son
+`require("../../assets/avatars/ton-fichier.png")`. React Native ne
+permet pas de `require` un chemin dynamique : chaque source doit rester
+un `require(...)` explicite et littéral, pas une variable.
+
+Deux joueurs ne peuvent pas choisir le même avatar dans une même
+session : la grille de sélection grise les avatars déjà pris par un
+autre joueur, et l'ajout d'un nouveau joueur est bloqué (avec un message)
+une fois les 15 avatars tous attribués, plutôt que de réattribuer un
+avatar en double.
 
 ## Le jeu : Red Flag Tribunal
 
@@ -351,10 +370,12 @@ src/
     store/           état de session (joueurs actifs) via zustand, en mémoire
     utils/           utilitaires partagés (shuffle, ...)
     types.ts         type Player partagé
-    avatars.ts       registre des avatars (emoji aujourd'hui, image demain)
+    avatars.ts       registre des 15 avatars (illustrations + secours emoji)
   components/        composants UI partagés (Button, Card, SwipeCard,
                       FlipCard, PlayerAvatar, ScreenBackground, SectionTitle)
   screens/           Home, PlayerSetup (config + gestion des joueurs)
   games/
     redflag/         Red Flag Tribunal — types, données, moteur, écrans
+assets/
+  avatars/           les 15 illustrations d'avatar (PNG, fond transparent)
 ```
